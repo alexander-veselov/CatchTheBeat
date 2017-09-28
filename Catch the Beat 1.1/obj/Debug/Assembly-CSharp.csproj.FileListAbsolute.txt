@@ -1,0 +1,66 @@
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\Assembly-CSharp.dll
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\Assembly-CSharp.pdb
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\nunit.framework.dll
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\UnityEditor.dll
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\UnityEngine.Analytics.dll
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\UnityEngine.dll
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\UnityEngine.HoloLens.dll
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\UnityEngine.Networking.dll
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\UnityEngine.TestRunner.dll
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\UnityEngine.Timeline.dll
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\UnityEngine.UI.dll
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\Mono.Cecil.dll
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\Unity.SerializationLogic.dll
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\Unity.DataContract.dll
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\ExCSS.Unity.dll
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\Unity.Legacy.NRefactory.dll
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\Unity.UNetWeaver.dll
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\Unity.CecilTools.dll
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\UnityEngine.xml
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\UnityEditor.xml
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\UnityEngine.UI.xml
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\UnityEngine.Networking.xml
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\UnityEngine.TestRunner.xml
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\nunit.framework.xml
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\UnityEngine.Timeline.xml
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\UnityEngine.Analytics.xml
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\UnityEngine.HoloLens.xml
+D:\Soft\Unity\Catch the Beat\Catch the Beat\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+D:\Soft\Unity\Catch the Beat\Catch the Beat\obj\Debug\Assembly-CSharp.dll
+D:\Soft\Unity\Catch the Beat\Catch the Beat\obj\Debug\Assembly-CSharp.pdb
+D:\Soft\Unity\Catch the Beat\Catch the Beat\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
+D:\Instsoft\Unity\Catch the Beat\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+D:\Instsoft\Unity\Catch the Beat\obj\Debug\Assembly-CSharp.dll
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\Assembly-CSharp.dll
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\Assembly-CSharp.pdb
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\nunit.framework.dll
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\UnityEditor.dll
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\UnityEngine.Analytics.dll
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\UnityEngine.dll
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\UnityEngine.HoloLens.dll
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\UnityEngine.Networking.dll
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\UnityEngine.TestRunner.dll
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\UnityEngine.Timeline.dll
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\UnityEngine.UI.dll
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\Mono.Cecil.dll
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\Unity.SerializationLogic.dll
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\Unity.DataContract.dll
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\ExCSS.Unity.dll
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\Unity.Legacy.NRefactory.dll
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\Unity.UNetWeaver.dll
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\Unity.CecilTools.dll
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\UnityEngine.xml
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\UnityEditor.xml
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\UnityEngine.UI.xml
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\UnityEngine.Networking.xml
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\UnityEngine.TestRunner.xml
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\nunit.framework.xml
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\UnityEngine.Timeline.xml
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\UnityEngine.Analytics.xml
+D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\UnityEngine.HoloLens.xml
+D:\Instsoft\Unity\Catch the Beat\obj\Debug\Assembly-CSharp.pdb
