@@ -9,6 +9,8 @@ public class Fruit : MonoBehaviour {
 
     [SerializeField]
     public static float speed = 15;
+    [SerializeField]
+    public int type=0;
     private static SpriteRenderer[]  sprites;
 
     private Color32 purple;
@@ -54,7 +56,7 @@ public class Fruit : MonoBehaviour {
 		int rand;
 
 		rand = UnityEngine.Random.Range (1,5);
-
+        if (type ==0)
 		switch (rand) {
 
 		case 1:

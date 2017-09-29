@@ -14,12 +14,13 @@ public class Player : MonoBehaviour {
     private int combo = 0;
 
     public static SpriteRenderer sprite;
+    public static BoxCollider2D _collider;
 
     private void Awake()
 
     {
         sprite = GetComponentInChildren<SpriteRenderer>();
-        
+        _collider = GetComponentInChildren<BoxCollider2D>();
     }
 
     private void Update()
@@ -30,10 +31,19 @@ public class Player : MonoBehaviour {
     }
     void OnTriggerEnter2D (Collider2D col)
     {
+        Fruit f = col.GetComponent<Fruit>();
         Vector2 pos = transform.position;
-        pos.y = Player.sprite.size.y / 2 + Player.sprite.transform.position.y;
-            Effects eff = Instantiate(Resources.Load<Effects>("HitEffect"), pos, transform.rotation);
-            eff.ini(eff, col.gameObject.GetComponentInChildren<SpriteRenderer>().color, (col.gameObject.transform.position.x - sprite.transform.position.x)*0.7f,true);
+        Effects eff;
+        if (f.type == 0)
+        {
+            pos.y = transform.position.y + sprite.size.y * MapsLoad.scale.y/1.25f ;
+        eff = Instantiate(Resources.Load<Effects>("HitEffect"), pos, transform.rotation);
+        eff.ini(eff, col.gameObject.GetComponentInChildren<SpriteRenderer>().color, (col.gameObject.transform.position.x - sprite.transform.position.x)*0.45f,0);
+        }
+
+        pos.y = transform.position.y + sprite.size.y * MapsLoad.scale.y / 1.9f;
+         eff = Instantiate(Resources.Load<Effects>("HitEffect 1"), pos, transform.rotation);
+        eff.ini(eff, col.gameObject.GetComponentInChildren<SpriteRenderer>().color, (col.gameObject.transform.position.x - sprite.transform.position.x) * 0.45f, 1);
         Destroy(col.gameObject);
     }
     private void Move()
