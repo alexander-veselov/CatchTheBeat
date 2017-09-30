@@ -5,14 +5,15 @@ using System.IO;
 using UnityEngine;
 
 
-public class MapsLoad : MonoBehaviour {
-	
+public class MapsLoad : MonoBehaviour
+{
 
-	Fruit fruit;
+
+    Fruit fruit;
     Fruit drop;
     private Color32[] colors;
 
-    
+
     public class fruit_point
     {
         public fruit_point(int X, int Y, int Time, Fruit.types _type, Color32 c)
@@ -24,16 +25,16 @@ public class MapsLoad : MonoBehaviour {
             time = Time;
         }
         public int time;
-        public Fruit.types type;  
+        public Fruit.types type;
         public Color32 color;
         public int x;
         public int y;
     }
     void parse(string str, ref ArrayList array)
     {
-        int x1=0, x2=0, y1=0, y2=0, time=0, repeat=0, length=0;
+        int x1 = 0, x2 = 0, y1 = 0, y2 = 0, time = 0, repeat = 0, length = 0;
         string[] a = str.Split(',');
-        
+
         x1 = int.Parse(a[0]);
         y1 = int.Parse(a[1]);
         time = int.Parse(a[2]);
@@ -41,31 +42,31 @@ public class MapsLoad : MonoBehaviour {
         array.Add(new fruit_point(x1, y1, time, Fruit.types.FRUIT, randColor));
         for (int i = 0; i < str.Length; i++)
         {
-            
+
             if (str[i] == 'B' || str[i] == 'P' || str[i] == 'L' || str[i] == 'C')
             {
                 a = str.Substring(i + 2).Split(':');
-               
+
                 x2 = int.Parse(a[0]);
                 y2 = int.Parse(a[1].Split(',')[0].Split('|')[0]);
                 a = str.Split(',');
                 repeat = int.Parse(a[6]);
                 length = int.Parse(a[7].Split('.')[0]);
-                
-                for(int j=0; j<repeat; j++)
+
+                for (int j = 0; j < repeat; j++)
                 {
-                    float t = time + length * Fruit.speed / 8f*j;
-                    if (j%2==0) createSlider(x1, x2, y1, y2, t, ref array, randColor, length);
+                    float t = time + length * Fruit.speed / 8f * j;
+                    if (j % 2 == 0) createSlider(x1, x2, y1, y2, t, ref array, randColor, length);
                     else createSlider(x2, x1, y2, y1, t, ref array, randColor, length);
                 }
                 break;
             }
         }
-        
+
     }
-    private void createSlider(int x1, int x2, int y1, int y2, float time, ref ArrayList array,Color32 color, int length)
+    private void createSlider(int x1, int x2, int y1, int y2, float time, ref ArrayList array, Color32 color, int length)
     {
-       
+
         for (int j = 1; j < 3; j++)
         {
             int dx = (x2 - x1) / 3;
@@ -85,7 +86,7 @@ public class MapsLoad : MonoBehaviour {
     public static float ApproachRate;
 
     private float lenX, lenY, maxY;
-    public static Vector3 scale = new Vector3(1,1,1);
+    public static Vector3 scale = new Vector3(1, 1, 1);
 
     private void Start()
     {
@@ -98,15 +99,15 @@ public class MapsLoad : MonoBehaviour {
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
 
-        lenX = max.x - min.x - 3f*Player.sprite.size.x;
+        lenX = max.x - min.x - 3f * Player.sprite.size.x;
         lenY = max.y - min.y;
         maxY = max.y;
 
-        fruit = Resources.Load<Fruit> ("Prefabs/fruit");
+        fruit = Resources.Load<Fruit>("Prefabs/fruit");
         drop = Resources.Load<Fruit>("Prefabs/drop");
 
-        input = File.OpenText(Application.persistentDataPath+ '/' + MenuLoad.folder + '/' + MenuLoad.map);
-        String  str;
+        input = File.OpenText(Application.persistentDataPath + '/' + MenuLoad.folder + '/' + MenuLoad.map);
+        String str;
         while ((str = input.ReadLine()) != null)
         {
             if (str == "[Difficulty]") break;
@@ -120,7 +121,7 @@ public class MapsLoad : MonoBehaviour {
         str = input.ReadLine();
         ApproachRate = float.Parse(str.Substring(13));
         while ((str = input.ReadLine()) != null)
-		{
+        {
             if (str == "[HitObjects]") break;
         }
         array = new ArrayList();
@@ -129,20 +130,21 @@ public class MapsLoad : MonoBehaviour {
             parse(str, ref array);
         }
 
-        scale = new Vector3(0.4f+1/CircleSize, 0.4f+1/CircleSize, 1);
-        Fruit.speed = ApproachRate*max.y/2.6f;
+        scale = new Vector3(0.4f + 1 / CircleSize, 0.4f + 1 / CircleSize, 1);
+        Fruit.speed = ApproachRate * max.y / 2.6f;
         fruit.transform.localScale = scale;
     }
 
-    private bool isPlaying= false;
-    void Update () {
+    private bool isPlaying = false;
+    void Update()
+    {
         foreach (fruit_point f in array)
         {
-            if (f.time<= ((Time.time - MenuLoad.timeBegin) * 1000))
+            if (f.time <= ((Time.time - MenuLoad.timeBegin) * 1000))
             {
                 if (!isPlaying)
                 {
-                    
+
                     AudioLoad.audioSource.Play();
                     AudioLoad.audioSource.volume = 0.1f;
                     isPlaying = true;
@@ -158,8 +160,9 @@ public class MapsLoad : MonoBehaviour {
                 }
                 if (f.type == Fruit.types.DROP)
                 {
-                    Fruit newFruit =  Instantiate(drop, pos, transform.rotation);
-                    newFruit.initialize(f.color, f.type);
+                    Fruit newDrop = Instantiate(drop, pos, transform.rotation);
+                    newDrop.initialize(f.color, f.type);
+                    newDrop.transform.localScale = scale;
                 }
                 array.Remove(f);
                 break;

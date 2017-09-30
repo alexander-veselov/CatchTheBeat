@@ -221,7 +221,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b45a3658f371ad4b8ec16db85f9d211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myAudioClip: {fileID: 0}
   path: 
 --- !u!82 &714042447
 AudioSource:
@@ -421,6 +420,14 @@ Prefab:
         type: 2}
       propertyPath: m_Offset.y
       value: 1.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416092487871710, guid: be44cf67f5306944395d0bb166d1a369, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1036463939558446, guid: be44cf67f5306944395d0bb166d1a369, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: be44cf67f5306944395d0bb166d1a369, type: 2}

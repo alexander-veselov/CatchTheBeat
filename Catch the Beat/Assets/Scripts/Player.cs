@@ -5,29 +5,40 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 	
     [SerializeField]
-    private float speed = 15;
+    private float speed;
 
     private bool isMovingRight = false;
     private bool isMovingLeft = false;
     private bool isHasted = false;
     private long score = 0;
     private int combo = 0;
+    private float dt;
 
     public static SpriteRenderer sprite;
+    public Sprite s;
+    public static speedEffect seff;
     public static BoxCollider2D _collider;
 
     private void Awake()
 
     {
+        Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
+        Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
+        speed = (max.x - min.x)/1.6f;
         sprite = GetComponentInChildren<SpriteRenderer>();
         _collider = GetComponentInChildren<BoxCollider2D>();
+        seff = Resources.Load<speedEffect>("Prefabs/speedEffect");
+        s = sprite.sprite;
     }
 
     private void Update()
     {
+        speedEffect();
         sprite.transform.localScale = MapsLoad.scale;
         Move();
-    
+       
+
+
     }
     void OnTriggerEnter2D (Collider2D col)
     {
@@ -57,14 +68,6 @@ public class Player : MonoBehaviour {
 		min.x = min.x + (1.5f*sprite.size.x);
 
 
-        if (isHasted)
-        {
-            speed = 30;
-        }
-        else
-        {
-            speed = 15;
-        }
         if (isMovingLeft)
         {
 			Vector3 position = transform.position;
@@ -116,13 +119,49 @@ public class Player : MonoBehaviour {
         isMovingRight = false;
     }
 
+    void speedEffect()
+    {
+        if (isHasted && Time.time - dt > 0.05 )
+        {
+            speedEffect eff = Instantiate(seff, transform.position, transform.rotation);
+            eff.setTransparency(sprite, 0.8f);
+            
+        }
+    }
+    void spriteLight()
+    {
+        Texture2D tex = sprite.sprite.texture;
+        Texture2D newTex = (Texture2D)GameObject.Instantiate(tex);
+        newTex.SetPixels32(tex.GetPixels32());
+        for (int i = 0; i < newTex.width; i++)
+        {
+            for (int j = 0; j < newTex.height; j++)
+            {
+                if (newTex.GetPixel(i, j).a != 0f) newTex.SetPixel(i, j, newTex.GetPixel(i, j) * 1.5f);
+
+            }
+        }
+
+        newTex.Apply();
+        sprite.sprite = Sprite.Create(newTex, sprite.sprite.rect, new Vector2(0.5f, 0.5f));
+    }
+    void spriteDark()
+    {
+        sprite.sprite = s;
+    }
     public void startHaste()
     {
+        dt = Time.time;
+        speed *= 2;
+        //spriteLight();
         isHasted = true;
     }
 
     public void stopHaste()
     {
+        speed *= 0.5f;
+
+        //spriteDark();
         isHasted = false;
     }
 
