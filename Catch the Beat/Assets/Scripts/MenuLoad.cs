@@ -20,41 +20,6 @@ public class MenuLoad : MonoBehaviour {
 
     void Start ()
     {
-        
-        //   //pc-version
-        //string[] directories = Directory.GetDirectories(Application.persistentDataPath);
-        //int len = Application.persistentDataPath.Length+1;
-        //mapsNames = new string[directories.Length-2];
-        //maps = new MenuItem[directories.Length-2];
-        //subMaps = new MenuSubItem[10];
-        //for (int i = 0; i < 10; i++)
-        //{
-        //    subMaps[i] = gameObject.AddComponent<MenuSubItem>();
-        //    Vector3 p = Vector3.zero;
-        //    p.Set(5, -i + 2.25F, 0);
-        //    subMaps[i].ini(p);
-        //    subMaps[i].setEnactive();
-            
-        //}
-        //countOfMaps = 0;
-        //foreach (string s in directories)
-        //{
-        //    if (s.Substring(len)!= "Crashes" && s.Substring(len) != "Unity")
-        //    {
-        //        mapsNames[countOfMaps] = s;
-                
-        //        Vector3 p = transform.position;
-        //        p.Set(-5, countOfMaps*2-2.2F, 0);
-                
-        //        maps[countOfMaps] = gameObject.AddComponent<MenuItem>();
-        //        maps[countOfMaps].ini(p);
-        //        maps[countOfMaps].setName(s.Substring(len));
-        //        countOfMaps++;
-        //    }
-        //}
-
-        //android-version
-        
         string[] directories = Directory.GetDirectories(Application.persistentDataPath);
         int len = Application.persistentDataPath.Length+1;
         mapsNames = new string[directories.Length];

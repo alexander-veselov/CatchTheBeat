@@ -8,37 +8,37 @@ using UnityEngine;
 public class MapsLoad : MonoBehaviour {
 	
 
-	Fruit apple;
-	Fruit banana;
-	Fruit grape;
-	Fruit orange;
-	Fruit pear;
+	Fruit fruit;
     Fruit drop;
+    private Color32[] colors;
+
+    
     public class fruit_point
     {
-        public fruit_point(int X, int Y, int Time, int ty)
+        public fruit_point(int X, int Y, int Time, Fruit.types _type, Color32 c)
         {
-            type = ty;
+            type = _type;
             x = X;
             y = Y;
+            color = c;
             time = Time;
         }
-
-        public int type;
+        public int time;
+        public Fruit.types type;  
+        public Color32 color;
         public int x;
         public int y;
-        public int time;
     }
     void parse(string str, ref ArrayList array)
     {
-        
-        int x1, x2, y1, y2, time, repeat, length;
+        int x1=0, x2=0, y1=0, y2=0, time=0, repeat=0, length=0;
         string[] a = str.Split(',');
         
         x1 = int.Parse(a[0]);
         y1 = int.Parse(a[1]);
         time = int.Parse(a[2]);
-        array.Add(new fruit_point(x1, y1, time,0));
+        Color32 randColor = colors[UnityEngine.Random.Range(0, 4)];
+        array.Add(new fruit_point(x1, y1, time, Fruit.types.FRUIT, randColor));
         for (int i = 0; i < str.Length; i++)
         {
             
@@ -51,20 +51,28 @@ public class MapsLoad : MonoBehaviour {
                 a = str.Split(',');
                 repeat = int.Parse(a[6]);
                 length = int.Parse(a[7].Split('.')[0]);
-                int n = Mathf.Abs(x2 - x1)/15;
-                for(int j=1; j<3; j++)
+                
+                for(int j=0; j<repeat; j++)
                 {
-                    int dx = (x2 - x1)/3;
-                    float  dt = (length * Fruit.speed / 8f) / 3f;
-                    array.Add(new fruit_point(x1+dx*j, y2, (int)(time + dt*j), 1));
+                    float t = time + length * Fruit.speed / 8f*j;
+                    if (j%2==0) createSlider(x1, x2, y1, y2, t, ref array, randColor, length);
+                    else createSlider(x2, x1, y2, y1, t, ref array, randColor, length);
                 }
-                array.Add(new fruit_point(x2, y2, (int)(time+length*Fruit.speed/8f),0));
                 break;
             }
         }
         
-
-
+    }
+    private void createSlider(int x1, int x2, int y1, int y2, float time, ref ArrayList array,Color32 color, int length)
+    {
+       
+        for (int j = 1; j < 3; j++)
+        {
+            int dx = (x2 - x1) / 3;
+            float dt = (length * Fruit.speed / 8f) / 3f;
+            array.Add(new fruit_point(x1 + dx * j, y2, (int)(time + dt * j), Fruit.types.DROP, color));
+        }
+        array.Add(new fruit_point(x2, y2, (int)(time + length * Fruit.speed / 8f), Fruit.types.FRUIT, color));
     }
     private AudioSource audioSource;
     private int count = 0;
@@ -81,18 +89,21 @@ public class MapsLoad : MonoBehaviour {
 
     private void Start()
     {
-		transform.rotation = new Quaternion (0, 0, 0, transform.rotation.w);
+        colors = new Color32[4];
+        colors[0] = new Color32(158, 47, 255, 255);
+        colors[1] = new Color32(255, 76, 185, 255);
+        colors[2] = new Color32(36, 166, 101, 255);
+        colors[3] = new Color32(46, 132, 164, 255);
 
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
+
         lenX = max.x - min.x - 3f*Player.sprite.size.x;
         lenY = max.y - min.y;
         maxY = max.y;
-        apple = Resources.Load<Fruit> ("Fruit_apple");
-		grape = Resources.Load<Fruit> ("Fruit_grape");
-		orange = Resources.Load<Fruit> ("Fruit_orange");
-		pear = Resources.Load<Fruit> ("Fruit_pear");
-        drop = Resources.Load<Fruit>("drop");
+
+        fruit = Resources.Load<Fruit> ("Prefabs/fruit");
+        drop = Resources.Load<Fruit>("Prefabs/drop");
 
         input = File.OpenText(Application.persistentDataPath+ '/' + MenuLoad.folder + '/' + MenuLoad.map);
         String  str;
@@ -117,22 +128,18 @@ public class MapsLoad : MonoBehaviour {
         {
             parse(str, ref array);
         }
+
         scale = new Vector3(0.4f+1/CircleSize, 0.4f+1/CircleSize, 1);
         Fruit.speed = ApproachRate*max.y/2.6f;
-        apple.transform.localScale = scale;
-        grape.transform.localScale = scale;
-        orange.transform.localScale = scale;
-        pear.transform.localScale = scale;
+        fruit.transform.localScale = scale;
     }
 
     private bool isPlaying= false;
     void Update () {
-		
         foreach (fruit_point f in array)
         {
             if (f.time<= ((Time.time - MenuLoad.timeBegin) * 1000))
             {
-
                 if (!isPlaying)
                 {
                     
@@ -144,41 +151,18 @@ public class MapsLoad : MonoBehaviour {
                 Vector3 pos = Vector3.zero;
                 pos.x = f.x * lenX / 512f - lenX / 2f;
                 pos.y = maxY;
-                if (f.type == 0)
+                if (f.type == Fruit.types.FRUIT)
                 {
-
-                    
-                    switch (UnityEngine.Random.Range(1, 5))
-                    {
-
-                        case 1:
-
-                            Instantiate(apple, pos, transform.rotation);
-                            break;
-                        case 2:
-
-                            Instantiate(grape, pos, transform.rotation);
-                            break;
-                        case 3:
-
-                            Instantiate(orange, pos, transform.rotation);
-                            break;
-                        case 4:
-
-                            Instantiate(pear, pos, transform.rotation);
-                            break;
-                    }
+                    Fruit newFruit = Instantiate(fruit, pos, transform.rotation);
+                    newFruit.initialize(f.color, f.type);
                 }
-                if (f.type == 1)
+                if (f.type == Fruit.types.DROP)
                 {
-                    
-
-                    Instantiate(drop, pos, transform.rotation);
+                    Fruit newFruit =  Instantiate(drop, pos, transform.rotation);
+                    newFruit.initialize(f.color, f.type);
                 }
-
-                    array.Remove(f);
-                
-                
+                array.Remove(f);
+                break;
             }
         }
     }

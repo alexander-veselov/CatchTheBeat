@@ -18,7 +18,7 @@ public class MenuItem : MonoBehaviour {
 
     public void ini(Vector3 pos)
     {
-        gameObj = Instantiate(Resources.Load<GameObject>("Item"), pos, transform.rotation);
+        gameObj = Instantiate(Resources.Load<GameObject>("Menu/Item"), pos, transform.rotation);
         canvas = gameObj.GetComponentInChildren<Canvas>();
         position = pos;
         rend = gameObj.GetComponentInChildren<SpriteRenderer>();

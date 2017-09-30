@@ -37,13 +37,13 @@ public class Player : MonoBehaviour {
         if (f.type == 0)
         {
             pos.y = transform.position.y + sprite.size.y * MapsLoad.scale.y/1.25f ;
-        eff = Instantiate(Resources.Load<Effects>("HitEffect"), pos, transform.rotation);
-        eff.ini(eff, col.gameObject.GetComponentInChildren<SpriteRenderer>().color, (col.gameObject.transform.position.x - sprite.transform.position.x)*0.45f,0);
+        eff = Instantiate(Resources.Load<Effects>("Prefabs/HitEffect"), pos, transform.rotation);
+        eff.initialize(eff, col.gameObject.GetComponentInChildren<SpriteRenderer>().color, (col.gameObject.transform.position.x - sprite.transform.position.x)*0.45f,0);
         }
 
         pos.y = transform.position.y + sprite.size.y * MapsLoad.scale.y / 1.9f;
-         eff = Instantiate(Resources.Load<Effects>("HitEffect 1"), pos, transform.rotation);
-        eff.ini(eff, col.gameObject.GetComponentInChildren<SpriteRenderer>().color, (col.gameObject.transform.position.x - sprite.transform.position.x) * 0.45f, 1);
+         eff = Instantiate(Resources.Load<Effects>("Prefabs/HitEffect 1"), pos, transform.rotation);
+        eff.initialize(eff, col.gameObject.GetComponentInChildren<SpriteRenderer>().color, (col.gameObject.transform.position.x - sprite.transform.position.x) * 0.45f, 1);
         Destroy(col.gameObject);
     }
     private void Move()
