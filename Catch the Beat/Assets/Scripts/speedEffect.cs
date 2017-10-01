@@ -35,7 +35,7 @@ public class speedEffect : MonoBehaviour {
     {
         sprite = GetComponentInChildren<SpriteRenderer>();
         sprite.flipX = sr.flipX;
-        sprite.sprite = sr.sprite;
+       // sprite.sprite = sr.sprite;
         sprite.transform.localScale = MapsLoad.scale;
         color = new Color(1, 1, 1, alpha);
     }

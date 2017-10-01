@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,7 @@ public class buttonPos : MonoBehaviour
 
     void Start()
     {
+        MapsLoad.bg = this.gameObject.GetComponentInParent<Canvas>();
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
         float dx = (max.x - min.x) * 0.07f;
@@ -35,6 +37,8 @@ public class buttonPos : MonoBehaviour
             sprite.transform.position = new Vector3(max.x - dx, min.y + dy);
         }
     }
+
+  
 
     void Update()
     {

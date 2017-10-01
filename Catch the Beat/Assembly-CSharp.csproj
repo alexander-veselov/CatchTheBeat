@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\MenuLoad.cs" />
      <Compile Include="Assets\Scripts\MenuSubItem.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\playerScore.cs" />
      <Compile Include="Assets\Scripts\speedEffect.cs" />
      <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />

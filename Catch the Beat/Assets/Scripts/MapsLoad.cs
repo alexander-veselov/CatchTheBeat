@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class MapsLoad : MonoBehaviour
 {
@@ -79,7 +79,8 @@ public class MapsLoad : MonoBehaviour
     private int count = 0;
     private ArrayList array;
     private StreamReader input;
-
+    private String background;
+    public static Canvas bg;
     public static float HPDrainRate;
     public static float CircleSize;
     public static float OverallDifficulty;
@@ -88,6 +89,7 @@ public class MapsLoad : MonoBehaviour
     private float lenX, lenY, maxY;
     public static Vector3 scale = new Vector3(1, 1, 1);
 
+  
     private void Start()
     {
         colors = new Color32[4];
@@ -108,6 +110,7 @@ public class MapsLoad : MonoBehaviour
 
         input = File.OpenText(Application.persistentDataPath + '/' + MenuLoad.folder + '/' + MenuLoad.map);
         String str;
+      
         while ((str = input.ReadLine()) != null)
         {
             if (str == "[Difficulty]") break;
@@ -122,6 +125,15 @@ public class MapsLoad : MonoBehaviour
         ApproachRate = float.Parse(str.Substring(13));
         while ((str = input.ReadLine()) != null)
         {
+            if (str == "[Events]") break;
+        }
+        str = input.ReadLine();
+        str = input.ReadLine();
+        if (str[0]=='V') str = input.ReadLine();
+        background = str.Split(',')[2];
+        bgLoad(background.Substring(1, background.Length - 2));
+        while ((str = input.ReadLine()) != null)
+        {
             if (str == "[HitObjects]") break;
         }
         array = new ArrayList();
@@ -133,6 +145,21 @@ public class MapsLoad : MonoBehaviour
         scale = new Vector3(0.4f + 1 / CircleSize, 0.4f + 1 / CircleSize, 1);
         Fruit.speed = ApproachRate * max.y / 2.6f;
         fruit.transform.localScale = scale;
+        Player.score = Instantiate(Resources.Load<playerScore>("Prefabs/Score"));
+    }
+
+    void bgLoad(string s)
+    {
+        SpriteRenderer image = bg.GetComponentInChildren<SpriteRenderer>();
+        RectTransform rectTr = bg.GetComponentInChildren<RectTransform>();
+        String path = Application.persistentDataPath + '/' + MenuLoad.folder + '/' + s;
+        WWW www = new WWW("file://" + path);
+        Texture2D tex;
+        tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
+        www.LoadImageIntoTexture(tex);
+        image.sprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100.0f);
+        image.transform.localScale = new Vector2(100f, 100f);
+        image.color = new Color(1, 1, 1, 0.25f);
     }
 
     private bool isPlaying = false;

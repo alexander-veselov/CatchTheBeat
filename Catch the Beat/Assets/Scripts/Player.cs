@@ -10,7 +10,7 @@ public class Player : MonoBehaviour {
     private bool isMovingRight = false;
     private bool isMovingLeft = false;
     private bool isHasted = false;
-    private long score = 0;
+    public static playerScore score;
     private int combo = 0;
     private float dt;
 
@@ -28,7 +28,7 @@ public class Player : MonoBehaviour {
         sprite = GetComponentInChildren<SpriteRenderer>();
         _collider = GetComponentInChildren<BoxCollider2D>();
         seff = Resources.Load<speedEffect>("Prefabs/speedEffect");
-        s = sprite.sprite;
+        
     }
 
     private void Update()
@@ -42,6 +42,7 @@ public class Player : MonoBehaviour {
     }
     void OnTriggerEnter2D (Collider2D col)
     {
+        score.scoreUp();
         Fruit f = col.GetComponent<Fruit>();
         Vector2 pos = transform.position;
         Effects eff;
