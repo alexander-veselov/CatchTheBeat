@@ -110,7 +110,7 @@ public class MapsLoad : MonoBehaviour
 
         input = File.OpenText(Application.persistentDataPath + '/' + MenuLoad.folder + '/' + MenuLoad.map);
         String str;
-      
+        
         while ((str = input.ReadLine()) != null)
         {
             if (str == "[Difficulty]") break;
@@ -123,6 +123,7 @@ public class MapsLoad : MonoBehaviour
         HPDrainRate = float.Parse(str.Substring(18));
         str = input.ReadLine();
         ApproachRate = float.Parse(str.Substring(13));
+        
         while ((str = input.ReadLine()) != null)
         {
             if (str == "[Events]") break;

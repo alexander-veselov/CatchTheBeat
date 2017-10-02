@@ -5,43 +5,17 @@ using UnityEngine.UI;
 
 public class MenuSubItem : MonoBehaviour {
 
-    private GameObject gameObj;
-    private string mapName;
-    private Canvas canvas;
-    private Vector3 position;
-    private SpriteRenderer rend;
-
-    void Start()
+    Text mapName;
+    MenuLoad load;
+    public void initialize(string s, MenuLoad ml)
     {
-
-    }
-
-    public void ini(Vector3 pos)
-    {
-        gameObj = Instantiate(Resources.Load<GameObject>("Menu/SubItem"), pos, transform.rotation);
-        canvas = gameObj.GetComponentInChildren<Canvas>();
-        position = pos;
-        rend = gameObj.GetComponentInChildren<SpriteRenderer>();
-        rend.color = Color.black;
-    }
-
-    public void setActive(string _name)
-    {
-        rend.enabled = true;
-        mapName = _name;
-        canvas.GetComponentInChildren<Text>().text = _name;
-    }
-    public void setEnactive()
-    {
-        rend.enabled = false;
-        canvas.GetComponentInChildren<Text>().text = "";
+        load = ml;
+        mapName = GetComponentInChildren<Text>();
+        mapName.text = s;
     }
     public void selectMap()
     {
-        MenuLoad.selectMap(this.GetComponentInChildren<Canvas>().GetComponentInChildren<Text>().text);
+        load.selectMap(mapName.text);
     }
-    void Update()
-    {
 
-    }
 }
