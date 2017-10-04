@@ -144,7 +144,7 @@ public class MapsLoad : MonoBehaviour
         }
 
         scale = new Vector3(0.4f + 1 / CircleSize, 0.4f + 1 / CircleSize, 1);
-		Fruit.speed = ApproachRate * max.y / 2.6f;
+        Fruit.speed = ApproachRate * max.y / 2.6f;
         fruit.transform.localScale = scale;
         Player.score = Instantiate(Resources.Load<playerScore>("Prefabs/Score"));
     }
@@ -152,15 +152,20 @@ public class MapsLoad : MonoBehaviour
     void bgLoad(string s)
     {
         SpriteRenderer image = bg.GetComponentInChildren<SpriteRenderer>();
-        RectTransform rectTr = bg.GetComponentInChildren<RectTransform>();
         String path = Application.persistentDataPath + '/' + MenuLoad.folder + '/' + s;
         WWW www = new WWW("file://" + path);
         Texture2D tex;
         tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
         www.LoadImageIntoTexture(tex);
         image.sprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100.0f);
-        image.transform.localScale = new Vector2(100f, 100f);
+        var width = image.sprite.bounds.size.x;
+        var height = image.sprite.bounds.size.y;
+        var worldScreenHeight = Camera.main.orthographicSize * 2.0;
+        var worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
+        image.transform.localScale = new Vector2((float)worldScreenWidth / width, (float)worldScreenHeight / height);
         image.color = new Color(1, 1, 1, 0.25f);
+
+
     }
 
     private bool isPlaying = false;
