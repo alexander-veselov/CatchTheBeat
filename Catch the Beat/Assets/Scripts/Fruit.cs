@@ -49,8 +49,9 @@ public class Fruit : MonoBehaviour {
     void Update ()
     {
         Vector3 dir = transform.up;
+        Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
         transform.position = Vector3.MoveTowards(transform.position, transform.position - dir, speed * Time.deltaTime);
-        if (transform.position.y < -10)
+        if (transform.position.y < min.y)
         {
             Destroy(this.gameObject, .2f);
             inst.docleanCombo();

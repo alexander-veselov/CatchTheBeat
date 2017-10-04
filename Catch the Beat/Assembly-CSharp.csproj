@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\buttonPos.cs" />
      <Compile Include="Assets\Scripts\Effects.cs" />
      <Compile Include="Assets\Scripts\Fruit.cs" />
+     <Compile Include="Assets\Scripts\mapEnd.cs" />
      <Compile Include="Assets\Scripts\MapsLoad.cs" />
      <Compile Include="Assets\Scripts\MenuItem.cs" />
      <Compile Include="Assets\Scripts\MenuLoad.cs" />
