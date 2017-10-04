@@ -51,6 +51,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Demigiant\DOTween\Examples\Basics.cs" />
+     <Compile Include="Assets\Demigiant\DOTween\Examples\Sequences.cs" />
      <Compile Include="Assets\Scripts\AudioLoad.cs" />
      <Compile Include="Assets\Scripts\buttonPos.cs" />
      <Compile Include="Assets\Scripts\Effects.cs" />
@@ -61,6 +63,8 @@
      <Compile Include="Assets\Scripts\MenuSubItem.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\playerScore.cs" />
+     <Compile Include="Assets\Scripts\Score_Numbers.cs" />
+     <Compile Include="Assets\Scripts\Score_Numbers_Instance.cs" />
      <Compile Include="Assets\Scripts\speedEffect.cs" />
      <Compile Include="Assets\Scripts\touchTest.cs" />
      <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
@@ -85,6 +89,18 @@
  </Reference>
  <Reference Include="UnityEngine.HoloLens">
  <HintPath>D:/Soft/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>D:/Soft/Github projects/catchTheBeat/Catch the Beat/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween43">
+ <HintPath>D:/Soft/Github projects/catchTheBeat/Catch the Beat/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>D:/Soft/Github projects/catchTheBeat/Catch the Beat/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween50">
+ <HintPath>D:/Soft/Github projects/catchTheBeat/Catch the Beat/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
