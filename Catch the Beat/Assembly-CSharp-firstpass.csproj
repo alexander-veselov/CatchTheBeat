@@ -85,6 +85,18 @@
  <Reference Include="UnityEngine.HoloLens">
  <HintPath>D:/Soft/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
  </Reference>
+ <Reference Include="DOTween">
+ <HintPath>D:/Soft/Github projects/catchTheBeat/Catch the Beat/Assets/Demigiant/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween43">
+ <HintPath>D:/Soft/Github projects/catchTheBeat/Catch the Beat/Assets/Demigiant/DOTween/DOTween43.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>D:/Soft/Github projects/catchTheBeat/Catch the Beat/Assets/Demigiant/DOTween/DOTween46.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween50">
+ <HintPath>D:/Soft/Github projects/catchTheBeat/Catch the Beat/Assets/Demigiant/DOTween/DOTween50.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
