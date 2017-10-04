@@ -18,7 +18,7 @@ public class MenuLoad : MonoBehaviour {
     Image[] lists;
     ContentSizeFitter grid1;
     ContentSizeFitter grid2;
-
+    string[] directories;
     Vector2 touch;
 
    private static int countOfMaps;
@@ -26,7 +26,7 @@ public class MenuLoad : MonoBehaviour {
     void Start ()
     {
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
-        string[] directories = Directory.GetDirectories(Application.persistentDataPath);
+        directories = Directory.GetDirectories(Application.persistentDataPath);
         int len = Application.persistentDataPath.Length+1;
         mapsNames = new string[directories.Length];
         maps = new MenuItem[directories.Length];
@@ -36,29 +36,28 @@ public class MenuLoad : MonoBehaviour {
         Vector2 pos = max;
 
         Vector2 offset = gameObject.GetComponent<RectTransform>().offsetMax;
+        //pos = offset;
+        //float l1 = offset.x;
+        //l1 -= l1 / 4f;
+        //l1 *= -1;
+        //pos = offset;
+        //pos.y /= 2;
+        //lists[0].transform.position = pos;
+        //pos = offset;
+        //pos.x /= 2;
+        //pos.x += l1;
+        //pos.y = 0;
+        //lists[0].rectTransform.offsetMax = pos;
+
         pos = offset;
-        float l1 = offset.x;
-        l1 -= l1 / 4f;
-        l1 *= -1;
-        pos = offset;
-        pos.y /= 2;
+        pos.x = offset.x /6+ offset.x;
+        pos.y = pos.y / 2;
         lists[0].transform.position = pos;
-        pos = offset;
-        pos.x /= 2;
-        pos.x += l1;
+        pos.x = 0;
         pos.y = 0;
         lists[0].rectTransform.offsetMax = pos;
 
-        pos = offset;
-        pos.x = offset.x /4+ offset.x;
-        pos.y = pos.y / 2;
-        lists[2].transform.position = pos;
-        pos.x = 0;
-        pos.y = 0;
-        lists[2].rectTransform.offsetMax = pos;
-
         grid1 = lists[1].GetComponentInChildren<ContentSizeFitter>();
-        grid2 = lists[3].GetComponentInChildren<ContentSizeFitter>();
         countOfMaps = 0;
         Canvas[] cs = GetComponentsInChildren<Canvas>();
         foreach (string s in directories)
@@ -75,20 +74,40 @@ public class MenuLoad : MonoBehaviour {
        
         folder = _name;
         string path = Application.persistentDataPath + '/' + _name;
-        Debug.Log(path);
         int len = path.Length + 1;
         string[] directories = Directory.GetFiles(path, "*.osu");
         MenuSubItem[] subMaps = new MenuSubItem[directories.Length];
-        MenuSubItem[] mp = grid2.gameObject.GetComponentsInChildren<MenuSubItem>();
+        MenuSubItem[] mp = grid1.gameObject.GetComponentsInChildren<MenuSubItem>();
+        MenuItem[] mp1 = grid1.gameObject.GetComponentsInChildren<MenuItem>();
         for (int i = 0; i < mp.Length; i++)
         {
             Destroy(mp[i].gameObject);
         }
-        for (int i=0; i<directories.Length; i++)
+        for (int i = 0; i < mp1.Length; i++)
         {
-            subMaps[i] = Instantiate(Resources.Load<MenuSubItem>("Menu/MenuSubItem"), grid2.gameObject.transform);
-            subMaps[i].initialize(directories[i].Substring(len, directories[i].Length-len-4),this);
+            Destroy(mp1[i].gameObject);
         }
+        Canvas[] cs = GetComponentsInChildren<Canvas>();
+        int j = 0;
+        foreach (string s in this.directories)
+        {
+            Debug.Log(s);
+            if (s.Substring(Application.persistentDataPath.Length + 1) == _name)
+            {
+                for (int i = 0; i < directories.Length; i++)
+                {
+                    subMaps[i] = Instantiate(Resources.Load<MenuSubItem>("Menu/MenuSubItem"), grid1.gameObject.transform);
+                    subMaps[i].initialize(directories[i].Substring(len, directories[i].Length - len - 4), this);
+                }
+            }
+            else
+            {
+                maps[j] = Instantiate(Resources.Load<MenuItem>("Menu/MenuItem"), grid1.gameObject.transform);
+                maps[j].initialize(s.Substring(Application.persistentDataPath.Length + 1), this, cs[1]);
+            }
+            j++;
+        }
+       
     }
     public void selectMap(string _name)
     {
