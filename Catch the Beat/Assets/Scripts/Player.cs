@@ -6,7 +6,7 @@ public class Player : MonoBehaviour {
 	
     [SerializeField]
     private float speed;
-
+	private Score_Numbers_Instance inst;
     private bool isMovingRight = false;
     private bool isMovingLeft = false;
     private bool isHasted = false;
@@ -22,6 +22,7 @@ public class Player : MonoBehaviour {
     private void Awake()
 
     {
+		inst = Camera.main.GetComponent<Score_Numbers_Instance> ();
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
         speed = (max.x - min.x)/1.6f;
@@ -42,6 +43,10 @@ public class Player : MonoBehaviour {
     }
     void OnTriggerEnter2D (Collider2D col)
     {
+		
+
+		inst.fruit_counter++;
+		inst.Boom ();
         score.scoreUp();
         Fruit f = col.GetComponent<Fruit>();
         Vector2 pos = transform.position;

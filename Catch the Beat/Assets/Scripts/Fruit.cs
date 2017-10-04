@@ -16,10 +16,16 @@ public class Fruit : MonoBehaviour {
     public types type = types.FRUIT;
     private SpriteRenderer[]  sprites;
     public static float speed = 15;
-
+	private Score_Numbers_Instance inst;
     private static Sprite[] fruitSprites;
     private Color32 color;
     
+	void Awake() {
+
+
+		inst = Camera.main.GetComponent<Score_Numbers_Instance> ();
+
+	}
 
     private void Start()
     {
@@ -44,9 +50,10 @@ public class Fruit : MonoBehaviour {
     {
         Vector3 dir = transform.up;
         transform.position = Vector3.MoveTowards(transform.position, transform.position - dir, speed * Time.deltaTime);
-        if (transform.position.y < -10)
+        if (transform.position.y < -5f)
         {
-            Destroy(this.gameObject, .2f);
+            Destroy(this.gameObject, 0f);
+			inst.docleanCombo ();
         }
     }
 	private void setRandomFruit()
