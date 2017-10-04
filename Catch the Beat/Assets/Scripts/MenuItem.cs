@@ -30,9 +30,6 @@ public class MenuItem : MonoBehaviour {
         {
             directories = Directory.GetFiles(path, "*.png");
         }
-
-        
-
         SpriteRenderer image = bg.GetComponentInChildren<SpriteRenderer>();
         RectTransform rectTr = bg.GetComponentInChildren<RectTransform>();
         
@@ -40,18 +37,15 @@ public class MenuItem : MonoBehaviour {
         Texture2D tex;
         tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
         www.LoadImageIntoTexture(tex);
+        
+        float x = Screen.currentResolution.width;
+        float y = Screen.currentResolution.height;
+        image.size = new Vector2(x, y);
+        float scale = x / tex.width;
         image.sprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100.0f);
-        var width = image.sprite.bounds.size.x;
-        var height = image.sprite.bounds.size.y;
-        var worldScreenHeight = Camera.main.orthographicSize * 2.0;
-        var worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
-        image.transform.localScale = new Vector2((float)worldScreenWidth / width,(float) worldScreenHeight / height);
+        image.transform.localScale = new Vector2(scale*1.5f, scale*1.5f);
         
         image.color = new Color(1, 1, 1, 0.5f);
-
-        SpriteRenderer menuBG = GameObject.Find("menuBG").GetComponent<SpriteRenderer>();
-        menuBG.transform.localScale = new Vector2(1, 1);
-
     }
     public void select()
     {
