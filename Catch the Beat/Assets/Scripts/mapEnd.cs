@@ -48,8 +48,6 @@ public class mapEnd : MonoBehaviour {
         image.transform.localScale = new Vector2((float)worldScreenWidth / width, (float)worldScreenHeight / height);
         image.color = new Color(1, 1, 1, 0.5f);
     }
-  
-    // Update is called once per frame
     void Update () {
 		
 	}
