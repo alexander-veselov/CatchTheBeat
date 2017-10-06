@@ -50,10 +50,10 @@ public class MenuLoad : MonoBehaviour {
         //lists[0].rectTransform.offsetMax = pos;
 
         pos = offset;
-        pos.x = offset.x /6+ offset.x;
+        pos.x = offset.x /8+ offset.x;
         pos.y = pos.y / 2;
         lists[0].transform.position = pos;
-        pos.x = 0;
+        pos.x = 25;
         pos.y = 0;
         lists[0].rectTransform.offsetMax = pos;
 

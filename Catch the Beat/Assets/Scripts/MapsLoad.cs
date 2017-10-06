@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MapsLoad : MonoBehaviour
@@ -81,6 +82,7 @@ public class MapsLoad : MonoBehaviour
     private StreamReader input;
     private String background;
     public static Canvas bg;
+    public static string currentMap;
     public static float HPDrainRate;
     public static float CircleSize;
     public static float OverallDifficulty;
@@ -151,6 +153,7 @@ public class MapsLoad : MonoBehaviour
 
     void bgLoad(string s)
     {
+        currentMap = s;
         SpriteRenderer image = bg.GetComponentInChildren<SpriteRenderer>();
         String path = Application.persistentDataPath + '/' + MenuLoad.folder + '/' + s;
         WWW www = new WWW("file://" + path);
@@ -171,6 +174,10 @@ public class MapsLoad : MonoBehaviour
     private bool isPlaying = false;
     void Update()
     {
+        if (isPlaying && !AudioLoad.audioSource.isPlaying)
+        {
+            SceneManager.LoadScene("mapEnd");
+        }
         foreach (fruit_point f in array)
         {
             if (f.time <= ((Time.time - MenuLoad.timeBegin) * 1000))
@@ -179,7 +186,7 @@ public class MapsLoad : MonoBehaviour
                 {
 
                     AudioLoad.audioSource.Play();
-                    AudioLoad.audioSource.volume = 0.1f;
+                    AudioLoad.audioSource.volume = 0.7f;
                     isPlaying = true;
                 }
 

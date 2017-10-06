@@ -47,7 +47,7 @@ public class MenuItem : MonoBehaviour {
         var worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
         image.transform.localScale = new Vector2((float)worldScreenWidth / width,(float) worldScreenHeight / height);
         
-        image.color = new Color(1, 1, 1, 0.5f);
+        image.color = new Color(1, 1, 1, 0.6f);
 
         SpriteRenderer menuBG = GameObject.Find("menuBG").GetComponent<SpriteRenderer>();
         menuBG.transform.localScale = new Vector2(1, 1);

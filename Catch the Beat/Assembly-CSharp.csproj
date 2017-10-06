@@ -58,6 +58,7 @@
      <Compile Include="Assets\Scripts\Effects.cs" />
      <Compile Include="Assets\Scripts\Fruit.cs" />
      <Compile Include="Assets\Scripts\mapEnd.cs" />
+     <Compile Include="Assets\Scripts\mapEndButtons.cs" />
      <Compile Include="Assets\Scripts\MapsLoad.cs" />
      <Compile Include="Assets\Scripts\MenuItem.cs" />
      <Compile Include="Assets\Scripts\MenuLoad.cs" />
@@ -67,7 +68,6 @@
      <Compile Include="Assets\Scripts\Score_Numbers.cs" />
      <Compile Include="Assets\Scripts\Score_Numbers_Instance.cs" />
      <Compile Include="Assets\Scripts\speedEffect.cs" />
-     <Compile Include="Assets\Scripts\touchTest.cs" />
      <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
  <Reference Include="UnityEngine.UI">
