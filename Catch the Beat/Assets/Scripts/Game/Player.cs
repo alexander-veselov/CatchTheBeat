@@ -32,6 +32,7 @@ public class Player : MonoBehaviour {
         sprite = GetComponentInChildren<SpriteRenderer>();
         _collider = GetComponentInChildren<BoxCollider2D>();
         seff = Resources.Load<speedEffect>("Prefabs/speedEffect");
+        inst.fruit_counter = 0;
         
     }
 
@@ -50,15 +51,17 @@ public class Player : MonoBehaviour {
     void OnTriggerEnter2D (Collider2D col)
     {
         
-        inst.fruit_counter++;
+       
         combo = (int)inst.fruit_counter;
-        inst.Boom();
+       
         score.scoreUp();
         Fruit f = col.GetComponent<Fruit>();
         Vector2 pos = transform.position;
         Effects eff;
         if (f.type == 0)
         {
+                        inst.fruit_counter++;
+			inst.Boom();
             pos.y = transform.position.y + sprite.size.y * MapsLoad.scale.y/1.52f ;
         eff = Instantiate(Resources.Load<Effects>("Prefabs/HitEffect"), pos, transform.rotation);
         eff.initialize(eff, col.gameObject.GetComponentInChildren<SpriteRenderer>().color, (col.gameObject.transform.position.x - sprite.transform.position.x)*0.45f,0);
