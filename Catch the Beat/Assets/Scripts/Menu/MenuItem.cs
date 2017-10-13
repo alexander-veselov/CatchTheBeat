@@ -53,13 +53,21 @@ public class MenuItem : MonoBehaviour {
         menuBG.transform.localScale = new Vector2(1, 1);
 
     }
+    public string name()
+    {
+        return mapName.text;
+    }
     public void select()
     {
-
+        firstSelect();
+        GameObject.Find("bgMusic").GetComponent<AudioLoad>().load();
+    }
+    public void firstSelect()
+    {
         bgLoad();
         load.select(mapName.text);
     }
-	void Update () {
+    void Update () {
 		
 	}
 }

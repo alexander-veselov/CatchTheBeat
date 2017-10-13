@@ -117,9 +117,13 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.Spa
 a2efb0db652b8114d1ae7dd9a600d626 Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.InputAxisScrollbar
 fe76270bd84ec3b6f2f6f92c69cf69da Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.AxisTouchButton
 a7d3c6c6948d99dd4116e659ddcf5ac4 Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.ButtonHandler
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.beatEffect
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.logo
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Effects
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.line
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.MobileControlRig
 7a75edc83a9f267c790ac1425865847a Assembly-CSharp.dll:.Fruit
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.mapEndButtons
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
 60b2bb652410a5867a5ab9a01cd38461 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkDiscovery
@@ -134,6 +138,7 @@ e9bdabf9265d758d56f01bb188916fa8 UnityEngine.Networking.dll:UnityEngine.Networki
 3f32f08a64daf40b09ed864d96fe3840 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransform
 73843688b51256aed059f049c540bca8 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 528ea1fd7c01796fc60c4e2f172ea229 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.menuOverlay
 5a35d5b94055acf66f01869f65b7d8a6 Assembly-CSharp.dll:.Basics
 f5a1048aaa6d6b0d49c40dbb9c28ec87 Assembly-CSharp.dll:.buttonPos
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.TestRunner.dll:UnityEngine.TestTools.TestRunner.Callbacks.PlayModeRunnerCallback
@@ -150,8 +155,9 @@ c2275a8bfbb9f9942cad75ecdfded41d UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.Spa
 45f3431f0103c41611e8d4eec3d439df UnityEngine.HoloLens.dll:UnityEngine.VR.WSA.SpatialMappingRenderer
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.MenuLoad
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.playerScore
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.EqEff
 a8796ecdc9d5c260bbe32f30c4b10708 Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.TouchPad
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.pause
 4f1e8bebe7a075ef5562c5a7e445e536 Assembly-CSharp.dll:.Player
 eb19779405c8c1647f0983aa28135d86 Assembly-CSharp.dll:.Score_Numbers_Instance
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.speedEffect
-05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.mapEndButtons

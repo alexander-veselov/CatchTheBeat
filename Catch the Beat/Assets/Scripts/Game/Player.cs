@@ -12,13 +12,14 @@ public class Player : MonoBehaviour {
     private bool isMovingLeft = false;
     private bool isHasted = false;
     public static playerScore score;
-    private int combo = 0;
+    public static int combo = 0;
     private float dt;
     private Score_Numbers_Instance inst;
     public static SpriteRenderer sprite;
     public Sprite s;
     public static speedEffect seff;
     public static BoxCollider2D _collider;
+    int useCount=0;
 
     private void Awake()
 
@@ -37,16 +38,20 @@ public class Player : MonoBehaviour {
     private void Update()
     {
         speedEffect();
-        sprite.transform.localScale = MapsLoad.scale;
+        sprite.transform.localScale = MapsLoad.scale*1.25f;
         Move();
-       
-
-
+        if (Input.GetKeyDown(KeyCode.LeftArrow)) moveLeft();
+        if (Input.GetKeyUp(KeyCode.LeftArrow)) stopLeft();
+        if (Input.GetKeyDown(KeyCode.RightArrow)) moveRight();
+        if (Input.GetKeyUp(KeyCode.RightArrow)) stopRight();
+        if (Input.GetKeyDown(KeyCode.LeftShift)) startHaste();
+        if (Input.GetKeyUp(KeyCode.LeftShift)) stopHaste();
     }
     void OnTriggerEnter2D (Collider2D col)
     {
-
+        
         inst.fruit_counter++;
+        combo = (int)inst.fruit_counter;
         inst.Boom();
         score.scoreUp();
         Fruit f = col.GetComponent<Fruit>();
@@ -54,12 +59,12 @@ public class Player : MonoBehaviour {
         Effects eff;
         if (f.type == 0)
         {
-            pos.y = transform.position.y + sprite.size.y * MapsLoad.scale.y/1.25f ;
+            pos.y = transform.position.y + sprite.size.y * MapsLoad.scale.y/1.52f ;
         eff = Instantiate(Resources.Load<Effects>("Prefabs/HitEffect"), pos, transform.rotation);
         eff.initialize(eff, col.gameObject.GetComponentInChildren<SpriteRenderer>().color, (col.gameObject.transform.position.x - sprite.transform.position.x)*0.45f,0);
         }
 
-        pos.y = transform.position.y + sprite.size.y * MapsLoad.scale.y / 1.9f;
+        pos.y = transform.position.y + sprite.size.y * MapsLoad.scale.y / 1.52f;
          eff = Instantiate(Resources.Load<Effects>("Prefabs/HitEffect 1"), pos, transform.rotation);
         eff.initialize(eff, col.gameObject.GetComponentInChildren<SpriteRenderer>().color, (col.gameObject.transform.position.x - sprite.transform.position.x) * 0.45f, 1);
         Destroy(col.gameObject);
@@ -128,37 +133,20 @@ public class Player : MonoBehaviour {
 
     void speedEffect()
     {
-        if (isHasted && Time.time - dt > 0.05 )
+        
+        if (isHasted && useCount>0)
         {
+            sprite.color = new Color(1, 1, 1, sprite.color.a-0.03f);
             speedEffect eff = Instantiate(seff, transform.position, transform.rotation);
             eff.setTransparency(sprite, 0.8f);
             
-        }
-    }
-    void spriteLight()
-    {
-        Texture2D tex = sprite.sprite.texture;
-        Texture2D newTex = (Texture2D)GameObject.Instantiate(tex);
-        newTex.SetPixels32(tex.GetPixels32());
-        for (int i = 0; i < newTex.width; i++)
-        {
-            for (int j = 0; j < newTex.height; j++)
-            {
-                if (newTex.GetPixel(i, j).a != 0f) newTex.SetPixel(i, j, newTex.GetPixel(i, j) * 1.5f);
-
-            }
-        }
-
-        newTex.Apply();
-        sprite.sprite = Sprite.Create(newTex, sprite.sprite.rect, new Vector2(0.5f, 0.5f));
-    }
-    void spriteDark()
-    {
-        sprite.sprite = s;
+        } else sprite.color = new Color(1, 1, 1, sprite.color.a + 0.03f);
     }
     public void startHaste()
     {
+        useCount++;
         dt = Time.time;
+        sprite.color = new Color(1, 1, 1, 0.5f);
         speed *= 2;
         //spriteLight();
         isHasted = true;
@@ -166,8 +154,9 @@ public class Player : MonoBehaviour {
 
     public void stopHaste()
     {
+        useCount--;
         speed *= 0.5f;
-
+        sprite.color = new Color(1, 1, 1, 1f);
         //spriteDark();
         isHasted = false;
     }

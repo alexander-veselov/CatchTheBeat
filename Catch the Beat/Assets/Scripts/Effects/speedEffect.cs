@@ -13,30 +13,14 @@ public class speedEffect : MonoBehaviour {
         
 	}
 
-    void spriteLight()
-    {
-        Texture2D tex = sprite.sprite.texture;
-        Texture2D newTex = (Texture2D)GameObject.Instantiate(tex);
-        newTex.SetPixels32(tex.GetPixels32());
-        for (int i = 0; i < newTex.width; i++)
-        {
-            for (int j = 0; j < newTex.height; j++)
-            {
-                if (newTex.GetPixel(i, j).a != 0f) newTex.SetPixel(i, j, newTex.GetPixel(i, j) * 1.5f);
 
-            }
-        }
-
-        newTex.Apply();
-        sprite.sprite = Sprite.Create(newTex, sprite.sprite.rect, new Vector2(0.5f, 0.5f));
-    }
 
     public void setTransparency(SpriteRenderer sr, float alpha)
     {
         sprite = GetComponentInChildren<SpriteRenderer>();
         sprite.flipX = sr.flipX;
        // sprite.sprite = sr.sprite;
-        sprite.transform.localScale = MapsLoad.scale;
+        sprite.transform.localScale = MapsLoad.scale*1.25f;
         color = new Color(1, 1, 1, alpha);
     }
 	void Update () {

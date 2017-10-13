@@ -36,19 +36,6 @@ public class MenuLoad : MonoBehaviour {
         Vector2 pos = max;
 
         Vector2 offset = gameObject.GetComponent<RectTransform>().offsetMax;
-        //pos = offset;
-        //float l1 = offset.x;
-        //l1 -= l1 / 4f;
-        //l1 *= -1;
-        //pos = offset;
-        //pos.y /= 2;
-        //lists[0].transform.position = pos;
-        //pos = offset;
-        //pos.x /= 2;
-        //pos.x += l1;
-        //pos.y = 0;
-        //lists[0].rectTransform.offsetMax = pos;
-
         pos = offset;
         pos.x = offset.x /8+ offset.x;
         pos.y = pos.y / 2;
@@ -67,7 +54,15 @@ public class MenuLoad : MonoBehaviour {
             maps[countOfMaps].initialize(s.Substring(len),this,cs[1]);
             countOfMaps++;
         }
-        maps[0].select();
+        for (int i=0; i<maps.Length; i++)
+        {
+            if (maps[i].name() == folder)
+            {
+                maps[i].firstSelect();
+                break;
+            }
+        }
+        
     }
     public void select(string _name)
     {
@@ -91,7 +86,6 @@ public class MenuLoad : MonoBehaviour {
         int j = 0;
         foreach (string s in this.directories)
         {
-            Debug.Log(s);
             if (s.Substring(Application.persistentDataPath.Length + 1) == _name)
             {
                 for (int i = 0; i < directories.Length; i++)

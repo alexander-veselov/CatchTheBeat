@@ -12,7 +12,6 @@ public class mapEndButtons : MonoBehaviour {
 	
 	public void backToMenu()
     {
-        Debug.Log("SUKA");
         SceneManager.LoadScene("menu");
     }
 	void Update () {

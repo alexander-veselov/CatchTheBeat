@@ -15,6 +15,7 @@ public class MenuSubItem : MonoBehaviour {
     }
     public void selectMap()
     {
+        GameObject.Find("bgMusic").GetComponent<AudioLoad>().load();
         load.selectMap(mapName.text);
     }
 

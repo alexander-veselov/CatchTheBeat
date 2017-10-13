@@ -26,10 +26,22 @@ public class Effects : MonoBehaviour {
         Vector2 pos = Player.sprite.transform.position;
         pos.x += dx;
         pos.y = transform.position.y;
-    
+
         transform.position = pos;
-        if (_type==0) color = new Color(color.r, color.g, color.b, color.a-0.035f);
-        if (_type == 1) color = new Color(color.r, color.g, color.b, color.a - 0.025f);
+        if (_type == 0)
+        {
+            
+            color = new Color(color.r, color.g, color.b, color.a - 0.035f);
+            Vector3 sc = transform.localScale;
+            int h = Player.combo;
+            if (h > 100) h = 100;
+            sc.y=(h+40)/60f;
+            transform.localScale= sc;
+        }
+        if (_type == 1)
+        {
+            color = new Color(color.r, color.g, color.b, color.a - 0.025f);
+        }
         if (color.a <= 0) Destroy(this.gameObject);
         sprite.color = color;
     }
