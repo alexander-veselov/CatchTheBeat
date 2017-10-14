@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class mapEnd : MonoBehaviour {
-
     Image[] panel;
 	void Start () {
         panel = GetComponentsInChildren<Image>();
@@ -30,6 +29,7 @@ public class mapEnd : MonoBehaviour {
         p.x = p.y;
         panel[2].transform.localScale = p;
         bgLoad();
+
     }
     void bgLoad()
     {

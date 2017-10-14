@@ -33,7 +33,7 @@ public class Effects : MonoBehaviour {
             
             color = new Color(color.r, color.g, color.b, color.a - 0.035f);
             Vector3 sc = transform.localScale;
-            int h = Player.combo;
+			int h = Player.comboEff;
             if (h > 100) h = 100;
             sc.y=(h+40)/60f;
             transform.localScale= sc;

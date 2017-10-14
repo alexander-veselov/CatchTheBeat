@@ -5,7 +5,7 @@ using UnityEngine;
 public class playerScore : MonoBehaviour {
 
     SpriteRenderer[] bits;
-    long score=0;
+    public long score=0;
     static Sprite[] sprites;
     void Start ()
     {

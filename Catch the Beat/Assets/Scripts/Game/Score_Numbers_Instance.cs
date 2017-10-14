@@ -65,47 +65,43 @@ public class Score_Numbers_Instance : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-
-		pos = GameObject.Find("Player").transform.position;
-		pos.y = 0f;
+		if (GameObject.Find ("Player") != null) {
+			pos = GameObject.Find ("Player").transform.position;
+			pos.y = 0f;
 
 //		if (fruit_counter > 0)
 //		{
-			if (s_for_position.Length == 1)
-			{
-				pos.x -= playerSprite.size.x/3.0f;
+			if (s_for_position.Length == 1) {
+				pos.x -= playerSprite.size.x / 3.0f;
 
 			}
-			if (s_for_position.Length == 2)
-			{
-				pos.x -= playerSprite.size.x/2.0f;
+			if (s_for_position.Length == 2) {
+				pos.x -= playerSprite.size.x / 2.0f;
 
 			}
-			if (s_for_position.Length == 3)
-			{
+			if (s_for_position.Length == 3) {
 				
-				pos.x -= playerSprite.size.x/1.51f;
+				pos.x -= playerSprite.size.x / 1.51f;
 			}
 
 //		}
 
-		anim.transform.position = pos;
-		main.transform.position = pos;
+			anim.transform.position = pos;
+			main.transform.position = pos;
 
 
-		if (nums_to_disp != null)
-		{
+			if (nums_to_disp != null) {
 
-			for (int i = 0; i < nums_to_disp.Length; i++)
-			{
+				for (int i = 0; i < nums_to_disp.Length; i++) {
 
-				pos.x += 1f;
+					pos.x += 1f;
 
-				nums_to_disp[i].transform.position = pos;
+					nums_to_disp [i].transform.position = pos;
 
-				back_nums[i].transform.position = pos;
+					back_nums [i].transform.position = pos;
+				}
+
 			}
-
 		}
 	}
 

@@ -12,27 +12,29 @@ public class Player : MonoBehaviour {
     private bool isMovingLeft = false;
     private bool isHasted = false;
     public static playerScore score;
-    public static int combo = 0;
     private float dt;
-    private Score_Numbers_Instance inst;
+    private Score_Numbers_Instance combo_inst;
+//	private finalStatistics statistics;
     public static SpriteRenderer sprite;
     public Sprite s;
     public static speedEffect seff;
     public static BoxCollider2D _collider;
     int useCount=0;
+	public static int comboEff;
 
     private void Awake()
 
     {
 
-        inst = Camera.main.GetComponent<Score_Numbers_Instance>();
+		combo_inst = Camera.main.GetComponent<Score_Numbers_Instance>();
+//		statistics = Camera.main.GetComponent<finalStatistics> ();
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
         speed = (max.x - min.x)/1.6f;
         sprite = GetComponentInChildren<SpriteRenderer>();
         _collider = GetComponentInChildren<BoxCollider2D>();
         seff = Resources.Load<speedEffect>("Prefabs/speedEffect");
-        inst.fruit_counter = 0;
+		combo_inst.fruit_counter = 0;
         
     }
 
@@ -51,21 +53,35 @@ public class Player : MonoBehaviour {
     void OnTriggerEnter2D (Collider2D col)
     {
         
-       
-        combo = (int)inst.fruit_counter;
+		comboEff = (int)combo_inst.fruit_counter;
+		finalStatistics.comboCounter = (int)combo_inst.fruit_counter;
+		finalStatistics.finalScore = score.score;
        
         score.scoreUp();
         Fruit f = col.GetComponent<Fruit>();
         Vector2 pos = transform.position;
         Effects eff;
-        if (f.type == 0)
+		if (f.type == Fruit.types.FRUIT)
         {
-                        inst.fruit_counter++;
-			inst.Boom();
+			combo_inst.fruit_counter++;
+			combo_inst.Boom();
+			finalStatistics.big_fruits_counter++;
             pos.y = transform.position.y + sprite.size.y * MapsLoad.scale.y/1.52f ;
         eff = Instantiate(Resources.Load<Effects>("Prefabs/HitEffect"), pos, transform.rotation);
         eff.initialize(eff, col.gameObject.GetComponentInChildren<SpriteRenderer>().color, (col.gameObject.transform.position.x - sprite.transform.position.x)*0.45f,0);
         }
+
+		if (f.type == Fruit.types.DROPx2) {
+			
+			finalStatistics.medium_fruits_counter++;
+
+		}
+
+		if (f.type == Fruit.types.DROP) {
+		
+			finalStatistics.small_fruits_counter++;
+
+		}
 
         pos.y = transform.position.y + sprite.size.y * MapsLoad.scale.y / 1.52f;
          eff = Instantiate(Resources.Load<Effects>("Prefabs/HitEffect 1"), pos, transform.rotation);

@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\Effects\logo.cs" />
      <Compile Include="Assets\Scripts\Effects\speedEffect.cs" />
      <Compile Include="Assets\Scripts\Game\buttonPos.cs" />
+     <Compile Include="Assets\Scripts\Game\finalStatistics.cs" />
      <Compile Include="Assets\Scripts\Game\Fruit.cs" />
      <Compile Include="Assets\Scripts\Game\mapEnd.cs" />
      <Compile Include="Assets\Scripts\Game\mapEndButtons.cs" />

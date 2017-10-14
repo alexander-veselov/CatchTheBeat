@@ -16,15 +16,17 @@ public class Fruit : MonoBehaviour {
     public types type = types.FRUIT;
     private SpriteRenderer[]  sprites;
     public static float speed = 15;
-    private Score_Numbers_Instance inst;
+    private Score_Numbers_Instance combo_inst;
+
     private static Sprite[] fruitSprites;
     private Color32 color;
+	byte counter = 0;
     void Awake()
     {
 
 
-        inst = Camera.main.GetComponent<Score_Numbers_Instance>();
-
+		combo_inst = Camera.main.GetComponent<Score_Numbers_Instance>();
+//		statistics = Camera.main.GetComponent<finalStatistics>();
     }
 
     private void Start()
@@ -48,13 +50,17 @@ public class Fruit : MonoBehaviour {
     }
     void Update ()
     {
+		
         Vector3 dir = transform.up;
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
         transform.position = Vector3.MoveTowards(transform.position, transform.position - dir, speed * Time.deltaTime);
         if (transform.position.y < min.y)
         {
-            Destroy(this.gameObject, .2f);
-            inst.docleanCombo();
+			counter++;
+			if (counter == 1) {
+				doDestroyFruit ();
+			}
+
         }
     }
 	private void setRandomFruit()
@@ -78,4 +84,10 @@ public class Fruit : MonoBehaviour {
         
     }
 
+	private void doDestroyFruit() {
+
+		Destroy(this.gameObject, .2f);
+		finalStatistics.missed_fruits++;
+		combo_inst.docleanCombo();
+	}
 }
