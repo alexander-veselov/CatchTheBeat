@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class MenuItem : MonoBehaviour {
 
-    Text mapName;
+    string mapName;
+    Text[] labels;
     MenuLoad load;
     Canvas bg;
 	void Start()
@@ -17,12 +18,20 @@ public class MenuItem : MonoBehaviour {
     {
         load = ml;
         bg = c;
-        mapName = GetComponentInChildren<Text>();
-        mapName.text = s;
+        mapName = s;
+        labels = GetComponentsInChildren<Text>();
+        string[] song = mapName.Split('-');
+        if (song.Length == 1)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        labels[0].text = song[1].Substring(1);
+        labels[1].text = song[0];
     }
     void bgLoad()
     {
-        string path = Application.persistentDataPath + '/' + mapName.text;
+        string path = Application.persistentDataPath + '/' + mapName;
         
         int len = path.Length + 1;
         string[] directories = Directory.GetFiles(path, "*.jpg");
@@ -33,9 +42,8 @@ public class MenuItem : MonoBehaviour {
 
         
 
-        SpriteRenderer image = bg.GetComponentInChildren<SpriteRenderer>();
-        RectTransform rectTr = bg.GetComponentInChildren<RectTransform>();
-        
+        SpriteRenderer image = GameObject.Find("Background").GetComponent<SpriteRenderer>();
+
         WWW www = new WWW("file://" + directories[0]);
         Texture2D tex;
         tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
@@ -50,22 +58,27 @@ public class MenuItem : MonoBehaviour {
         image.color = new Color(1, 1, 1, 0.6f);
 
         SpriteRenderer menuBG = GameObject.Find("menuBG").GetComponent<SpriteRenderer>();
+        image.transform.position = new Vector3(0, 0, 100);
         menuBG.transform.localScale = new Vector2(1, 1);
 
     }
     public string name()
     {
-        return mapName.text;
+        return mapName;
     }
     public void select()
     {
         firstSelect();
+        AudioLoad.fromBegin = false;
+        GameObject.Find("bgMusic").GetComponent<MapsLoad>().fileParse();
+        GameObject.Find("bgMusic").GetComponent<MapsLoad>().bitLoad();
         GameObject.Find("bgMusic").GetComponent<AudioLoad>().load();
+        
     }
     public void firstSelect()
     {
         bgLoad();
-        load.select(mapName.text);
+        load.select(mapName);
     }
     void Update () {
 		

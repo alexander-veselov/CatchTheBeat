@@ -5,18 +5,34 @@ using UnityEngine.UI;
 
 public class MenuSubItem : MonoBehaviour {
 
-    Text mapName;
+    [SerializeField]
+    public string mapName;
+    int num;
+    Text[] labels;
     MenuLoad load;
-    public void initialize(string s, MenuLoad ml)
+    SpriteRenderer[] stars;
+    public void initialize(string s, MenuLoad ml, int _num)
     {
+        num = _num;
         load = ml;
-        mapName = GetComponentInChildren<Text>();
-        mapName.text = s;
+        mapName = s;
+        labels = GetComponentsInChildren<Text>();
+        string[] song = mapName.Split('-');
+        if (song.Length == 1)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        string full = mapName.Substring(song[0].Length);
+        labels[0].text = full.Substring(2).Split('(')[0];
+        labels[1].text = song[0];
+        labels[2].text = full.Split('[')[1].Split(']')[0];
+        stars = GetComponentsInChildren<SpriteRenderer>();
     }
     public void selectMap()
     {
-        GameObject.Find("bgMusic").GetComponent<AudioLoad>().load();
-        load.selectMap(mapName.text);
+        GameObject.Find("Menu").GetComponent<MenuLoad>().selectDifficult(num);
+
     }
 
 }

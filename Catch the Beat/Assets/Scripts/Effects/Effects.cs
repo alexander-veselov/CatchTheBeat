@@ -9,6 +9,7 @@ public class Effects : MonoBehaviour {
     private Color color;
     private SpriteRenderer sprite;
     private float dx;
+    Vector3 full;
     void Start() { }
 
     public void initialize(Effects gameObj, Color32 col, float dX, int type)
@@ -20,6 +21,7 @@ public class Effects : MonoBehaviour {
         sprite.transform.localScale = MapsLoad.scale;
         sprite.color = col;
         color = col;
+        full = transform.localScale;
     }
 
 	void Update () {
@@ -34,8 +36,9 @@ public class Effects : MonoBehaviour {
             color = new Color(color.r, color.g, color.b, color.a - 0.035f);
             Vector3 sc = transform.localScale;
 			int h = Player.comboEff;
-            if (h > 100) h = 100;
-            sc.y=(h+40)/60f;
+            if (h > 75) h = 75;
+            sc.y=(h+40)* full.y/70f;
+            sc.x = (h + 175) * full.x / 200f;
             transform.localScale= sc;
         }
         if (_type == 1)

@@ -13,6 +13,7 @@ public class Player : MonoBehaviour {
     private bool isHasted = false;
     public static playerScore score;
     private float dt;
+    MapsLoad mapsLoad;
     private Score_Numbers_Instance combo_inst;
 //	private finalStatistics statistics;
     public static SpriteRenderer sprite;
@@ -20,40 +21,87 @@ public class Player : MonoBehaviour {
     public static speedEffect seff;
     public static BoxCollider2D _collider;
     int useCount=0;
-	public static int comboEff;
+    public int currentFruit;
+    float[] fruitTime;
+
+    public static int comboEff;
 
     private void Awake()
 
     {
 
-		combo_inst = Camera.main.GetComponent<Score_Numbers_Instance>();
+        mapsLoad = GameObject.Find("bgMusic").GetComponent<MapsLoad>();
+        
+        currentFruit = 0;
+        health.restart();
+        combo_inst = Camera.main.GetComponent<Score_Numbers_Instance>();
 //		statistics = Camera.main.GetComponent<finalStatistics> ();
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
-        speed = (max.x - min.x)/1.6f;
+        speed = (max.x - min.x)/1.8f;
         sprite = GetComponentInChildren<SpriteRenderer>();
         _collider = GetComponentInChildren<BoxCollider2D>();
         seff = Resources.Load<speedEffect>("Prefabs/speedEffect");
 		combo_inst.fruit_counter = 0;
-        
+        GameObject.Find("bgMusic").GetComponent<MapsLoad>().loadGame();
+        if (MapsLoad.DT) Time.timeScale = 1.14f;
+        else
+        {
+            Time.timeScale = 1f;
+        }
+        fruitTime = new float[mapsLoad.getFruitTime().Length];
+        fruitTime = mapsLoad.getFruitTime();
     }
 
     private void Update()
     {
         speedEffect();
-        sprite.transform.localScale = MapsLoad.scale*1.25f;
+        sprite.transform.localScale = MapsLoad.scale * 1.25f;
+        if (MapsLoad.AD == false)
+        {
+            Move();
+            if (Input.GetKeyDown(KeyCode.LeftArrow)) moveLeft();
+            if (Input.GetKeyUp(KeyCode.LeftArrow)) stopLeft();
+            if (Input.GetKeyDown(KeyCode.RightArrow)) moveRight();
+            if (Input.GetKeyUp(KeyCode.RightArrow)) stopRight();
+            if (Input.GetKeyDown(KeyCode.LeftShift)) startHaste();
+            if (Input.GetKeyUp(KeyCode.LeftShift)) stopHaste();
+        }
+        else
+        {
+
+            autoDrive();
+        }
+    }
+    public void autoDrive()
+    {
         Move();
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) moveLeft();
-        if (Input.GetKeyUp(KeyCode.LeftArrow)) stopLeft();
-        if (Input.GetKeyDown(KeyCode.RightArrow)) moveRight();
-        if (Input.GetKeyUp(KeyCode.RightArrow)) stopRight();
-        if (Input.GetKeyDown(KeyCode.LeftShift)) startHaste();
-        if (Input.GetKeyUp(KeyCode.LeftShift)) stopHaste();
+        float delta = Mathf.Abs(sprite.transform.position.x - fruitTime[currentFruit]);
+        if (delta < 0.3f && isHasted) stopHaste();
+  
+            if (fruitTime[currentFruit] < sprite.transform.position.x)
+            {
+                if (delta > speed / 7f) startHaste();
+                moveLeft();
+            }
+            if (fruitTime[currentFruit] > sprite.transform.position.x)
+            {
+                if (delta > speed / 7f) startHaste();
+                moveRight();
+            }
+        
+       
     }
     void OnTriggerEnter2D (Collider2D col)
     {
-        
-		comboEff = (int)combo_inst.fruit_counter;
+        if (MapsLoad.AD == true)
+        {
+            currentFruit++;
+            stopLeft();
+            stopRight();
+            if(isHasted)stopHaste();
+        }
+        comboEff = (int)combo_inst.fruit_counter;
 		finalStatistics.comboCounter = (int)combo_inst.fruit_counter;
 		finalStatistics.finalScore = score.score;
        
@@ -63,27 +111,28 @@ public class Player : MonoBehaviour {
         Effects eff;
 		if (f.type == Fruit.types.FRUIT)
         {
-			combo_inst.fruit_counter++;
+            health.add();
+            combo_inst.fruit_counter++;
 			combo_inst.Boom();
 			finalStatistics.big_fruits_counter++;
-            pos.y = transform.position.y + sprite.size.y * MapsLoad.scale.y/1.52f ;
-        eff = Instantiate(Resources.Load<Effects>("Prefabs/HitEffect"), pos, transform.rotation);
-        eff.initialize(eff, col.gameObject.GetComponentInChildren<SpriteRenderer>().color, (col.gameObject.transform.position.x - sprite.transform.position.x)*0.45f,0);
+            pos.y = transform.position.y + sprite.size.y * MapsLoad.scale.y/1.60f ;
+            eff = Instantiate(Resources.Load<Effects>("Prefabs/HitEffect"), pos, transform.rotation);
+            eff.initialize(eff, col.gameObject.GetComponentInChildren<SpriteRenderer>().color, (col.gameObject.transform.position.x - sprite.transform.position.x)*0.45f,0);
         }
 
 		if (f.type == Fruit.types.DROPx2) {
 			
 			finalStatistics.medium_fruits_counter++;
-
-		}
+            health.add();
+        }
 
 		if (f.type == Fruit.types.DROP) {
 		
 			finalStatistics.small_fruits_counter++;
+            health.add();
+        }
 
-		}
-
-        pos.y = transform.position.y + sprite.size.y * MapsLoad.scale.y / 1.52f;
+        pos.y = transform.position.y + sprite.size.y * MapsLoad.scale.y / 1.57f;
          eff = Instantiate(Resources.Load<Effects>("Prefabs/HitEffect 1"), pos, transform.rotation);
         eff.initialize(eff, col.gameObject.GetComponentInChildren<SpriteRenderer>().color, (col.gameObject.transform.position.x - sprite.transform.position.x) * 0.45f, 1);
         Destroy(col.gameObject);
@@ -166,7 +215,7 @@ public class Player : MonoBehaviour {
         useCount++;
         dt = Time.time;
         sprite.color = new Color(1, 1, 1, 0.5f);
-        speed *= 2;
+        speed *= 2.2f;
         //spriteLight();
         isHasted = true;
     }

@@ -18,7 +18,7 @@ public class beatEffect : MonoBehaviour {
         float s = scale.x*0.95f;
         transform.localScale = new Vector3(s, s, 1);
         menuOverlay m = Instantiate(Resources.Load<menuOverlay>("overlay"), transform.position, transform.rotation);
-        m.transform.localScale = fullScale / 55f;
+        m.transform.localScale = fullScale / 60f;
     }
 
 	void Update () {

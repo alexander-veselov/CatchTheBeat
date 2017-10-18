@@ -27,7 +27,7 @@ public class MapsLoad : MonoBehaviour
     [SerializeField]
     public int loadType;
     [SerializeField]
-    logo Logo;
+    public logo Logo;
     [SerializeField]
     AudioLoad audioLoad;
     Fruit fruit, drop, little;
@@ -42,6 +42,12 @@ public class MapsLoad : MonoBehaviour
     public static float CircleSize;
     public static float OverallDifficulty;
     public static float ApproachRate;
+    public static float PreviewTime;
+    public static float stars;
+    public static bool DT = false;
+    public static bool NF = false;
+    public static bool HD = false;
+    public static bool AD = false;
     private bool isPlaying = false;
     private String inputText,map;
     bool isNotPlaying = true;
@@ -70,9 +76,11 @@ public class MapsLoad : MonoBehaviour
         
     }
 
-    void fileParse()
+    public void fileParse()
     {
         input = File.OpenText(Application.persistentDataPath + '/' + MenuLoad.folder + '/' + MenuLoad.map);
+        for(int i=0; i<5; i++) input.ReadLine();
+        PreviewTime = float.Parse(input.ReadLine().Substring(13));
         while ((inputText = input.ReadLine()) != null)
         {
             if (inputText == "[Difficulty]") break;
@@ -86,6 +94,7 @@ public class MapsLoad : MonoBehaviour
         inputText = input.ReadLine();
         ApproachRate = float.Parse(inputText.Substring(13));
 
+        stars = HPDrainRate * CircleSize * HPDrainRate * ApproachRate / 360.0f;
         while ((inputText = input.ReadLine()) != null)
         {
             if (inputText == "[Events]") break;
@@ -96,7 +105,7 @@ public class MapsLoad : MonoBehaviour
         background = inputText.Split(',')[2];
     }
 
-    void bitLoad()
+    public void bitLoad()
     {
         while ((inputText = input.ReadLine()) != null)
         {
@@ -107,7 +116,17 @@ public class MapsLoad : MonoBehaviour
         {
             parse(inputText, ref bitmap);
         }
+        for(int i= bitmap.Count-2; i>=0; i--)
+        {
+            if (((fruit_point)bitmap[i]).time + 70 > ((fruit_point)bitmap[i + 1]).time)
+            {
+                if (i-1>=0)((fruit_point)bitmap[i-1]).type = Fruit.types.FRUIT;
+                bitmap.Remove(bitmap[i]);
+                
+            }
+        }
     }
+
 
     void settings()
     {
@@ -117,14 +136,20 @@ public class MapsLoad : MonoBehaviour
         Player.score = Instantiate(Resources.Load<playerScore>("Prefabs/Score"));
     }
 
+
     void parse(string str, ref ArrayList array)
     {
-        int x1 = 0, x2 = 0, y1 = 0, y2 = 0, time = 0, repeat = 0, length = 0;
+        int x1 = 0, x2 = 0, y1 = 0, y2 = 0, time = 0, repeat = 0;
+        float length = 0;
         string[] a = str.Split(',');
 
         x1 = int.Parse(a[0]);
         y1 = int.Parse(a[1]);
         time = int.Parse(a[2]);
+        if (time < PreviewTime && AudioLoad.fromBegin == false)
+        {
+            return;
+        }
         colors = new Color32[4];
         colors[0] = new Color32(158, 47, 255, 255);
         colors[1] = new Color32(255, 76, 185, 255);
@@ -144,7 +169,6 @@ public class MapsLoad : MonoBehaviour
                 a = str.Split(',');
                 repeat = int.Parse(a[6]);
                 length = int.Parse(a[7].Split('.')[0]);
-
                 for (int j = 0; j < repeat; j++)
                 {
                     float t = time + length * Fruit.speed / 8f * j;
@@ -157,7 +181,7 @@ public class MapsLoad : MonoBehaviour
 
     }
 
-    private void createSlider(int x1, int x2, int y1, int y2, float time, ref ArrayList array, Color32 color, int length)
+    private void createSlider(int x1, int x2, int y1, int y2, float time, ref ArrayList array, Color32 color, float length)
     {
         int len = (int)(length * Fruit.speed / 600f);
         len--;
@@ -186,34 +210,38 @@ public class MapsLoad : MonoBehaviour
         temp = map.Split('/');
         MenuLoad.folder = temp[temp.Length - 2];
         bitLoad();
+
     }
 
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
         MenuLoad.timeBegin = Time.time;
-        if (loadType == 0)
-        {
-            infLoad();
-            fileParse();
-            bgLoad(background.Substring(1, background.Length - 2));
-            bitLoad();
-            settings();
-        }
-        if (loadType == 1)
-        {
+        
+    
             loadRandomMap();
             fileParse();
             bitLoad();
-        }
         audioLoad.load();
+
+    }
+    public void loadGame()
+    {
+        infLoad();
+        fileParse();
+        bgLoad(background.Substring(1, background.Length - 2));
+        bitLoad();
+        settings();
+        MenuLoad.timeBegin = Time.time;
+        isPlaying = false;
     }
 
     void bgLoad(string s)
     {
         currentMap = s;
-        SpriteRenderer image = bg.GetComponentInChildren<SpriteRenderer>();
+        SpriteRenderer image = GameObject.Find("gameBg").GetComponentInChildren<SpriteRenderer>();
         String path = Application.persistentDataPath + '/' + MenuLoad.folder + '/' + s;
+        Debug.Log(path);
         WWW www = new WWW("file://" + path);
         Texture2D tex;
         tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
@@ -235,16 +263,18 @@ public class MapsLoad : MonoBehaviour
         if (isPlaying && !AudioLoad.audioSource.isPlaying && bitmap.Count == 0)
         {
             SceneManager.LoadScene("mapEnd");
+            loadType = 3;
         }
         if (!isPlaying && 1f <= (Time.time - MenuLoad.timeBegin) && !AudioLoad.audioSource.isPlaying && AudioLoad.audioSource.clip.isReadyToPlay && isNotPlaying)
         {
+            AudioLoad.audioSource.time = 0;
             AudioLoad.audioSource.Play();
             AudioLoad.audioSource.volume = 0.3f;
             isPlaying = true;
         }
         foreach (fruit_point f in bitmap)
         {
-            if (f.time <= ((Time.time - MenuLoad.timeBegin - 1f) * 1000))
+            if (f.time <= ((Time.time - MenuLoad.timeBegin - 0.5f) * 1000))
             {
 
 
@@ -274,11 +304,26 @@ public class MapsLoad : MonoBehaviour
         }
     }
 
-    void menuUpdate()
+    public float[] getFruitTime()
     {
+        float[] fruitTime = new float[bitmap.Count];
+        int i = 0;
         foreach (fruit_point f in bitmap)
         {
-            if (f.time <= ((Time.time - MenuLoad.timeBegin) * 1000))
+            
+            fruitTime[i++] = f.x * lenX / 512f - lenX / 2f;
+            Debug.Log(fruitTime[i-1]);
+        }
+        return fruitTime;
+    }
+    void menuUpdate()
+    {
+        float t = 0;
+        if (AudioLoad.fromBegin == false) t = PreviewTime;
+        foreach (fruit_point f in bitmap)
+        {
+            
+            if (f.time <= ((Time.time - MenuLoad.timeBegin-0.6f*Logo.type) * 1000) + t)
             {
                 Logo.beat();
                 bitmap.Remove(f);
@@ -295,6 +340,11 @@ public class MapsLoad : MonoBehaviour
         if (loadType == 1)
         {
             menuUpdate();
+        }
+        if (loadType == 2)
+        {
+            menuUpdate();
+            if (!AudioLoad.audioSource.isPlaying) AudioLoad.audioSource.Play();
         }
     }
 }

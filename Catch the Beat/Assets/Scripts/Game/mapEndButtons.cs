@@ -13,6 +13,7 @@ public class mapEndButtons : MonoBehaviour {
 	public void backToMenu()
     {
         SceneManager.LoadScene("menu");
+        GameObject.Find("bgMusic").GetComponent<MapsLoad>().loadType = 2;
     }
 	void Update () {
 		

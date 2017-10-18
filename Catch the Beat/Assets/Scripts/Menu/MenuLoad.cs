@@ -18,13 +18,17 @@ public class MenuLoad : MonoBehaviour {
     Image[] lists;
     ContentSizeFitter grid1;
     ContentSizeFitter grid2;
+    MenuSubItem[] subMaps;
     string[] directories;
     Vector2 touch;
+    string _name;
+
 
    private static int countOfMaps;
 
     void Start ()
     {
+        GameObject.Find("bgMusic").GetComponent<MapsLoad>().Logo = GameObject.Find("UI").GetComponent<logo>();
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
         directories = Directory.GetDirectories(Application.persistentDataPath);
         int len = Application.persistentDataPath.Length+1;
@@ -34,15 +38,8 @@ public class MenuLoad : MonoBehaviour {
 
 
         Vector2 pos = max;
-
-        Vector2 offset = gameObject.GetComponent<RectTransform>().offsetMax;
-        pos = offset;
-        pos.x = offset.x /8+ offset.x;
-        pos.y = pos.y / 2;
-        lists[0].transform.position = pos;
-        pos.x = 25;
-        pos.y = 0;
-        lists[0].rectTransform.offsetMax = pos;
+        lists[0].rectTransform.offsetMax = new Vector2(70f*max.x, -20f*max.y);
+        lists[0].rectTransform.offsetMin = new Vector2(Screen.currentResolution.width/3.5f,max.y*25f);
 
         grid1 = lists[1].GetComponentInChildren<ContentSizeFitter>();
         countOfMaps = 0;
@@ -51,7 +48,7 @@ public class MenuLoad : MonoBehaviour {
         {
             mapsNames[countOfMaps] = s;
             maps[countOfMaps] = Instantiate(Resources.Load<MenuItem>("Menu/MenuItem"), grid1.gameObject.transform);
-            maps[countOfMaps].initialize(s.Substring(len),this,cs[1]);
+            maps[countOfMaps].initialize(s.Substring(len),this,cs[0]);
             countOfMaps++;
         }
         for (int i=0; i<maps.Length; i++)
@@ -71,7 +68,7 @@ public class MenuLoad : MonoBehaviour {
         string path = Application.persistentDataPath + '/' + _name;
         int len = path.Length + 1;
         string[] directories = Directory.GetFiles(path, "*.osu");
-        MenuSubItem[] subMaps = new MenuSubItem[directories.Length];
+        subMaps = new MenuSubItem[directories.Length];
         MenuSubItem[] mp = grid1.gameObject.GetComponentsInChildren<MenuSubItem>();
         MenuItem[] mp1 = grid1.gameObject.GetComponentsInChildren<MenuItem>();
         for (int i = 0; i < mp.Length; i++)
@@ -82,7 +79,7 @@ public class MenuLoad : MonoBehaviour {
         {
             Destroy(mp1[i].gameObject);
         }
-        Canvas[] cs = GetComponentsInChildren<Canvas>();
+        Canvas cs = GetComponentInChildren<Canvas>();
         int j = 0;
         foreach (string s in this.directories)
         {
@@ -91,21 +88,34 @@ public class MenuLoad : MonoBehaviour {
                 for (int i = 0; i < directories.Length; i++)
                 {
                     subMaps[i] = Instantiate(Resources.Load<MenuSubItem>("Menu/MenuSubItem"), grid1.gameObject.transform);
-                    subMaps[i].initialize(directories[i].Substring(len, directories[i].Length - len - 4), this);
+                    subMaps[i].initialize(directories[i].Substring(len, directories[i].Length - len - 4), this,i);
                 }
             }
             else
             {
                 maps[j] = Instantiate(Resources.Load<MenuItem>("Menu/MenuItem"), grid1.gameObject.transform);
-                maps[j].initialize(s.Substring(Application.persistentDataPath.Length + 1), this, cs[1]);
+                maps[j].initialize(s.Substring(Application.persistentDataPath.Length + 1), this, cs);
             }
             j++;
         }
-       
+        selectDifficult(UnityEngine.Random.Range(0, subMaps.Length));
     }
-    public void selectMap(string _name)
+    public void selectDifficult(int pos)
+    {
+        MenuLoad.map = subMaps[pos].GetComponentInChildren<MenuSubItem>().mapName+".osu";
+        for (int i=0; i< subMaps.Length; i++)
+        {
+            subMaps[i].GetComponentInChildren<Image>().color = new Color32(23,79,118,128);
+            subMaps[i].GetComponent<RectTransform>().transform.localEulerAngles = new Vector3(0, 18, 0);
+        }
+        subMaps[pos].GetComponentInChildren<Image>().color = new Color(1,1,1,0.75f);
+        subMaps[pos].GetComponent<RectTransform>().transform.localEulerAngles = new Vector3(0, 0, 0);
+        _name = subMaps[pos].GetComponentInChildren<MenuSubItem>().mapName;
+    }
+    public void selectMap()
     {
         map = _name+".osu";
+        AudioLoad.fromBegin = true;
         SceneManager.LoadScene("scene");
     }
 

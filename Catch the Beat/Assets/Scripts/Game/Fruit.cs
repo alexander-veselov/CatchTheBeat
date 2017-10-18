@@ -56,7 +56,8 @@ public class Fruit : MonoBehaviour {
         transform.position = Vector3.MoveTowards(transform.position, transform.position - dir, speed * Time.deltaTime);
         if (transform.position.y < min.y)
         {
-			counter++;
+            health.sub();
+            counter++;
 			if (counter == 1) {
 				doDestroyFruit ();
 			}

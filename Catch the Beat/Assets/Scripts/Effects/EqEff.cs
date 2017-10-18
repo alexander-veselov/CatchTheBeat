@@ -15,9 +15,10 @@ public class EqEff : MonoBehaviour {
     private float volume = 30f;
     private Color color;
     [SerializeField]
-    AudioSource a;
+    AudioSource audioSource;
     void Start ()
     {
+        audioSource = GameObject.Find("bgMusic").GetComponentInChildren<AudioSource>();
         lines = new line[180];
         scales = new Vector3[180];
         sum = new float[m_NumSamples];
@@ -94,7 +95,7 @@ public class EqEff : MonoBehaviour {
 
     public void eqv()
     {
-        a.GetOutputData(m_SamplesL, 0);
+        audioSource.GetOutputData(m_SamplesL, 0);
 
 
         maxL = maxR = 0.0f;

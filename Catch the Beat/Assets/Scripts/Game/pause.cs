@@ -71,12 +71,21 @@ public class pause : MonoBehaviour {
             i.enabled = false;
         }
         isPaused = false;
-        Time.timeScale = 1;
+        if (MapsLoad.DT)
+        {
+            Time.timeScale = 1.14f;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
         
     }
     public void Quit()
     {
         pauseOff();
+        AudioLoad.audioSource.Play();
+        GameObject.Find("bgMusic").GetComponent<MapsLoad>().loadType = 2;
         SceneManager.LoadScene("menu");
     }
     public void Continue()
@@ -87,7 +96,9 @@ public class pause : MonoBehaviour {
     }
     public void Retry()
     {
+        health.restart();
         pauseOff();
+        AudioLoad.audioSource.time=0;
         SceneManager.LoadScene("scene");
     }
 }

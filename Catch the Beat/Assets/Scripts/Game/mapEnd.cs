@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class mapEnd : MonoBehaviour {
     Image[] panel;
 	void Start () {
+        AudioLoad.audioSource.time = MapsLoad.PreviewTime / 1000.0f;
         panel = GetComponentsInChildren<Image>();
         Vector2 max = new Vector2(Screen.width, Screen.height);
         max.x = max.y;
