@@ -64,9 +64,6 @@ D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\UnityEngine.Timeline.xml
 D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\UnityEngine.Analytics.xml
 D:\Instsoft\Unity\Catch the Beat\Temp\bin\Debug\UnityEngine.HoloLens.xml
 D:\Instsoft\Unity\Catch the Beat\obj\Debug\Assembly-CSharp.pdb
-D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
-D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\obj\Debug\Assembly-CSharp.dll
-D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\obj\Debug\Assembly-CSharp.pdb
 D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\Assembly-CSharp.dll
 D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\Assembly-CSharp.pdb
 D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\DOTween.dll
@@ -74,6 +71,7 @@ D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\DOTween43.dll
 D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\DOTween46.dll
 D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\DOTween50.dll
 D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\nunit.framework.dll
+D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\TextMeshPro-1.0.55.2017.1.0b12.dll
 D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\UnityEditor.dll
 D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\UnityEngine.Analytics.dll
 D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\UnityEngine.dll
@@ -101,3 +99,6 @@ D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\nunit.framework.xm
 D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\UnityEngine.Timeline.xml
 D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\UnityEngine.Analytics.xml
 D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\UnityEngine.HoloLens.xml
+D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\obj\Debug\Assembly-CSharp.dll
+D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\obj\Debug\Assembly-CSharp.pdb

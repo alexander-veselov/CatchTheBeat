@@ -49,7 +49,8 @@ public class MapsLoad : MonoBehaviour
     public static bool HD = false;
     public static bool AD = false;
     private bool isPlaying = false;
-    private String inputText,map;
+    public String inputText;
+	public String map;
     bool isNotPlaying = true;
     Vector2 min, max;
     private float lenX, lenY, maxY;
@@ -253,6 +254,7 @@ public class MapsLoad : MonoBehaviour
         var worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
         image.transform.localScale = new Vector2((float)worldScreenWidth / width, (float)worldScreenHeight / height);
         image.color = new Color(1, 1, 1, 0.25f);
+		currentMap = map;
     }
     public void restartMusic()
     {
