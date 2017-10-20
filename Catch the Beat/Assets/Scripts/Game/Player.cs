@@ -6,11 +6,12 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour {
 	
     [SerializeField]
-    private float speed;
+    public static float speed;
 
     private bool isMovingRight = false;
     private bool isMovingLeft = false;
     private bool isHasted = false;
+    bool isDoubleHasted = false;
     public static playerScore score;
     private float dt;
     MapsLoad mapsLoad;
@@ -18,11 +19,13 @@ public class Player : MonoBehaviour {
 //	private finalStatistics statistics;
     public static SpriteRenderer sprite;
     public Sprite s;
-    public static speedEffect seff;
+    public static speedEffect seff, hseff;
+    float hasteTime=0;
     public static BoxCollider2D _collider;
     int useCount=0;
     public int currentFruit;
     float[] fruitTime;
+    float minSpeed;
 
     public static int comboEff;
 
@@ -38,11 +41,13 @@ public class Player : MonoBehaviour {
 //		statistics = Camera.main.GetComponent<finalStatistics> ();
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
-        speed = (max.x - min.x)/1.8f;
+        minSpeed = (max.x - min.x)/1.4f;
+        speed = minSpeed;
         sprite = GetComponentInChildren<SpriteRenderer>();
         _collider = GetComponentInChildren<BoxCollider2D>();
         seff = Resources.Load<speedEffect>("Prefabs/speedEffect");
-		combo_inst.fruit_counter = 0;
+        hseff = Resources.Load<speedEffect>("Prefabs/hastedEffect");
+        combo_inst.fruit_counter = 0;
         GameObject.Find("bgMusic").GetComponent<MapsLoad>().loadGame();
         if (MapsLoad.DT) Time.timeScale = 1.14f;
         else
@@ -77,16 +82,18 @@ public class Player : MonoBehaviour {
     {
         Move();
         float delta = Mathf.Abs(sprite.transform.position.x - fruitTime[currentFruit]);
-        if (delta < 0.3f && isHasted) stopHaste();
-  
+        Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
+        max.x /= 23f;
+        if (delta < max.x && isHasted) stopHaste();
+   
             if (fruitTime[currentFruit] < sprite.transform.position.x)
             {
-                if (delta > speed / 7f) startHaste();
+                if (delta > speed / 7f && !isHasted) startHaste();
                 moveLeft();
             }
             if (fruitTime[currentFruit] > sprite.transform.position.x)
             {
-                if (delta > speed / 7f) startHaste();
+                if (delta > speed / 7f && !isHasted) startHaste();
                 moveRight();
             }
         
@@ -96,10 +103,16 @@ public class Player : MonoBehaviour {
     {
         if (MapsLoad.AD == true)
         {
+            
             currentFruit++;
             stopLeft();
             stopRight();
             if(isHasted)stopHaste();
+        }
+        isDoubleHasted = col.gameObject.GetComponent<Fruit>().isHasted;
+        if (isDoubleHasted)
+        {
+            hasteTime = Time.time;
         }
         comboEff = (int)combo_inst.fruit_counter;
 		finalStatistics.comboCounter = (int)combo_inst.fruit_counter;
@@ -201,12 +214,20 @@ public class Player : MonoBehaviour {
 
     void speedEffect()
     {
-        
+        if (Time.time - hasteTime > 0.1f) isDoubleHasted = false;
         if (isHasted && useCount>0)
         {
             sprite.color = new Color(1, 1, 1, sprite.color.a-0.03f);
-            speedEffect eff = Instantiate(seff, transform.position, transform.rotation);
-            eff.setTransparency(sprite, 0.8f);
+            if (isDoubleHasted)
+            {
+                speedEffect eff = Instantiate(hseff, transform.position, transform.rotation);
+                eff.setTransparency(sprite, 0.8f);
+            }
+            else
+            {
+                speedEffect eff = Instantiate(seff, transform.position, transform.rotation);
+                eff.setTransparency(sprite, 0.8f);
+            }
             
         } else sprite.color = new Color(1, 1, 1, sprite.color.a + 0.03f);
     }
@@ -215,7 +236,14 @@ public class Player : MonoBehaviour {
         useCount++;
         dt = Time.time;
         sprite.color = new Color(1, 1, 1, 0.5f);
-        speed *= 2.2f;
+        if (isDoubleHasted)
+        {
+            speed = minSpeed * 4f;
+        }
+        else
+        {
+            speed = minSpeed * 2f;
+        }
         //spriteLight();
         isHasted = true;
     }
@@ -223,7 +251,7 @@ public class Player : MonoBehaviour {
     public void stopHaste()
     {
         useCount--;
-        speed *= 0.5f;
+        speed = minSpeed;
         sprite.color = new Color(1, 1, 1, 1f);
         //spriteDark();
         isHasted = false;

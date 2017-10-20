@@ -24,9 +24,7 @@ public class Score_Numbers_Instance : MonoBehaviour
 
 	SpriteRenderer[] nums_to_disp;
 	SpriteRenderer[] back_nums;
-    Sprite _null;
-
-    Vector3 pos;
+	Vector3 pos;
 
 	SpriteRenderer playerSprite;
 	// Use this for initialization
@@ -44,9 +42,8 @@ public class Score_Numbers_Instance : MonoBehaviour
 
 			counter++;
 		}
-        _null = Resources.Load<Sprite>("Numbers_2/null");
 
-    }
+	}
 	void Start()
 	{
 		s_for_position = "0";
@@ -72,8 +69,8 @@ public class Score_Numbers_Instance : MonoBehaviour
 			pos = GameObject.Find ("Player").transform.position;
 			pos.y = 0f;
 
-			//		if (fruit_counter > 0)
-			//		{
+//		if (fruit_counter > 0)
+//		{
 			if (s_for_position.Length == 1) {
 				pos.x -= playerSprite.size.x / 3.0f;
 
@@ -83,15 +80,11 @@ public class Score_Numbers_Instance : MonoBehaviour
 
 			}
 			if (s_for_position.Length == 3) {
-
+				
 				pos.x -= playerSprite.size.x / 1.51f;
 			}
-			if (s_for_position.Length == 4) {
 
-				pos.x -= playerSprite.size.x / 1.1f;
-			}
-
-			//		}
+//		}
 
 			anim.transform.position = pos;
 			main.transform.position = pos;
@@ -109,7 +102,6 @@ public class Score_Numbers_Instance : MonoBehaviour
 				}
 
 			}
-		
 		}
 	}
 
@@ -117,15 +109,13 @@ public class Score_Numbers_Instance : MonoBehaviour
 
 	public void Boom()
 	{
-        //StopCoroutine (Animation (string_for_convertation, nums_to_disp, back_nums));
-        
 
-        doInterruptAnimation ();
-        Animation(string_for_convertation, nums_to_disp, back_nums);
-//        StartCoroutine (Animation(string_for_convertation,nums_to_disp,back_nums));
+		doInterruptAnimation (ref nums_to_disp,ref back_nums);
+
+		StartCoroutine (Animation(string_for_convertation,nums_to_disp,back_nums));
 
 
-        foreach (SpriteRenderer spr in back_nums)
+		foreach (SpriteRenderer spr in back_nums)
 		{
 
 			spr.DOFade(0, 10f);
@@ -136,7 +126,7 @@ public class Score_Numbers_Instance : MonoBehaviour
 	}
 
 
-	void Animation(string string_for_convertation, SpriteRenderer[] nums_to_disp, SpriteRenderer[] back_nums) {
+	IEnumerator Animation(string string_for_convertation, SpriteRenderer[] nums_to_disp, SpriteRenderer[] back_nums) {
 
 		int i = 0;
 
@@ -162,7 +152,7 @@ public class Score_Numbers_Instance : MonoBehaviour
 					nums_to_disp [g].sprite = sprites [Convert.ToInt32 (Convert.ToString (string_for_convertation [g]))];
 					nums_to_disp [g].transform.DOScale (transform.localScale + new Vector3 (1.7f, 1.7f, 1.7f), 0.3f).SetEase (Ease.OutFlash);
 					nums_to_disp [g].DOFade (0, 0.6f).SetEase (Ease.OutFlash);
-			
+
 				}
 
 			} else {
@@ -178,42 +168,39 @@ public class Score_Numbers_Instance : MonoBehaviour
 
 		}
 
-//		yield return myTweener.WaitForCompletion ();
-//
-//
-//
-//		for (int ko = 0; ko < string_for_convertation.Length; ko++) {
-//
-//			back_nums [ko].sprite = sprites [Convert.ToInt32 (Convert.ToString (string_for_convertation [ko]))];
-//
-//		}
+		yield return myTweener.WaitForCompletion ();
+
+		for (int ko = 0; ko < string_for_convertation.Length; ko++) {
+
+			back_nums [ko].sprite = sprites [Convert.ToInt32 (Convert.ToString (string_for_convertation [ko]))];
+		}
+
 
 	}
 
 
 	public void docleanCombo()
 	{
-		
-//		doInterruptAnimation ();
-
 		s_for_position = "0";
+		doInterruptAnimation (ref nums_to_disp,ref back_nums);
+
 		fruit_counter = 0;
 
+		nums_to_disp[0].sprite = sprites[0];
+		back_nums[0].sprite = sprites[0];
 
-//		nums_to_disp[0].sprite = sprites[0];
-//		back_nums[0].sprite = sprites[0];
-//
-//
-//		nums_to_disp[0].transform.DOScale(transform.localScale + new Vector3(1.7f, 1.7f, 1.7f), 0.3f).SetEase(Ease.OutFlash);
-//
-//		nums_to_disp[0].DOFade(0, 0.6f).SetEase(Ease.OutFlash);
-//
-//		back_nums[0].transform.DOPunchScale(new Vector3(0.8f, 0.8f, 0.8f), 0.7f, 1, 0.5f);
 
-		for (int i = 0; i < nums_to_disp.Length; i++) {
+		nums_to_disp[0].transform.DOScale(transform.localScale + new Vector3(1.7f, 1.7f, 1.7f), 0.3f).SetEase(Ease.OutFlash);
+
+		nums_to_disp[0].DOFade(0, 0.6f).SetEase(Ease.OutFlash);
+
+		back_nums[0].transform.DOPunchScale(new Vector3(0.8f, 0.8f, 0.8f), 0.7f, 1, 0.5f);
+
+		for (int i = 1; i < nums_to_disp.Length; i++) {
 
 			nums_to_disp[i].sprite = null;
 			back_nums[i].sprite = null;
+
 
 		}
 
@@ -221,10 +208,10 @@ public class Score_Numbers_Instance : MonoBehaviour
 
 	}
 
-	public void doInterruptAnimation() {
+	public void doInterruptAnimation(ref SpriteRenderer[] nums_to_disp,ref SpriteRenderer[] back_nums) {
 
 
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < nums_to_disp.Length; i++)
 		{
 
 			nums_to_disp[i].DOKill();

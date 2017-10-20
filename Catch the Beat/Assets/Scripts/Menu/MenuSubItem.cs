@@ -11,15 +11,13 @@ public class MenuSubItem : MonoBehaviour {
     Text[] labels;
     MenuLoad load;
     SpriteRenderer[] stars;
-	public static string[] song;
-	public static string song_name;
     public void initialize(string s, MenuLoad ml, int _num)
     {
         num = _num;
         load = ml;
         mapName = s;
         labels = GetComponentsInChildren<Text>();
-        song = mapName.Split('-');
+        string[] song = mapName.Split('-');
         if (song.Length == 1)
         {
             Destroy(gameObject);
@@ -34,7 +32,6 @@ public class MenuSubItem : MonoBehaviour {
     public void selectMap()
     {
         GameObject.Find("Menu").GetComponent<MenuLoad>().selectDifficult(num);
-		song_name = mapName;
 
     }
 

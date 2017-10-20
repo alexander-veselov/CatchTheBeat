@@ -1885,7 +1885,7 @@ Prefab:
     - target: {fileID: 61120113550590648, guid: be44cf67f5306944395d0bb166d1a369,
         type: 2}
       propertyPath: m_Offset.y
-      value: 1.35
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 1416092487871710, guid: be44cf67f5306944395d0bb166d1a369, type: 2}
       propertyPath: m_StaticEditorFlags
@@ -1898,7 +1898,7 @@ Prefab:
     - target: {fileID: 61120113550590648, guid: be44cf67f5306944395d0bb166d1a369,
         type: 2}
       propertyPath: m_Size.y
-      value: 0.3
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4812793513777540, guid: be44cf67f5306944395d0bb166d1a369, type: 2}
       propertyPath: m_LocalPosition.z

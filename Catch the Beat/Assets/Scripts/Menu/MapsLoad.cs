@@ -18,9 +18,14 @@ public class MapsLoad : MonoBehaviour
             color = c;
             time = Time;
         }
+        public void setHasted()
+        {
+            isHasted = true;
+        }
         public int time;
         public Fruit.types type;
         public Color32 color;
+        public bool isHasted = false;
         public int x;
         public int y;
     }
@@ -49,8 +54,7 @@ public class MapsLoad : MonoBehaviour
     public static bool HD = false;
     public static bool AD = false;
     private bool isPlaying = false;
-    public String inputText;
-	public String map;
+    private String inputText,map;
     bool isNotPlaying = true;
     Vector2 min, max;
     private float lenX, lenY, maxY;
@@ -67,7 +71,7 @@ public class MapsLoad : MonoBehaviour
         min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
         max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
 
-        lenX = max.x - min.x - 3f * Player.sprite.size.x;
+        lenX = max.x - min.x - 3.5f * Player.sprite.size.x;
         maxY = max.y;
 
         fruit = Resources.Load<Fruit>("Prefabs/fruit");
@@ -119,11 +123,22 @@ public class MapsLoad : MonoBehaviour
         }
         for(int i= bitmap.Count-2; i>=0; i--)
         {
-            if (((fruit_point)bitmap[i]).time + 70 > ((fruit_point)bitmap[i + 1]).time)
+            if (((fruit_point)bitmap[i]).time + 75 > ((fruit_point)bitmap[i + 1]).time)
             {
                 if (i-1>=0)((fruit_point)bitmap[i-1]).type = Fruit.types.FRUIT;
                 bitmap.Remove(bitmap[i]);
                 
+            }
+        }
+        for(int i=0; i< bitmap.Count - 2; i++)
+        {
+            float dx = Math.Abs(((fruit_point)bitmap[i]).x - ((fruit_point)bitmap[i + 1]).x);
+            float dt = Math.Abs(((fruit_point)bitmap[i]).time - ((fruit_point)bitmap[i + 1]).time);
+            dx = dx * lenX / 512f;
+            dt /= 1000f;
+            if (dx/dt > 1.5f*Player.speed)
+            {
+                ((fruit_point)bitmap[i]).setHasted();
             }
         }
     }
@@ -254,7 +269,6 @@ public class MapsLoad : MonoBehaviour
         var worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
         image.transform.localScale = new Vector2((float)worldScreenWidth / width, (float)worldScreenHeight / height);
         image.color = new Color(1, 1, 1, 0.25f);
-		currentMap = map;
     }
     public void restartMusic()
     {
@@ -286,18 +300,18 @@ public class MapsLoad : MonoBehaviour
                 if (f.type == Fruit.types.FRUIT)
                 {
                     Fruit newFruit = Instantiate(fruit, pos, transform.rotation);
-                    newFruit.initialize(f.color, f.type);
+                    newFruit.initialize(f.color, f.type,f.isHasted);
                 }
                 if (f.type == Fruit.types.DROP)
                 {
                     Fruit newDrop = Instantiate(drop, pos, transform.rotation);
-                    newDrop.initialize(f.color, f.type);
+                    newDrop.initialize(f.color, f.type,false);
                     newDrop.transform.localScale = scale;
                 }
                 if (f.type == Fruit.types.DROPx2)
                 {
                     Fruit newDrop = Instantiate(little, pos, transform.rotation);
-                    newDrop.initialize(f.color, f.type);
+                    newDrop.initialize(f.color, f.type,false);
                     newDrop.transform.localScale = scale;
                 }
                 bitmap.Remove(f);
@@ -314,7 +328,6 @@ public class MapsLoad : MonoBehaviour
         {
             
             fruitTime[i++] = f.x * lenX / 512f - lenX / 2f;
-            Debug.Log(fruitTime[i-1]);
         }
         return fruitTime;
     }

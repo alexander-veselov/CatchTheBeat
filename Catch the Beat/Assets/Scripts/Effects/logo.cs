@@ -67,7 +67,6 @@ public class logo : MonoBehaviour {
         GameObject.Find("bgMusic").GetComponent<AudioLoad>().stop();
         GameObject.Find("bgMusic").GetComponent<MapsLoad>().loadType = 0;
         GameObject.Find("Menu").GetComponent<MenuLoad>().selectMap();
-		finalStatistics.ZeroStats ();
 
         MenuLoad.timeBegin = Time.time;
     }

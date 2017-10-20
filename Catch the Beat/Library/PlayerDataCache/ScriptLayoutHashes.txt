@@ -126,7 +126,7 @@ a7d3c6c6948d99dd4116e659ddcf5ac4 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 8409048de935d52569d9ea6a761e33d0 Assembly-CSharp.dll:.logo
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.Effects
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.MobileControlRig
-7a75edc83a9f267c790ac1425865847a Assembly-CSharp.dll:.Fruit
+1184b49bf95c9ef72177b499741ae840 Assembly-CSharp.dll:.Fruit
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.mapEndButtons
 fc1e0f4d8439d9928083474691511a13 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
@@ -163,6 +163,6 @@ bb7de955d5395fecd6e27a8866f1f119 Assembly-CSharp.dll:.playerScore
 44e7dd2c847d20ccc76316d5843da831 Assembly-CSharp.dll:.EqEff
 a8796ecdc9d5c260bbe32f30c4b10708 Assembly-CSharp-firstpass.dll:UnityStandardAssets.CrossPlatformInput.TouchPad
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.pause
-e61dd0c3767463f924d787f76be36195 Assembly-CSharp.dll:.Player
+371e4284e4cb807038fc13e62666e4cb Assembly-CSharp.dll:.Player
 80f13b430114d4c7abc03b0ffd090f2b Assembly-CSharp.dll:.Score_Numbers_Instance
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.speedEffect

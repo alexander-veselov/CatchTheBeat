@@ -21,11 +21,12 @@ public class Fruit : MonoBehaviour {
     private static Sprite[] fruitSprites;
     private Color32 color;
 	byte counter = 0;
+    public bool isHasted = false;
     void Awake()
     {
 
-
-		combo_inst = Camera.main.GetComponent<Score_Numbers_Instance>();
+        sprites = GetComponentsInChildren<SpriteRenderer>();
+        combo_inst = Camera.main.GetComponent<Score_Numbers_Instance>();
 //		statistics = Camera.main.GetComponent<finalStatistics>();
     }
 
@@ -36,15 +37,17 @@ public class Fruit : MonoBehaviour {
         fruitSprites[1] = Resources.Load<Sprite>("Fruit sprites/pear");
         fruitSprites[2] = Resources.Load<Sprite>("Fruit sprites/orange");
         fruitSprites[3] = Resources.Load<Sprite>("Fruit sprites/grape");
-        sprites = GetComponentsInChildren<SpriteRenderer>();
+        
         sprites[0].color = color;
         if (type == types.FRUIT)
         {
             setRandomFruit();
         }     
     }
-    public void initialize(Color32 col, types t)
+    public void initialize(Color32 col, types t, bool hasted)
     {
+        isHasted = hasted;
+        if (isHasted) sprites[2].color = new Color(1, 1, 1, 0.7f);
         color = col;
         type = t;
     }
