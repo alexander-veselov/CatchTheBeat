@@ -18,7 +18,7 @@ public class mapEnd : MonoBehaviour {
 	public SpriteRenderer[] fruits;
 	Tweener tw;
 	void Start () {
-        GameObject.Find("sounds").GetComponent<sounds>().MapEnd();
+//        GameObject.Find("sounds").GetComponent<sounds>().MapEnd();
         //        AudioLoad.audioSource.time = MapsLoad.PreviewTime / 1000.0f;
         fruits = GameObject.Find("FSprites").GetComponentsInChildren<SpriteRenderer> ();
 
@@ -71,9 +71,9 @@ public class mapEnd : MonoBehaviour {
 
 		text[1].transform.localScale = new Vector2(panel[1].transform.localScale.x /1.3f ,panel[1].transform.localScale.x/1.3f);
 		text[1].text = Convert.ToString(finalStatistics.maxCombo);
-	
+
 		if (text[1].text.Length == 3) {
-			results [4].transform.position = new Vector3 (p.x - 1.05f, p.y + 1.7f, 0);
+			results [4].transform.position = new Vector3 (p.x - 1.023f, p.y + 1.7f, 0);
 		}
 		if (text[1].text.Length == 1) {
 			results [4].transform.position = new Vector3 (p.x - 1.45f, p.y + 1.7f, 0);
@@ -293,8 +293,8 @@ public class mapEnd : MonoBehaviour {
 		
 		Vector3 p = Camera.main.ViewportToWorldPoint(new Vector2(1, 0));
 	
-		panel [3].transform.position = new Vector2 (p.x - 1.5f,p.y + 2.0f);
-		GameObject.Find ("retryButton").GetComponent<RectTransform> ().sizeDelta =  new Vector2 (panel [1].transform.localScale.x*59f , panel [1].transform.localScale.x *59f);
+		panel [3].transform.position = new Vector2 (p.x - 1.7f,p.y + 2.0f);
+		GameObject.Find ("retryButton").GetComponent<RectTransform> ().sizeDelta =  new Vector2 (panel [1].transform.localScale.x*130f , panel [1].transform.localScale.x *43f);
 
 	
 	}

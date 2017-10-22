@@ -162,3 +162,4 @@ D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\UnityEngine.HoloLe
 D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\obj\Debug\Assembly-CSharp-firstpass.csprojResolveAssemblyReference.cache
 D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\obj\Debug\Assembly-CSharp-firstpass.dll
 D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\obj\Debug\Assembly-CSharp-firstpass.pdb
+D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\TextMeshPro-1.0.55.2017.1.0b12.dll

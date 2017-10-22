@@ -101,3 +101,4 @@ D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\nunit.framework.xm
 D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\UnityEngine.Timeline.xml
 D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\UnityEngine.Analytics.xml
 D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\UnityEngine.HoloLens.xml
+D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\TextMeshPro-1.0.55.2017.1.0b12.dll

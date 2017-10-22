@@ -119,3 +119,5 @@ D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\UnityEditor.iOS.Ex
 D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\obj\Debug\Assembly-CSharp-Editor-firstpass.csprojResolveAssemblyReference.cache
 D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\obj\Debug\Assembly-CSharp-Editor-firstpass.dll
 D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\obj\Debug\Assembly-CSharp-Editor-firstpass.pdb
+D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\TextMeshPro-1.0.55.2017.1.0b12-Editor.dll
+D:\Instsoft\GitHub\catchTheBeat\Catch the Beat\Temp\bin\Debug\TextMeshPro-1.0.55.2017.1.0b12.dll

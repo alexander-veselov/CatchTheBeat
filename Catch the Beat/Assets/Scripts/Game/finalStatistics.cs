@@ -11,7 +11,7 @@ public class finalStatistics : MonoBehaviour {
 	public static int medium_fruits_counter = 0;
 
 	public static int comboCounter = 0;
-	public static int maxCombo = 114 ;
+	public static int maxCombo = 0;
 
 	public static long finalScore = 0;
 
