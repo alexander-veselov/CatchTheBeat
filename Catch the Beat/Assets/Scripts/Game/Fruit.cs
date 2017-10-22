@@ -27,7 +27,7 @@ public class Fruit : MonoBehaviour {
 
         sprites = GetComponentsInChildren<SpriteRenderer>();
         combo_inst = Camera.main.GetComponent<Score_Numbers_Instance>();
-//		statistics = Camera.main.GetComponent<finalStatistics>();
+        //		statistics = Camera.main.GetComponent<finalStatistics>();
     }
 
     private void Start()
@@ -59,6 +59,7 @@ public class Fruit : MonoBehaviour {
         transform.position = Vector3.MoveTowards(transform.position, transform.position - dir, speed * Time.deltaTime);
         if (transform.position.y < min.y)
         {
+
             health.sub();
             counter++;
 			if (counter == 1) {
@@ -92,6 +93,6 @@ public class Fruit : MonoBehaviour {
 
 		Destroy(this.gameObject, .2f);
 		finalStatistics.missed_fruits++;
-		combo_inst.docleanCombo();
+		if (type == types.FRUIT) combo_inst.docleanCombo();
 	}
 }

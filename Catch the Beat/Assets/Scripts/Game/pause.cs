@@ -29,6 +29,7 @@ public class pause : MonoBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                GameObject.Find("sounds").GetComponent<sounds>().Pause();
                 GameObject.Find("pauseBG").GetComponent<SpriteRenderer>().enabled= true;
                 foreach (Image i in buttons)
                 {
@@ -41,9 +42,11 @@ public class pause : MonoBehaviour {
         } else
         if (isPaused)
         {
-
+            //GameObject.Find("sounds").GetComponent<sounds>().PauseOff();
+            
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                GameObject.Find("sounds").GetComponent<sounds>().MenuClick();
                 AudioLoad.audioSource.Play();
                 GameObject.Find("pauseBG").GetComponent<SpriteRenderer>().enabled = false;
                 pauseOff();
@@ -83,22 +86,27 @@ public class pause : MonoBehaviour {
     }
     public void Quit()
     {
+        GameObject.Find("sounds").GetComponent<sounds>().MenuClick();
         pauseOff();
         AudioLoad.audioSource.Play();
-        GameObject.Find("bgMusic").GetComponent<MapsLoad>().loadType = 2;
+        GameObject.Find("mapScript").GetComponent<MapsLoad>().loadType = 2;
         SceneManager.LoadScene("menu");
     }
     public void Continue()
     {
+        GameObject.Find("sounds").GetComponent<sounds>().MenuClick();
         GameObject.Find("pauseBG").GetComponent<SpriteRenderer>().enabled = false;
         AudioLoad.audioSource.Play();
         pauseOff();
     }
     public void Retry()
     {
+        GameObject.Find("sounds").GetComponent<sounds>().MenuClick();
         health.restart();
         pauseOff();
         AudioLoad.audioSource.time=0;
+        GameObject.Find("mapScript").GetComponent<MapsLoad>().fileParse();
+        GameObject.Find("mapScript").GetComponent<MapsLoad>().bitLoad();
         SceneManager.LoadScene("scene");
     }
 }

@@ -28,7 +28,7 @@ public class MenuLoad : MonoBehaviour {
 
     void Start ()
     {
-        GameObject.Find("bgMusic").GetComponent<MapsLoad>().Logo = GameObject.Find("UI").GetComponent<logo>();
+        GameObject.Find("mapScript").GetComponent<MapsLoad>().Logo = GameObject.Find("UI").GetComponent<logo>();
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
         directories = Directory.GetDirectories(Application.persistentDataPath);
         int len = Application.persistentDataPath.Length+1;
@@ -39,7 +39,7 @@ public class MenuLoad : MonoBehaviour {
 
         Vector2 pos = max;
         lists[0].rectTransform.offsetMax = new Vector2(70f*max.x, -20f*max.y);
-        lists[0].rectTransform.offsetMin = new Vector2(Screen.currentResolution.width/3.5f,max.y*25f);
+        lists[0].rectTransform.offsetMin = new Vector2(Screen.width/2f,max.y*25f);
 
         grid1 = lists[1].GetComponentInChildren<ContentSizeFitter>();
         countOfMaps = 0;
@@ -105,7 +105,7 @@ public class MenuLoad : MonoBehaviour {
         MenuLoad.map = subMaps[pos].GetComponentInChildren<MenuSubItem>().mapName+".osu";
         for (int i=0; i< subMaps.Length; i++)
         {
-            subMaps[i].GetComponentInChildren<Image>().color = new Color32(23,79,118,128);
+            subMaps[i].GetComponentInChildren<Image>().color = MenuItem.averageColor;
             subMaps[i].GetComponent<RectTransform>().transform.localEulerAngles = new Vector3(0, 18, 0);
         }
         subMaps[pos].GetComponentInChildren<Image>().color = new Color(1,1,1,0.75f);
@@ -114,8 +114,11 @@ public class MenuLoad : MonoBehaviour {
     }
     public void selectMap()
     {
+        GameObject.Find("sounds").GetComponent<sounds>().MenuHit();
         map = _name+".osu";
         AudioLoad.fromBegin = true;
+        GameObject.Find("mapScript").GetComponent<MapsLoad>().fileParse();
+        GameObject.Find("mapScript").GetComponent<MapsLoad>().bitLoad();
         SceneManager.LoadScene("scene");
     }
 

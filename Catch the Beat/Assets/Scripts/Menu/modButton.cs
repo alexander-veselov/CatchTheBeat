@@ -40,18 +40,19 @@ public class modButton : MonoBehaviour {
             isActive = true;
         }
         normalScale = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
-        normalScale.x /= 25f;
-        normalScale.y = normalScale.x;
+        normalScale.y /= 12f;
+        normalScale.x = normalScale.y;
         transform.localScale = normalScale;
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
-        max.x *= 3+ (int)type * max.x/1.5f;
-        max.y *= 20f;
+        max.x *= 3+ (int)type * max.x/1.4f;
+        max.y *= 25f;
         transform.position = max;
         incScale = normalScale * 1.1f;
     }
 	
     public void change()
     {
+        GameObject.Find("sounds").GetComponent<sounds>().ModClap();
         if (isActive)
         {
             isActive = false;

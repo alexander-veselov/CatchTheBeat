@@ -18,8 +18,9 @@ public class mapEnd : MonoBehaviour {
 	public SpriteRenderer[] fruits;
 	Tweener tw;
 	void Start () {
-//        AudioLoad.audioSource.time = MapsLoad.PreviewTime / 1000.0f;
-		fruits = GameObject.Find("FSprites").GetComponentsInChildren<SpriteRenderer> ();
+        GameObject.Find("sounds").GetComponent<sounds>().MapEnd();
+        //        AudioLoad.audioSource.time = MapsLoad.PreviewTime / 1000.0f;
+        fruits = GameObject.Find("FSprites").GetComponentsInChildren<SpriteRenderer> ();
 
 		colors = new Color32[4];
 		colors[0] = new Color32(158, 47, 255, 255);
@@ -365,10 +366,15 @@ public class mapEnd : MonoBehaviour {
 	public void retryButton_On_Click() {
 
 		health.restart ();
-		SceneManager.LoadScene ("scene");
+        AudioLoad.fromBegin = true;
+        AudioLoad.audioSource.time = 0;
+        GameObject.Find("mapScript").GetComponent<MapsLoad>().fileParse();
+        GameObject.Find("mapScript").GetComponent<MapsLoad>().bitLoad();
+        GameObject.Find("mapScript").GetComponent<MapsLoad>().settings();
+        GameObject.Find("sounds").GetComponent<sounds>().MapEndOff();
+        SceneManager.LoadScene ("scene");
 
-
-	}
+    }
     void Update () {
 		
 	}

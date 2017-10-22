@@ -80,6 +80,7 @@
      <Compile Include="Assets\Scripts\Menu\menuOverlay.cs" />
      <Compile Include="Assets\Scripts\Menu\MenuSubItem.cs" />
      <Compile Include="Assets\Scripts\Menu\modButton.cs" />
+     <Compile Include="Assets\Scripts\Menu\sounds.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples\Scripts\Benchmark01_UGUI.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples\Scripts\Benchmark02.cs" />

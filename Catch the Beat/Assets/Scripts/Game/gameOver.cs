@@ -38,6 +38,7 @@ public class gameOver : MonoBehaviour {
     }
     public void endGame()
     {
+    
         isOver = true;
         GameObject.Find("endBG").GetComponent<SpriteRenderer>().enabled = true;
         foreach (Image i in buttons)
@@ -45,6 +46,7 @@ public class gameOver : MonoBehaviour {
             i.enabled = true;
         }
         AudioLoad.audioSource.Pause();
+
     }
     void pauseOff()
     {
@@ -57,13 +59,15 @@ public class gameOver : MonoBehaviour {
     }
     public void Quit()
     {
+        GameObject.Find("sounds").GetComponent<sounds>().MenuClick();
         pauseOff();
         AudioLoad.audioSource.Play();
-        GameObject.Find("bgMusic").GetComponent<MapsLoad>().loadType = 2;
+        GameObject.Find("mapScript").GetComponent<MapsLoad>().loadType = 2;
         SceneManager.LoadScene("menu");
     }
     public void Retry()
     {
+        GameObject.Find("sounds").GetComponent<sounds>().MenuClick();
         health.restart();
         pauseOff();
         AudioLoad.audioSource.time = 0;

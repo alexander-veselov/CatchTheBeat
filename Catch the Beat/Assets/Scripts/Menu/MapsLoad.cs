@@ -68,8 +68,7 @@ public class MapsLoad : MonoBehaviour
         colors[2] = new Color32(36, 166, 101, 255);
         colors[3] = new Color32(46, 132, 164, 255);
 
-        min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
-        max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
+       
 
         lenX = max.x - min.x - 3.5f * Player.sprite.size.x;
         maxY = max.y;
@@ -112,6 +111,7 @@ public class MapsLoad : MonoBehaviour
 
     public void bitLoad()
     {
+        
         while ((inputText = input.ReadLine()) != null)
         {
             if (inputText == "[HitObjects]") break;
@@ -136,18 +136,19 @@ public class MapsLoad : MonoBehaviour
             float dt = Math.Abs(((fruit_point)bitmap[i]).time - ((fruit_point)bitmap[i + 1]).time);
             dx = dx * lenX / 512f;
             dt /= 1000f;
-            if (dx/dt > 1.5f*Player.speed)
+            if (dx/dt > 2f*Player.speed)
             {
                 ((fruit_point)bitmap[i]).setHasted();
             }
         }
+        scale = new Vector3(0.6f + 1 / CircleSize, 0.6f + 1 / CircleSize, 1);
     }
 
 
-    void settings()
+    public void settings()
     {
-        scale = new Vector3(0.4f + 1 / CircleSize, 0.4f + 1 / CircleSize, 1);
-        Fruit.speed = ApproachRate * max.y / 2.6f;
+        
+        Fruit.speed = ApproachRate * max.y / 2f;
         fruit.transform.localScale = scale;
         Player.score = Instantiate(Resources.Load<playerScore>("Prefabs/Score"));
     }
@@ -233,9 +234,10 @@ public class MapsLoad : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         MenuLoad.timeBegin = Time.time;
-        
-    
-            loadRandomMap();
+        min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
+        max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
+
+        loadRandomMap();
             fileParse();
             bitLoad();
         audioLoad.load();
@@ -269,7 +271,12 @@ public class MapsLoad : MonoBehaviour
         var worldScreenWidth = worldScreenHeight / Screen.height * Screen.width;
         image.transform.localScale = new Vector2((float)worldScreenWidth / width, (float)worldScreenHeight / height);
         image.color = new Color(1, 1, 1, 0.25f);
+        if (HD) image.color = new Color(0, 0, 0, 0f);
+
     }
+
+ 
+
     public void restartMusic()
     {
         audioLoad.load();

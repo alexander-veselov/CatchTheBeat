@@ -7,6 +7,7 @@ public class playerScore : MonoBehaviour {
     SpriteRenderer[] bits;
     public long score=0;
     static Sprite[] sprites;
+    int multiplier = 2;
     void Start ()
     {
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(0.98f, 0.95f));
@@ -18,11 +19,15 @@ public class playerScore : MonoBehaviour {
         }
         bits = new SpriteRenderer[8];
         bits = GetComponentsInChildren<SpriteRenderer>();
-	}
+        if (MapsLoad.HD) multiplier += 2;
+        if (MapsLoad.DT) multiplier += 1;
+        if (MapsLoad.NF) multiplier -= 1;
+        //if (MapsLoad.AD) multiplier = 0;
+    }
 
     public void scoreUp()
     {
-        score++;
+        score += (int)Player.combo * multiplier;
         setScore();
     }
 	

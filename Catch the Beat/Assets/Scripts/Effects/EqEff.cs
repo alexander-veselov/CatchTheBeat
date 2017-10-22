@@ -18,7 +18,7 @@ public class EqEff : MonoBehaviour {
     AudioSource audioSource;
     void Start ()
     {
-        audioSource = GameObject.Find("bgMusic").GetComponentInChildren<AudioSource>();
+        audioSource = GameObject.Find("mapScript").GetComponentInChildren<AudioSource>();
         lines = new line[180];
         scales = new Vector3[180];
         sum = new float[m_NumSamples];

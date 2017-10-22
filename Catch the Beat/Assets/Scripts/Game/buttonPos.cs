@@ -23,33 +23,28 @@ public class buttonPos : MonoBehaviour
         sc.x = sc.y;
         
         float dx = (max.x - min.x) * 0.07f*1.3f;
-        float dy = (max.y - min.y) * 0.16f;
         sprite = GetComponentInChildren<Image>();
-        sprite.color = new Color(1, 1, 1, 0.5f);
+        
         sprite.transform.localScale = new Vector3(Screen.height / 300f   , Screen.height / 300f, 1);
         if (dir == 0)
         {
-            sprite.transform.position = new Vector3(min.x + dx, min.y/6f);
+            sprite.transform.position = new Vector3(min.x + dx, 0);
+            sprite.color = new Color(1, 1, 1, 0.0f);
         }
         if (dir == 1)
         {
-            sprite.transform.position = new Vector3(max.x - dx, min.y/6f);
+            sprite.transform.position = new Vector3(max.x - dx, 0);
+            sprite.color = new Color(1, 1, 1, 0.0f);
         }
         if (dir == 2)
         {
-            sprite.transform.position = new Vector3(min.x + dx, min.y + dy);
+            sprite.transform.position = new Vector3(min.x + dx, min.y );
+            sprite.color = new Color(1, 1, 1, 0.0f);
         }
         if (dir == 3)
         {
-            sprite.transform.position = new Vector3(max.x - dx, min.y + dy);
-        }
-        if (dir == 4)
-        {
-            sprite.transform.position = new Vector3(min.x + dx, -min.y/1.5f -dy);
-        }
-        if (dir == 5)
-        {
-            sprite.transform.position = new Vector3(min.x + 8.5f*dx, min.y + dy);
+            sprite.transform.position = new Vector3(max.x - dx, min.y );
+            sprite.color = new Color(1, 1, 1, 0.0f);
         }
     }
 

@@ -60,9 +60,11 @@ public class Score_Numbers_Instance : MonoBehaviour
 		main = Instantiate(Resources.Load<Score_Numbers>("Prefabs/num_pref"), pos, transform.rotation);
 
 		nums_to_disp = anim.GetComponentsInChildren<SpriteRenderer>();
-		back_nums = main.GetComponentsInChildren<SpriteRenderer>();
-
-		playerSprite = GameObject.Find ("Player").GetComponentInChildren<SpriteRenderer> ();
+        
+        back_nums = main.GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer s in nums_to_disp) s.sortingOrder = 50;
+        foreach (SpriteRenderer s in back_nums) s.sortingOrder = 50;
+        playerSprite = GameObject.Find ("Player").GetComponentInChildren<SpriteRenderer> ();
 	}
 
 	// Update is called once per frame
@@ -178,15 +180,6 @@ public class Score_Numbers_Instance : MonoBehaviour
 
 		}
 
-//		yield return myTweener.WaitForCompletion ();
-//
-//
-//
-//		for (int ko = 0; ko < string_for_convertation.Length; ko++) {
-//
-//			back_nums [ko].sprite = sprites [Convert.ToInt32 (Convert.ToString (string_for_convertation [ko]))];
-//
-//		}
 
 	}
 
@@ -194,21 +187,11 @@ public class Score_Numbers_Instance : MonoBehaviour
 	public void docleanCombo()
 	{
 		
-//		doInterruptAnimation ();
+
 
 		s_for_position = "0";
 		fruit_counter = 0;
 
-
-//		nums_to_disp[0].sprite = sprites[0];
-//		back_nums[0].sprite = sprites[0];
-//
-//
-//		nums_to_disp[0].transform.DOScale(transform.localScale + new Vector3(1.7f, 1.7f, 1.7f), 0.3f).SetEase(Ease.OutFlash);
-//
-//		nums_to_disp[0].DOFade(0, 0.6f).SetEase(Ease.OutFlash);
-//
-//		back_nums[0].transform.DOPunchScale(new Vector3(0.8f, 0.8f, 0.8f), 0.7f, 1, 0.5f);
 
 		for (int i = 0; i < nums_to_disp.Length; i++) {
 

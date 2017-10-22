@@ -24,7 +24,7 @@ public class logo : MonoBehaviour {
     void Start () {
         if (type == 0)
         {
-            mapLoad = GameObject.Find("bgMusic").GetComponent<MapsLoad>();
+            mapLoad = GameObject.Find("mapScript").GetComponent<MapsLoad>();
             sprites = GetComponentsInChildren<SpriteRenderer>();
             beatEffect bEff = GetComponentInChildren<beatEffect>();
             sprites[0].transform.localScale = new Vector3(Screen.height * 0.07f, Screen.height * 0.07f, 1);
@@ -39,7 +39,7 @@ public class logo : MonoBehaviour {
         }
         if (type == 1)
         {
-            mapLoad = GameObject.Find("bgMusic").GetComponent<MapsLoad>();
+            mapLoad = GameObject.Find("mapScript").GetComponent<MapsLoad>();
             beatEffect bEff = GetComponentInChildren<beatEffect>();
             sprites = GetComponentsInChildren<SpriteRenderer>();
             Vector3 max = Camera.main.ViewportToWorldPoint(new Vector3(1, 0,1));
@@ -59,13 +59,14 @@ public class logo : MonoBehaviour {
     }
     public void goToMenu()
     {
+        GameObject.Find("sounds").GetComponent<sounds>().MenuHit();
         SceneManager.LoadScene("menu");
         mapLoad.loadType = 2;
     }
     public void selectMap()
     {
-        GameObject.Find("bgMusic").GetComponent<AudioLoad>().stop();
-        GameObject.Find("bgMusic").GetComponent<MapsLoad>().loadType = 0;
+        GameObject.Find("mapScript").GetComponent<AudioLoad>().stop();
+        GameObject.Find("mapScript").GetComponent<MapsLoad>().loadType = 0;
         GameObject.Find("Menu").GetComponent<MenuLoad>().selectMap();
 
         MenuLoad.timeBegin = Time.time;

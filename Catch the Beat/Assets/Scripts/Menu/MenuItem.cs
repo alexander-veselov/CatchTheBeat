@@ -10,7 +10,8 @@ public class MenuItem : MonoBehaviour {
     Text[] labels;
     MenuLoad load;
     Canvas bg;
-	void Start()
+    public static Color averageColor;
+    void Start()
     {
        
     }
@@ -60,7 +61,23 @@ public class MenuItem : MonoBehaviour {
         SpriteRenderer menuBG = GameObject.Find("menuBG").GetComponent<SpriteRenderer>();
         image.transform.position = new Vector3(0, 0, 100);
         menuBG.transform.localScale = new Vector2(1, 1);
+        calculateAverageColor(image.sprite);
+    }
+    void calculateAverageColor(Sprite s)
+    {
+        float r = 0, b = 0, g = 0;
+        Color[] pixels = s.texture.GetPixels();
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            g += pixels[i].g;
+            r += pixels[i].r;
+            b += pixels[i].b;
+        }
+        r /= pixels.Length;
+        g /= pixels.Length;
+        b /= pixels.Length;
 
+        averageColor = new Color(r, g, b,0.6f);
     }
     public string name()
     {
@@ -68,11 +85,12 @@ public class MenuItem : MonoBehaviour {
     }
     public void select()
     {
+        GameObject.Find("sounds").GetComponent<sounds>().MenuClick();
         firstSelect();
         AudioLoad.fromBegin = false;
-        GameObject.Find("bgMusic").GetComponent<MapsLoad>().fileParse();
-        GameObject.Find("bgMusic").GetComponent<MapsLoad>().bitLoad();
-        GameObject.Find("bgMusic").GetComponent<AudioLoad>().load();
+        GameObject.Find("mapScript").GetComponent<MapsLoad>().fileParse();
+        GameObject.Find("mapScript").GetComponent<MapsLoad>().bitLoad();
+        GameObject.Find("mapScript").GetComponent<AudioLoad>().load();
         
     }
     public void firstSelect()

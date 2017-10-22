@@ -17,8 +17,10 @@ public class Effects : MonoBehaviour {
         dx = dX;
         _type = type;
         rg = gameObj.GetComponentInChildren<Rigidbody2D>();
+        
         sprite = gameObj.GetComponentInChildren<SpriteRenderer>();
-        sprite.transform.localScale = MapsLoad.scale;
+        sprite.sortingOrder = 21;
+        sprite.transform.localScale = MapsLoad.scale*1.2f;
         sprite.color = col;
         color = col;
         full = transform.localScale;

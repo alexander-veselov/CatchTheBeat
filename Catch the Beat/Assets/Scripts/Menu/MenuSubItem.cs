@@ -33,6 +33,7 @@ public class MenuSubItem : MonoBehaviour {
     }
     public void selectMap()
     {
+        GameObject.Find("sounds").GetComponent<sounds>().MenuClick();
         GameObject.Find("Menu").GetComponent<MenuLoad>().selectDifficult(num);
 		song_name = mapName;
 
