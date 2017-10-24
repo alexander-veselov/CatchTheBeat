@@ -13,12 +13,13 @@ public class MenuLoad : MonoBehaviour {
 
     public static string folder;
     public static string map;
+    public static int currentDiff;
     private string[] mapsNames;
     public static float timeBegin=100000000;
     Image[] lists;
     ContentSizeFitter grid1;
     ContentSizeFitter grid2;
-    MenuSubItem[] subMaps;
+    public static MenuSubItem[] subMaps;
     string[] directories;
     Vector2 touch;
     string _name;
@@ -28,6 +29,7 @@ public class MenuLoad : MonoBehaviour {
 
     void Start ()
     {
+        
         GameObject.Find("mapScript").GetComponent<MapsLoad>().Logo = GameObject.Find("UI").GetComponent<logo>();
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
         directories = Directory.GetDirectories(Application.persistentDataPath);
@@ -98,7 +100,7 @@ public class MenuLoad : MonoBehaviour {
             }
             j++;
         }
-        selectDifficult(UnityEngine.Random.Range(0, subMaps.Length));
+        selectDifficult(currentDiff);
     }
     public void selectDifficult(int pos)
     {
@@ -108,12 +110,16 @@ public class MenuLoad : MonoBehaviour {
             subMaps[i].GetComponentInChildren<Image>().color = MenuItem.averageColor;
             subMaps[i].GetComponent<RectTransform>().transform.localEulerAngles = new Vector3(0, 18, 0);
         }
-        subMaps[pos].GetComponentInChildren<Image>().color = new Color(1,1,1,0.75f);
+        subMaps[pos].GetComponentInChildren<Image>().color = Color.magenta;
         subMaps[pos].GetComponent<RectTransform>().transform.localEulerAngles = new Vector3(0, 0, 0);
         _name = subMaps[pos].GetComponentInChildren<MenuSubItem>().mapName;
+        GameObject.Find("Score").GetComponent<playerScore>().setScore();
+        GameObject.Find("rank").GetComponent<BigRankLetter>().loadSprite();
+
     }
     public void selectMap()
     {
+
         GameObject.Find("sounds").GetComponent<sounds>().MenuHit();
         map = _name+".osu";
         AudioLoad.fromBegin = true;

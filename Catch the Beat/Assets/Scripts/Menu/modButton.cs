@@ -40,12 +40,12 @@ public class modButton : MonoBehaviour {
             isActive = true;
         }
         normalScale = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
-        normalScale.y /= 12f;
+        normalScale.y = Screen.height/1100f;
         normalScale.x = normalScale.y;
         transform.localScale = normalScale;
-        Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
-        max.x *= 3+ (int)type * max.x/1.4f;
-        max.y *= 25f;
+        Vector3 max = Camera.main.ViewportToWorldPoint(new Vector3(1, 1,1));
+        max.x = Screen.width*0.05f + (int)type* Screen.width *0.07f;
+        max.y = Screen.height / 11f;
         transform.position = max;
         incScale = normalScale * 1.1f;
     }

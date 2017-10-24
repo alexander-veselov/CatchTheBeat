@@ -15,6 +15,7 @@ public class mapEndButtons : MonoBehaviour {
         GameObject.Find("sounds").GetComponent<sounds>().MapEndOff();
         GameObject.Find("sounds").GetComponent<sounds>().MenuClick();
         SceneManager.LoadScene("menu");
+        GameObject.Find("Score").GetComponent<playerScore>().setScore();
         GameObject.Find("mapScript").GetComponent<MapsLoad>().loadType = 2;
     }
 	void Update () {

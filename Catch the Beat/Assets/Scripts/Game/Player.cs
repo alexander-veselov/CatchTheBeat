@@ -122,9 +122,10 @@ public class Player : MonoBehaviour {
         combo = combo_inst.fruit_counter;
         comboEff = (int)combo_inst.fruit_counter;
 		finalStatistics.comboCounter = (int)combo_inst.fruit_counter;
-		finalStatistics.finalScore = score.score;
+		
        
         score.scoreUp();
+        finalStatistics.finalScore = score.score;
         Fruit f = col.GetComponent<Fruit>();
         Vector2 pos = transform.position;
         Effects eff;

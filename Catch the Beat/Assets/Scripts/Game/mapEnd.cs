@@ -18,8 +18,10 @@ public class mapEnd : MonoBehaviour {
 	public SpriteRenderer[] fruits;
 	Tweener tw;
 	void Start () {
-//        GameObject.Find("sounds").GetComponent<sounds>().MapEnd();
-        //        AudioLoad.audioSource.time = MapsLoad.PreviewTime / 1000.0f;
+        GameObject.Find("sounds").GetComponent<sounds>().MapEnd();
+        AudioLoad.audioSource.time = MapsLoad.PreviewTime / 1000.0f;
+        if (!MapsLoad.AD) GameObject.Find("mapScript").GetComponent<records>().setRecord(MenuLoad.map, finalStatistics.finalScore, finalStatistics.accuracy);
+
         fruits = GameObject.Find("FSprites").GetComponentsInChildren<SpriteRenderer> ();
 
 		colors = new Color32[4];
@@ -63,7 +65,7 @@ public class mapEnd : MonoBehaviour {
 
 		p = Camera.main.ViewportToWorldPoint(new Vector2(0, 1));
 ////////////////////////score
-		results [3].transform.position = new Vector3(p.x+1.2f, max.y / 2.4f,0);
+		results [3].transform.position = new Vector3(p.x+0.7f, max.y / 2.4f,0);
 		text[0].transform.localScale = new Vector2(panel[1].transform.localScale.x ,panel[1].transform.localScale.x);
 		text [0].text = Convert.ToString(finalStatistics.finalScore);
 /////////////////////////////combo
@@ -153,26 +155,26 @@ public class mapEnd : MonoBehaviour {
 		text[4].text = Convert.ToString(finalStatistics.medium_fruits_counter);
 
 		if (text[4].text.Length == 2) {
-			results[8].transform.position = new Vector3 (fruits[1].transform.position.x - 0.9f, fruits[1].transform.position.y-0.27f, 0);
+			results[8].transform.position = new Vector3 (fruits[2].transform.position.x - 0.9f, fruits[2].transform.position.y-0.27f, 0);
 		}
 		if (text[4].text.Length == 1) {
-			results[8].transform.position = new Vector3 (fruits[1].transform.position.x - 1.1f, fruits[1].transform.position.y-0.27f, 0);
+			results[8].transform.position = new Vector3 (fruits[2].transform.position.x - 1.1f, fruits[2].transform.position.y-0.27f, 0);
 		}
 		if (text[4].text.Length == 3) {
-			results[8].transform.position = new Vector3 (fruits[1].transform.position.x - 0.375f, fruits[1].transform.position.y-0.27f, 0);
+			results[8].transform.position = new Vector3 (fruits[2].transform.position.x - 0.375f, fruits[2].transform.position.y-0.27f, 0);
 		}
 ////////////////small fruit
 		text[5].transform.localScale = new Vector2(panel[1].transform.localScale.x /1.3f ,panel[1].transform.localScale.x/1.3f);
 		text[5].text = Convert.ToString(finalStatistics.small_fruits_counter);
 
 		if (text[5].text.Length == 2) {
-			results[9].transform.position = new Vector3 (fruits[2].transform.position.x - 0.9f, fruits[2].transform.position.y-0.27f, 0);
+			results[9].transform.position = new Vector3 (fruits[4].transform.position.x - 0.9f, fruits[4].transform.position.y-0.27f, 0);
 		}
 		if (text[5].text.Length == 1) {
-			results[9].transform.position = new Vector3 (fruits[2].transform.position.x - 1.1f, fruits[2].transform.position.y-0.27f, 0);
+			results[9].transform.position = new Vector3 (fruits[4].transform.position.x - 1.1f, fruits[4].transform.position.y-0.27f, 0);
 		}
 		if (text[5].text.Length == 3) {
-			results[9].transform.position = new Vector3 (fruits[2].transform.position.x - 0.375f, fruits[2].transform.position.y-0.27f, 0);
+			results[9].transform.position = new Vector3 (fruits[4].transform.position.x - 0.375f, fruits[4].transform.position.y-0.27f, 0);
 		}
 
 
@@ -182,13 +184,13 @@ public class mapEnd : MonoBehaviour {
 		text[6].text = Convert.ToString(finalStatistics.missed_fruits);
 
 		if (text[6].text.Length == 2) {
-			results[10].transform.position = new Vector3 (fruits[3].transform.position.x - 0.9f, fruits[3].transform.position.y-0.27f, 0);
+			results[10].transform.position = new Vector3 (fruits[6].transform.position.x - 0.9f, fruits[6].transform.position.y-0.27f, 0);
 		}
 		if (text[6].text.Length == 1) {
-			results[10].transform.position = new Vector3 (fruits[3].transform.position.x - 1.1f, fruits[3].transform.position.y-0.27f, 0);
+			results[10].transform.position = new Vector3 (fruits[6].transform.position.x - 1.1f, fruits[6].transform.position.y-0.27f, 0);
 		}
 		if (text[6].text.Length == 3) {
-			results[10].transform.position = new Vector3 (fruits[3].transform.position.x - 0.375f, fruits[3].transform.position.y-0.27f, 0);
+			results[10].transform.position = new Vector3 (fruits[6].transform.position.x - 0.375f, fruits[6].transform.position.y-0.27f, 0);
 		}
 
 ///////////  
@@ -226,8 +228,9 @@ public class mapEnd : MonoBehaviour {
 		string fruit_path = "";
 
 	
-		foreach(SpriteRenderer frSpr in fruits){
-			
+		for(int i=0; i<fruits.Length; i+=2)
+        {
+            if (i == 3 || i == 5) continue;
 			switch (UnityEngine.Random.Range (1, 5)) {
 			case 1:
 				fruit_path = "apple";
@@ -243,15 +246,11 @@ public class mapEnd : MonoBehaviour {
 				break;
 			}
 
-			frSpr.sprite = Resources.Load<Sprite> ("EndGameMaterials/" + fruit_path);
-		}
+			fruits[i].sprite = Resources.Load<Sprite> ("EndGameMaterials/" + fruit_path);
+            fruits[i].color = colors[UnityEngine.Random.Range(0, 4)];
+        }
 
 
-		for (int i = 0; i < 3; i++) {
-		
-			fruits [i].color = colors[UnityEngine.Random.Range(0,4)];
-		
-		}
 
 
 	}
@@ -261,16 +260,24 @@ public class mapEnd : MonoBehaviour {
 
 		fruits[0].transform.position = new Vector3 (p.x + 0.7f, p.y + 6.1f, 0);
 		fruits[0].transform.localScale = new Vector2 (panel [1].transform.localScale.x/1.1f , panel [1].transform.localScale.x/1.1f);
+        fruits[1].transform.position = new Vector3(p.x + 0.7f, p.y + 6.1f, 0);
+        fruits[1].transform.localScale = new Vector2(panel[1].transform.localScale.x / 2.2f, panel[1].transform.localScale.x / 2.2f);
 
-		fruits[1].transform.position = new Vector3 (p.x + 0.7f, p.y + 4.79f, 0);
-		fruits[1].transform.localScale = new Vector2 (panel [1].transform.localScale.x/1.9f , panel [1].transform.localScale.x/1.9f);
+        fruits[2].transform.position = new Vector3 (p.x + 0.7f, p.y + 4.79f, 0);
+		fruits[2].transform.localScale = new Vector2 (panel [1].transform.localScale.x/1.9f , panel [1].transform.localScale.x/1.9f);
+        //fruits[3].transform.position = new Vector3(p.x + 0.7f, p.y + 4.79f, 0);
+        //fruits[3].transform.localScale = new Vector2(panel[1].transform.localScale.x / 1.9f, panel[1].transform.localScale.x / 1.9f);
 
-		fruits[2].transform.position = new Vector3 (p.x + 0.7f, p.y + 3.7f, 0);
-		fruits[2].transform.localScale = new Vector2 (panel [1].transform.localScale.x/3.65f , panel [1].transform.localScale.x/3.65f);
+        fruits[4].transform.position = new Vector3 (p.x + 0.7f, p.y + 3.7f, 0);
+		fruits[4].transform.localScale = new Vector2 (panel [1].transform.localScale.x/3.65f , panel [1].transform.localScale.x/3.65f);
+        //fruits[5].transform.position = new Vector3(p.x + 0.7f, p.y + 3.7f, 0);
+        //fruits[5].transform.localScale = new Vector2(panel[1].transform.localScale.x / 3.65f, panel[1].transform.localScale.x / 3.65f);
 
-		fruits[3].transform.position = new Vector3 (p.x + 5.7f, p.y + 6.1f, 0);
-		fruits[3].transform.localScale = new Vector2 (panel [1].transform.localScale.x/1.3f , panel [1].transform.localScale.x/1.3f);
-	}
+        fruits[6].transform.position = new Vector3 (p.x + 5.7f, p.y + 6.1f, 0);
+		fruits[6].transform.localScale = new Vector2 (panel [1].transform.localScale.x/1.3f , panel [1].transform.localScale.x/1.3f);
+        fruits[7].transform.position = new Vector3(p.x + 5.7f, p.y + 6.1f, 0);
+        fruits[7].transform.localScale = new Vector2(panel[1].transform.localScale.x / 2.6f, panel[1].transform.localScale.x / 2.6f);
+    }
     void bgLoad()
     {
         string s = MapsLoad.currentMap;
@@ -293,7 +300,7 @@ public class mapEnd : MonoBehaviour {
 		
 		Vector3 p = Camera.main.ViewportToWorldPoint(new Vector2(1, 0));
 	
-		panel [3].transform.position = new Vector2 (p.x - 1.7f,p.y + 2.0f);
+		panel [3].transform.position = new Vector2 (p.x - 3.1f,p.y + 2.0f);
 		GameObject.Find ("retryButton").GetComponent<RectTransform> ().sizeDelta =  new Vector2 (panel [1].transform.localScale.x*130f , panel [1].transform.localScale.x *43f);
 
 	
@@ -301,24 +308,24 @@ public class mapEnd : MonoBehaviour {
 
 	public void setPercentAndXSpritesPositionAndScale() {
 		
-		blueAdditionalSprites[0].transform.position = new Vector2(results[5].transform.position.x + 2.7f,results[5].transform.position.y+0.25f); //combo
+		blueAdditionalSprites[0].transform.position = new Vector2(results[5].transform.position.x + 2.7f,results[5].transform.position.y+0.28f); //combo
 		blueAdditionalSprites[0].transform.localScale = new Vector2(panel[1].transform.localScale.x * 57f  ,panel[1].transform.localScale.x * 57f);
 
 
-		blueAdditionalSprites[1].transform.position = new Vector2(results[4].transform.position.x + 2.7f ,results[4].transform.position.y+0.25f); //percent
+		blueAdditionalSprites[1].transform.position = new Vector2(results[4].transform.position.x + 2.7f ,results[4].transform.position.y+0.28f); //percent
 		blueAdditionalSprites[1].transform.localScale = new Vector2(panel[1].transform.localScale.x * 59f  ,panel[1].transform.localScale.x * 59f);
 
 
-		blueAdditionalSprites[2].transform.position = new Vector2(results[7].transform.position.x + 2.7f ,results[7].transform.position.y+0.25f); //big fruit
+		blueAdditionalSprites[2].transform.position = new Vector2(results[7].transform.position.x + 2.7f ,results[7].transform.position.y+0.28f); //big fruit
 		blueAdditionalSprites[2].transform.localScale = new Vector2(panel[1].transform.localScale.x * 59f  ,panel[1].transform.localScale.x * 59f);
 
-		blueAdditionalSprites[3].transform.position = new Vector2(results[8].transform.position.x + 2.7f ,results[8].transform.position.y+0.25f); //medium fruit
+		blueAdditionalSprites[3].transform.position = new Vector2(results[8].transform.position.x + 2.7f ,results[8].transform.position.y+0.28f); //medium fruit
 		blueAdditionalSprites[3].transform.localScale = new Vector2(panel[1].transform.localScale.x * 59f  ,panel[1].transform.localScale.x * 59f);
 
-		blueAdditionalSprites[4].transform.position = new Vector2(results[9].transform.position.x + 2.7f ,results[9].transform.position.y+0.25f); //small fruit
+		blueAdditionalSprites[4].transform.position = new Vector2(results[9].transform.position.x + 2.7f ,results[9].transform.position.y+0.28f); //small fruit
 		blueAdditionalSprites[4].transform.localScale = new Vector2(panel[1].transform.localScale.x * 59f  ,panel[1].transform.localScale.x * 59f);
 
-		blueAdditionalSprites[5].transform.position = new Vector2(results[10].transform.position.x + 2.7f ,results[10].transform.position.y+0.25f); //small fruit
+		blueAdditionalSprites[5].transform.position = new Vector2(results[10].transform.position.x + 2.7f ,results[10].transform.position.y+0.28f); //small fruit
 		blueAdditionalSprites[5].transform.localScale = new Vector2(panel[1].transform.localScale.x * 59f  ,panel[1].transform.localScale.x * 59f);
 
 
@@ -371,7 +378,7 @@ public class mapEnd : MonoBehaviour {
         GameObject.Find("mapScript").GetComponent<MapsLoad>().fileParse();
         GameObject.Find("mapScript").GetComponent<MapsLoad>().bitLoad();
         GameObject.Find("mapScript").GetComponent<MapsLoad>().settings();
-        GameObject.Find("sounds").GetComponent<sounds>().MapEndOff();
+        GameObject.Find("sounds").GetComponent<sounds>().MenuHit();
         SceneManager.LoadScene ("scene");
 
     }

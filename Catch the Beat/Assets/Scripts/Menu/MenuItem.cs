@@ -77,7 +77,7 @@ public class MenuItem : MonoBehaviour {
         g /= pixels.Length;
         b /= pixels.Length;
 
-        averageColor = new Color(r, g, b,0.6f);
+        averageColor = new Color(r, g, b,0.85f);
     }
     public string name()
     {
@@ -85,6 +85,7 @@ public class MenuItem : MonoBehaviour {
     }
     public void select()
     {
+        MenuLoad.currentDiff = 0;
         GameObject.Find("sounds").GetComponent<sounds>().MenuClick();
         firstSelect();
         AudioLoad.fromBegin = false;
@@ -92,6 +93,7 @@ public class MenuItem : MonoBehaviour {
         GameObject.Find("mapScript").GetComponent<MapsLoad>().bitLoad();
         GameObject.Find("mapScript").GetComponent<AudioLoad>().load();
         
+
     }
     public void firstSelect()
     {
