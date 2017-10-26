@@ -24,17 +24,18 @@ public class AudioLoad : MonoBehaviour {
         isNotPlaying = true;
         string[] dir = Directory.GetFiles(path, "*.mp3");
         www = new WWW("file://" + dir[0]);
-        myAudioClip = www.GetAudioClip();
         audioSource = GetComponent<AudioSource>();
-        audioSource.clip = myAudioClip;
+        audioSource.clip = www.GetAudioClipCompressed();
+
     }
+
     public void stop()
     {
         audioSource.Stop();
     }
     
 	void Update () {
-         if(!audioSource.isPlaying && audioSource.clip.isReadyToPlay && isNotPlaying)
+        if (!audioSource.isPlaying && audioSource.clip.isReadyToPlay && isNotPlaying)
         {
             MenuLoad.timeBegin = Time.time;
             isNotPlaying = false;
