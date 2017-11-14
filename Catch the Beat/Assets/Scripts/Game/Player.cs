@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 	
@@ -50,7 +52,7 @@ public class Player : MonoBehaviour {
         hseff = Resources.Load<speedEffect>("Prefabs/hastedEffect");
         combo_inst.fruit_counter = 0;
         GameObject.Find("mapScript").GetComponent<MapsLoad>().loadGame();
-        if (MapsLoad.DT) Time.timeScale = 1.14f;
+        if (MapsLoad.DT) Time.timeScale = 1.4f;
         else
         {
             Time.timeScale = 1f;
@@ -59,6 +61,7 @@ public class Player : MonoBehaviour {
      
         fruitTime = new float[mapsLoad.getFruitTime().Length];
         fruitTime = mapsLoad.getFruitTime();
+        if (MapsLoad.AD) foreach (EventTrigger button in GameObject.Find("Interface").GetComponentsInChildren<EventTrigger>()) button.enabled = false;
     }
 
     private void Update()
@@ -241,7 +244,6 @@ public class Player : MonoBehaviour {
     }
     public void startHaste()
     {
-       
         useCount++;
         dt = Time.time;
         sprite.color = new Color(1, 1, 1, 0f);

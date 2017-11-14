@@ -26,7 +26,7 @@ public class AudioLoad : MonoBehaviour {
         www = new WWW("file://" + dir[0]);
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = www.GetAudioClipCompressed();
-
+        isLoaded = true;
     }
 
     public void stop()
@@ -49,7 +49,7 @@ public class AudioLoad : MonoBehaviour {
             }
             if (MapsLoad.DT)
             {
-                audioSource.pitch = 1.14f;
+                audioSource.pitch = 1.4f;
             }
             else
             {

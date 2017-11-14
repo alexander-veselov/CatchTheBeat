@@ -76,7 +76,7 @@ public class pause : MonoBehaviour {
         isPaused = false;
         if (MapsLoad.DT)
         {
-            Time.timeScale = 1.14f;
+            Time.timeScale = 1.4f;
         }
         else
         {

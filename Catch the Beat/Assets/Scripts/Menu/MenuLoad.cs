@@ -128,6 +128,10 @@ public class MenuLoad : MonoBehaviour {
         SceneManager.LoadScene("scene");
     }
 
+    public void changeOffset()
+    {
+        MapsLoad.offset = (GameObject.Find("UI").GetComponentInChildren<Scrollbar>().value - 0.3f) *2;
+    }
 
     void Update () {
 

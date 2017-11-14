@@ -24,8 +24,8 @@ public class modButton : MonoBehaviour {
         }
         if (type == modType.DT && MapsLoad.DT == true)
         {
-            Time.timeScale = 1.14f;
-            AudioLoad.audioSource.pitch = 1.14f;
+            Time.timeScale = 1.4f;
+            AudioLoad.audioSource.pitch = 1.4f;
             upAnimation();
             isActive = true;
         }
@@ -92,8 +92,8 @@ public class modButton : MonoBehaviour {
             MapsLoad.DT = !MapsLoad.DT;
             if (MapsLoad.DT)
             {
-                AudioLoad.audioSource.pitch = 1.14f;
-                Time.timeScale = 1.14f;
+                AudioLoad.audioSource.pitch = 1.4f;
+                Time.timeScale = 1.4f;
             }
             else
             {

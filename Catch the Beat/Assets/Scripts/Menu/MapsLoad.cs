@@ -53,6 +53,7 @@ public class MapsLoad : MonoBehaviour
     public static bool NF = false;
     public static bool HD = false;
     public static bool AD = false;
+    public static float offset = 0.415f;
     private bool isPlaying = false;
     private String inputText,map;
     bool isNotPlaying = true;
@@ -245,6 +246,7 @@ public class MapsLoad : MonoBehaviour
     }
     public void loadGame()
     {
+
         infLoad();
         fileParse();
         bgLoad(background.Substring(1, background.Length - 2));
@@ -288,7 +290,7 @@ public class MapsLoad : MonoBehaviour
             SceneManager.LoadScene("mapEnd");
             loadType = 3;
         }
-        if (!isPlaying && 1f <= (Time.time - MenuLoad.timeBegin) && !AudioLoad.audioSource.isPlaying && AudioLoad.audioSource.clip.isReadyToPlay && isNotPlaying)
+        if (!isPlaying && 1f <= (Time.time - MenuLoad.timeBegin + offset) && !AudioLoad.audioSource.isPlaying && AudioLoad.audioSource.clip.isReadyToPlay && isNotPlaying)
         {
             AudioLoad.audioSource.time = 0;
             AudioLoad.audioSource.Play();
@@ -340,6 +342,7 @@ public class MapsLoad : MonoBehaviour
     }
     void menuUpdate()
     {
+        
         float t = 0;
         if (AudioLoad.fromBegin == false) t = PreviewTime;
         foreach (fruit_point f in bitmap)
@@ -353,6 +356,8 @@ public class MapsLoad : MonoBehaviour
             }
         }
     }
+
+  
     void Update()
     {
         if (loadType == 0)
@@ -367,6 +372,8 @@ public class MapsLoad : MonoBehaviour
         {
             menuUpdate();
             if (!AudioLoad.audioSource.isPlaying) AudioLoad.audioSource.Play();
+            GameObject.Find("UI").GetComponentInChildren<Scrollbar>().value = offset / 2f + 0.3f;
+            GameObject.Find("Score").GetComponent<playerScore>().setScore();
         }
     }
 }

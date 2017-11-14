@@ -18,9 +18,9 @@ public class mapEnd : MonoBehaviour {
 	public SpriteRenderer[] fruits;
 	Tweener tw;
 	void Start () {
-        GameObject.Find("sounds").GetComponent<sounds>().MapEnd();
-        AudioLoad.audioSource.time = MapsLoad.PreviewTime / 1000.0f;
-        if (!MapsLoad.AD) GameObject.Find("mapScript").GetComponent<records>().setRecord(MenuLoad.map, finalStatistics.finalScore, finalStatistics.accuracy);
+        //GameObject.Find("sounds").GetComponent<sounds>().MapEnd();
+        //AudioLoad.audioSource.time = MapsLoad.PreviewTime / 1000.0f;
+        //if (!MapsLoad.AD) GameObject.Find("mapScript").GetComponent<records>().setRecord(MenuLoad.map, finalStatistics.finalScore, finalStatistics.accuracy);
 
         fruits = GameObject.Find("FSprites").GetComponentsInChildren<SpriteRenderer> ();
 
@@ -75,7 +75,7 @@ public class mapEnd : MonoBehaviour {
 		text[1].text = Convert.ToString(finalStatistics.maxCombo);
 
 		if (text[1].text.Length == 3) {
-			results [4].transform.position = new Vector3 (p.x - 1.023f, p.y + 1.7f, 0);
+			results [4].transform.position = new Vector3 (p.x - 1.23f, p.y + 1.7f, 0);
 		}
 		if (text[1].text.Length == 1) {
 			results [4].transform.position = new Vector3 (p.x - 1.45f, p.y + 1.7f, 0);
@@ -84,7 +84,7 @@ public class mapEnd : MonoBehaviour {
 			results [4].transform.position = new Vector3 (p.x - 1.15f, p.y + 1.7f, 0);
 		}
 		if (text[1].text.Length == 4) {
-			results [4].transform.position = new Vector3 (p.x - 0.92f, p.y + 1.7f, 0);
+			results [4].transform.position = new Vector3 (p.x - 0.3f, p.y + 1.7f, 0);
 		}
 
 /////////////////////////////
