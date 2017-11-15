@@ -16,12 +16,15 @@ public class Fruit : MonoBehaviour {
     public types type = types.FRUIT;
     private SpriteRenderer[]  sprites;
     public static float speed = 15;
+    public float thisFruitSpeed;
     private Score_Numbers_Instance combo_inst;
 
     private static Sprite[] fruitSprites;
     private Color32 color;
 	byte counter = 0;
     public bool isHasted = false;
+	Vector2 variableForSpriteSize;
+	public bool isCatchedEarlier;
     void Awake()
     {
 
@@ -42,7 +45,11 @@ public class Fruit : MonoBehaviour {
         if (type == types.FRUIT)
         {
             setRandomFruit();
-        }     
+        }   
+                thisFruitSpeed = speed;
+		isCatchedEarlier = false;
+
+		variableForSpriteSize = sprites[1].bounds.size;  
     }
     public void initialize(Color32 col, types t, bool hasted)
     {
@@ -53,14 +60,15 @@ public class Fruit : MonoBehaviour {
     }
     void Update ()
     {
-		
         Vector3 dir = transform.up;
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
-        transform.position = Vector3.MoveTowards(transform.position, transform.position - dir, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, transform.position - dir, thisFruitSpeed * Time.deltaTime);
         if (transform.position.y < min.y)
         {
 
-            health.sub();
+			if (this.isCatchedEarlier == false) {
+				health.sub ();
+			}
             counter++;
 			if (counter == 1) {
 				doDestroyFruit ();
@@ -92,7 +100,50 @@ public class Fruit : MonoBehaviour {
 	private void doDestroyFruit() {
 
 		Destroy(this.gameObject, .2f);
+
+		if(this.isCatchedEarlier == false){
+			
 		finalStatistics.missed_fruits++;
-		if (type == types.FRUIT) combo_inst.docleanCombo();
+			//health.sub();
+		if (type == types.FRUIT) {
+			combo_inst.docleanCombo ();
+			ScatterOfFruits.doFallFruts ();
+		}
+		}
+	}
+
+void OnTriggerEnter2D (Collider2D col) {
+
+
+		if (col.gameObject.name != "PlayerSprite") return;
+
+		if (this.name == "drop(Clone)" || this.name == "Little Fruit(Clone)") { DestroyObject (this.gameObject); return; }
+
+		if (this.gameObject.transform.position.y - (Math.Abs(sprites[1].bounds.size.y / 2.0f) - 0.6f) >= col.transform.position.y + col.offset.y + (col.bounds.size.y/2.0f) && (this.gameObject.transform.position.x >= (GameObject.Find ("Player").transform.position.x - (GameObject.Find ("Player").GetComponentInChildren<SpriteRenderer> ().bounds.size.x / 2f))) && (this.gameObject.transform.position.x <= (GameObject.Find ("Player").transform.position.x + (GameObject.Find ("Player").GetComponentInChildren<SpriteRenderer> ().bounds.size.x / 2f)))) {
+
+		   
+	
+			this.GetComponent<CircleCollider2D> ().enabled = false;
+
+			this.transform.localScale = new Vector2 (GameObject.Find ("Player").transform.localScale.x / 2f, GameObject.Find ("Player").transform.localScale.y / 2f);
+
+			this.transform.position = new Vector2 (this.transform.position.x, this.transform.position.y + (sprites[1].bounds.size.y - variableForSpriteSize.y/2f - 0.5f));
+
+			ScatterOfFruits.doAddFruitToPlayer (this.gameObject);
+
+			this.isCatchedEarlier = true;
+
+//			this.transform.localScale = new Vector2 (GameObject.Find ("Player").transform.localScale.x / 2f, GameObject.Find ("Player").transform.localScale.y / 2f);
+//
+//			this.transform.position = new Vector2 (this.transform.position.x, this.transform.position.y + (sprites[1].size.y/2f - variableForSpriteSize.y/2f - 0.5f));
+
+		} else {
+		
+			DestroyObject (this.gameObject);
+		
+		}
+	
+	
+	
 	}
 }

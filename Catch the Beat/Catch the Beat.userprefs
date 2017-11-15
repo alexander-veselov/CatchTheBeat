@@ -1,15 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\EndGameMaterials\BigRankLetter.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Game\Fruit.cs">
     <Files>
-      <File FileName="Assets\Scripts\Game\mapEnd.cs" Line="297" Column="168" />
-      <File FileName="Assets\Resources\EndGameMaterials\BigRankLetter.cs" Line="84" Column="45" />
-      <File FileName="Assets\Scripts\Game\finalStatistics.cs" Line="14" Column="32" />
-      <File FileName="Assets\Scripts\Menu\MapsLoad.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Game\Fruit.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Game\Fruit.cs" Line="130" Column="159" />
+      <File FileName="Assets\Scripts\Effects\ScatterOfFruits.cs" Line="122" Column="55" />
       <File FileName="Assets\Scripts\Game\Player.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Game\mapEnd.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Game\playerScore.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Game\Score_Numbers_Instance.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Menu\MapsLoad.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

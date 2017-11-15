@@ -159,7 +159,7 @@ public class Player : MonoBehaviour {
         pos.y = transform.position.y + sprite.size.y * MapsLoad.scale.y / 1.57f;
          eff = Instantiate(Resources.Load<Effects>("Prefabs/HitEffect 1"), pos, transform.rotation);
         eff.initialize(eff, col.gameObject.GetComponentInChildren<SpriteRenderer>().color, (col.gameObject.transform.position.x - sprite.transform.position.x) * 0.45f, 1);
-        Destroy(col.gameObject);
+//        Destroy(col.gameObject);
     }
     private void Move()
     {

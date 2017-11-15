@@ -134,6 +134,5 @@ public class MenuLoad : MonoBehaviour {
     }
 
     void Update () {
-
     }
 }

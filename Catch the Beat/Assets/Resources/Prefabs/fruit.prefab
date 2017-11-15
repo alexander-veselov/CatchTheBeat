@@ -179,7 +179,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  thisFruitSpeed: 0
   isHasted: 0
+  isCatchedEarlier: 0
 --- !u!212 &212365229633249204
 SpriteRenderer:
   m_ObjectHideFlags: 1

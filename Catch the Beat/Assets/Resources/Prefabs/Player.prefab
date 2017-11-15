@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212793230205414516}
   - component: {fileID: 61120113550590648}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: PlayerSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,8 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6578346ecd38baa4abb5b40f85adba03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
   s: {fileID: 0}
+  currentFruit: 0
 --- !u!212 &212793230205414516
 SpriteRenderer:
   m_ObjectHideFlags: 1
