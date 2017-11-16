@@ -25,7 +25,7 @@ public class pause : MonoBehaviour {
 	}
 	
 	void Update () {
-        if (!isPaused)
+        if (!isPaused && !MapsLoad.isEnded())
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -107,6 +107,7 @@ public class pause : MonoBehaviour {
         AudioLoad.audioSource.time=0;
         GameObject.Find("mapScript").GetComponent<MapsLoad>().fileParse();
         GameObject.Find("mapScript").GetComponent<MapsLoad>().bitLoad();
+        GameObject.Find("mapScript").GetComponent<MapsLoad>().settings();
         SceneManager.LoadScene("scene");
     }
 }

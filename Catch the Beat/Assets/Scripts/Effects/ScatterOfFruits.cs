@@ -19,6 +19,7 @@ public class ScatterOfFruits : MonoBehaviour {
 	public static List<Vector2> fruitPos;
 
 	public static Vector3 p;
+    public static float h = 0;
 	// Use this for initialization
 	void Start () {
 
@@ -50,17 +51,18 @@ public class ScatterOfFruits : MonoBehaviour {
 			if (l != null) {	
 
 				for (int i = 0; i < l.Count; i++) {
-
+                    if (l[i]!=null)
 					l [i].transform.position = new Vector2 (fruitPos [i].x + playerPos.x, fruitPos [i].y);
 
 				}
 			}
 		
 
-		if (l.Count == 10) {
-//			doScatter = true;
+		if (Player.isFinishing || l.Count >=15) {
+            //			doScatter = true;
+            Player.isFinishing = false;
 
-			doScatterAnimation ();
+            doScatterAnimation ();
 
 //			foreach(GameObject gm in l){
 //
@@ -83,14 +85,14 @@ public class ScatterOfFruits : MonoBehaviour {
 
 		gm.GetComponent<Fruit> ().thisFruitSpeed = 0;
 
-//		if (gm.GetComponent<Fruit> ().type == Fruit.types.FRUIT) {
-//		
-//		
-//			gm.transform.localScale = new Vector2 (gm.transform.localScale.x / 2f, gm.transform.localScale.y / 2f);
-//
-//		}
-
-		fruitPos.Add (new Vector2(gm.transform.position.x - playerPos.x,gm.transform.position.y));
+        //		if (gm.GetComponent<Fruit> ().type == Fruit.types.FRUIT) {
+        //		
+        //		
+        //			gm.transform.localScale = new Vector2 (gm.transform.localScale.x / 2f, gm.transform.localScale.y / 2f);
+        //
+        //		}
+        
+		fruitPos.Add (new Vector2((UnityEngine.Random.Range(0f, 0.6f)*playerPos.x)*0.8f,gm.transform.position.y));
 	
 		l.Add (gm);
 	
@@ -99,13 +101,13 @@ public class ScatterOfFruits : MonoBehaviour {
 
 
 	public void doScatterAnimation() {
+        h = 0;
+
+        foreach (GameObject gm in l)  {
 
 
-		foreach(GameObject gm in l)  {
 
-
-
-			gm.GetComponent<Rigidbody2D> ().gravityScale = 1.5f;
+            gm.GetComponent<Rigidbody2D> ().gravityScale = 1.5f;
 
 			gm.GetComponent<Rigidbody2D> ().AddForce(new Vector2(UnityEngine.Random.Range(-100f,180f),UnityEngine.Random.Range(120,280f)));
 
@@ -116,7 +118,7 @@ public class ScatterOfFruits : MonoBehaviour {
 	}
 
 	public static void doFallFruts() {
-
+        h = 0;
 		foreach(GameObject gm in l){
 
 			gm.GetComponent<Rigidbody2D> ().gravityScale = 0.85f;

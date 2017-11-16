@@ -18,9 +18,9 @@ public class mapEnd : MonoBehaviour {
 	public SpriteRenderer[] fruits;
 	Tweener tw;
 	void Start () {
-        //GameObject.Find("sounds").GetComponent<sounds>().MapEnd();
-        //AudioLoad.audioSource.time = MapsLoad.PreviewTime / 1000.0f;
-        //if (!MapsLoad.AD) GameObject.Find("mapScript").GetComponent<records>().setRecord(MenuLoad.map, finalStatistics.finalScore, finalStatistics.accuracy);
+        GameObject.Find("sounds").GetComponent<sounds>().MapEnd();
+        AudioLoad.audioSource.time = MapsLoad.PreviewTime / 1000.0f;
+        if (!MapsLoad.AD) GameObject.Find("mapScript").GetComponent<records>().setRecord(MenuLoad.map, finalStatistics.finalScore, finalStatistics.accuracy);
 
         fruits = GameObject.Find("FSprites").GetComponentsInChildren<SpriteRenderer> ();
 
@@ -215,9 +215,6 @@ public class mapEnd : MonoBehaviour {
 
 
 		Vector3 p = Camera.main.ViewportToWorldPoint(new Vector2(0, 1));
-
-		text [7].text = MenuSubItem.song_name;
-		text[7].transform.localScale = new Vector2(panel[1].transform.localScale.x /1.3f ,panel[1].transform.localScale.x/1.3f);
 		results[11].transform.position = new Vector3 (p.x + 2.0f, p.y-1.0f, 0);
 
 

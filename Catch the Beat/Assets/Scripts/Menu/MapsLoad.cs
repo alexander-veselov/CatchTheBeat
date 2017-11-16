@@ -10,13 +10,14 @@ public class MapsLoad : MonoBehaviour
 {
     public class fruit_point
     {
-        public fruit_point(int X, int Y, int Time, Fruit.types _type, Color32 c)
+        public fruit_point(int X, int Y, int Time, Fruit.types _type, Color32 c, bool isF)
         {
             type = _type;
             x = X;
             y = Y;
             color = c;
             time = Time;
+            isFinishing = isF;
         }
         public void setHasted()
         {
@@ -28,6 +29,7 @@ public class MapsLoad : MonoBehaviour
         public bool isHasted = false;
         public int x;
         public int y;
+        public bool isFinishing;
     }
     [SerializeField]
     public int loadType;
@@ -38,7 +40,7 @@ public class MapsLoad : MonoBehaviour
     Fruit fruit, drop, little;
     private Color32[] colors;
     private AudioSource audioSource;
-    private ArrayList bitmap;
+    private static ArrayList bitmap;
     private StreamReader input;
     private String background;
     public static Canvas bg;
@@ -145,11 +147,15 @@ public class MapsLoad : MonoBehaviour
         scale = new Vector3(0.6f + 1 / CircleSize, 0.6f + 1 / CircleSize, 1);
     }
 
+    public void SpeedSet()
+    {
+        Fruit.speed = ApproachRate * max.y / 2f;
+    }
 
     public void settings()
     {
-        
-        Fruit.speed = ApproachRate * max.y / 2f;
+
+        SpeedSet();
         fruit.transform.localScale = scale;
         Player.score = Instantiate(Resources.Load<playerScore>("Prefabs/Score"));
     }
@@ -164,6 +170,7 @@ public class MapsLoad : MonoBehaviour
         x1 = int.Parse(a[0]);
         y1 = int.Parse(a[1]);
         time = int.Parse(a[2]);
+        bool isF = int.Parse(a[4]) >= 1;
         if (time < PreviewTime && AudioLoad.fromBegin == false)
         {
             return;
@@ -174,7 +181,7 @@ public class MapsLoad : MonoBehaviour
         colors[2] = new Color32(36, 166, 101, 255);
         colors[3] = new Color32(46, 132, 164, 255);
         Color32 randColor = colors[UnityEngine.Random.Range(0, 4)];
-        array.Add(new fruit_point(x1, y1, time, Fruit.types.FRUIT, randColor));
+        array.Add(new fruit_point(x1, y1, time, Fruit.types.FRUIT, randColor, isF));
         for (int i = 0; i < str.Length; i++)
         {
 
@@ -190,8 +197,8 @@ public class MapsLoad : MonoBehaviour
                 for (int j = 0; j < repeat; j++)
                 {
                     float t = time + length * Fruit.speed / 8f * j;
-                    if (j % 2 == 0) createSlider(x1, x2, y1, y2, t, ref array, randColor, length);
-                    else createSlider(x2, x1, y1, y2, t, ref array, randColor, length);
+                    if (j % 2 == 0) createSlider(x1, x2, y1, y2, t, ref array, randColor, length, isF);
+                    else createSlider(x2, x1, y1, y2, t, ref array, randColor, length, isF);
                 }
                 break;
             }
@@ -199,7 +206,7 @@ public class MapsLoad : MonoBehaviour
 
     }
 
-    private void createSlider(int x1, int x2, int y1, int y2, float time, ref ArrayList array, Color32 color, float length)
+    private void createSlider(int x1, int x2, int y1, int y2, float time, ref ArrayList array, Color32 color, float length,bool  isF)
     {
         int len = (int)(length * Fruit.speed / 600f);
         len--;
@@ -208,11 +215,11 @@ public class MapsLoad : MonoBehaviour
             int dx = (x2 - x1) / len;
             float dt = (length * Fruit.speed / 8f) / len;
             if ((j + 2) % 4 == 0)
-                array.Add(new fruit_point(x1 + dx * j, y2, (int)(time + dt * j), Fruit.types.DROPx2, color));
+                array.Add(new fruit_point(x1 + dx * j, y2, (int)(time + dt * j), Fruit.types.DROPx2, color, false));
             else
-                array.Add(new fruit_point(x1 + dx * j, y2, (int)(time + dt * j), Fruit.types.DROP, color));
+                array.Add(new fruit_point(x1 + dx * j, y2, (int)(time + dt * j), Fruit.types.DROP, color, false));
         }
-        array.Add(new fruit_point(x2, y2, (int)(time + length * Fruit.speed / 8f), Fruit.types.FRUIT, color));
+        array.Add(new fruit_point(x2, y2, (int)(time + length * Fruit.speed / 8f), Fruit.types.FRUIT, color, isF));
     }
 
     public void loadRandomMap()
@@ -277,7 +284,10 @@ public class MapsLoad : MonoBehaviour
 
     }
 
- 
+    public static bool isEnded()
+    {
+        return bitmap.Count == 0;
+    }
 
     public void restartMusic()
     {
@@ -309,18 +319,18 @@ public class MapsLoad : MonoBehaviour
                 if (f.type == Fruit.types.FRUIT)
                 {
                     Fruit newFruit = Instantiate(fruit, pos, transform.rotation);
-                    newFruit.initialize(f.color, f.type,f.isHasted);
+                    newFruit.initialize(f.color, f.type,f.isHasted, f.isFinishing);
                 }
                 if (f.type == Fruit.types.DROP)
                 {
                     Fruit newDrop = Instantiate(drop, pos, transform.rotation);
-                    newDrop.initialize(f.color, f.type,false);
+                    newDrop.initialize(f.color, f.type,false, f.isFinishing);
                     newDrop.transform.localScale = scale;
                 }
                 if (f.type == Fruit.types.DROPx2)
                 {
                     Fruit newDrop = Instantiate(little, pos, transform.rotation);
-                    newDrop.initialize(f.color, f.type,false);
+                    newDrop.initialize(f.color, f.type,false, f.isFinishing);
                     newDrop.transform.localScale = scale;
                 }
                 bitmap.Remove(f);
@@ -372,7 +382,6 @@ public class MapsLoad : MonoBehaviour
         {
             menuUpdate();
             if (!AudioLoad.audioSource.isPlaying) AudioLoad.audioSource.Play();
-            GameObject.Find("UI").GetComponentInChildren<Scrollbar>().value = offset / 2f + 0.3f;
             GameObject.Find("Score").GetComponent<playerScore>().setScore();
         }
     }

@@ -41,10 +41,7 @@ public class gameOver : MonoBehaviour {
     
         isOver = true;
         GameObject.Find("endBG").GetComponent<SpriteRenderer>().enabled = true;
-        foreach (Image i in buttons)
-        {
-            i.enabled = true;
-        }
+     
         AudioLoad.audioSource.Pause();
 
     }
@@ -75,5 +72,12 @@ public class gameOver : MonoBehaviour {
     }
     void Update () {
         if (isOver) image.color = new Color(1, 1, 1, image.color.a+0.005f);
+        if (isOver && image.color.a >=1)
+        {
+            foreach (Image i in buttons)
+            {
+                i.enabled = true;
+            }
+        }
     }
 }

@@ -25,6 +25,7 @@ public class Fruit : MonoBehaviour {
     public bool isHasted = false;
 	Vector2 variableForSpriteSize;
 	public bool isCatchedEarlier;
+    public bool isFinishing= false;
     void Awake()
     {
 
@@ -51,12 +52,13 @@ public class Fruit : MonoBehaviour {
 
 		variableForSpriteSize = sprites[1].bounds.size;  
     }
-    public void initialize(Color32 col, types t, bool hasted)
+    public void initialize(Color32 col, types t, bool hasted, bool isF)
     {
         isHasted = hasted;
         if (isHasted) sprites[2].color = new Color(1, 1, 1, 0.7f);
         color = col;
         type = t;
+        isFinishing = isF;
     }
     void Update ()
     {
@@ -114,20 +116,26 @@ public class Fruit : MonoBehaviour {
 
 void OnTriggerEnter2D (Collider2D col) {
 
-
 		if (col.gameObject.name != "PlayerSprite") return;
-
 		if (this.name == "drop(Clone)" || this.name == "Little Fruit(Clone)") { DestroyObject (this.gameObject); return; }
 
-		if (this.gameObject.transform.position.y - (Math.Abs(sprites[1].bounds.size.y / 2.0f) - 0.6f) >= col.transform.position.y + col.offset.y + (col.bounds.size.y/2.0f) && (this.gameObject.transform.position.x >= (GameObject.Find ("Player").transform.position.x - (GameObject.Find ("Player").GetComponentInChildren<SpriteRenderer> ().bounds.size.x / 2f))) && (this.gameObject.transform.position.x <= (GameObject.Find ("Player").transform.position.x + (GameObject.Find ("Player").GetComponentInChildren<SpriteRenderer> ().bounds.size.x / 2f)))) {
+		if (this.gameObject.transform.position.y - (Math.Abs(sprites[1].bounds.size.y / 2.0f) - 0.6f) >= 
+            col.transform.position.y + col.offset.y + (col.bounds.size.y/2.0f) &&
+            (this.gameObject.transform.position.x >= 
+            (GameObject.Find ("Player").transform.position.x
+            - (GameObject.Find ("Player").GetComponentInChildren<SpriteRenderer> ().bounds.size.x / 2f)))
+            && (this.gameObject.transform.position.x <=
+            (GameObject.Find ("Player").transform.position.x
+            + (GameObject.Find ("Player").GetComponentInChildren<SpriteRenderer> ().bounds.size.x / 2f)))) {
 
 		   
 	
 			this.GetComponent<CircleCollider2D> ().enabled = false;
+            Vector3 s = GameObject.Find("Player").GetComponentInChildren<SpriteRenderer>().transform.localScale;
 
-			this.transform.localScale = new Vector2 (GameObject.Find ("Player").transform.localScale.x / 2f, GameObject.Find ("Player").transform.localScale.y / 2f);
+            this.transform.localScale = new Vector2 (s.x / 2.4f, s.y / 2.4f);
 
-			this.transform.position = new Vector2 (this.transform.position.x, this.transform.position.y + (sprites[1].bounds.size.y - variableForSpriteSize.y/2f - 0.5f));
+			this.transform.position = new Vector2 (this.transform.position.x, this.transform.position.y - 0.5f);
 
 			ScatterOfFruits.doAddFruitToPlayer (this.gameObject);
 

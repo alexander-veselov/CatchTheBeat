@@ -31,7 +31,7 @@ public class Player : MonoBehaviour {
     float minSpeed;
 
     public static int comboEff;
-
+    public static bool isFinishing = false;
     private void Awake()
 
     {
@@ -108,7 +108,6 @@ public class Player : MonoBehaviour {
     }
     void OnTriggerEnter2D (Collider2D col)
     {
-       
         if (MapsLoad.AD == true)
         {
             
@@ -117,6 +116,8 @@ public class Player : MonoBehaviour {
             stopRight();
             if(isHasted)stopHaste();
         }
+        isFinishing = col.gameObject.GetComponent<Fruit>().isFinishing;
+        
         isDoubleHasted = col.gameObject.GetComponent<Fruit>().isHasted;
         if (isDoubleHasted)
         {
@@ -143,6 +144,7 @@ public class Player : MonoBehaviour {
             eff = Instantiate(Resources.Load<Effects>("Prefabs/HitEffect"), pos, transform.rotation);
             eff.initialize(eff, col.gameObject.GetComponentInChildren<SpriteRenderer>().color, (col.gameObject.transform.position.x - sprite.transform.position.x)*0.45f,0);
         }
+
 
 		if (f.type == Fruit.types.DROPx2) {
 			
