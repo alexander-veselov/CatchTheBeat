@@ -110,7 +110,7 @@ public class EqEff : MonoBehaviour {
         {
             rms = Mathf.Sqrt(sum[i] / m_NumSamples);
             scales[i].y = Mathf.Clamp01(rms * volume);
-            scales[i].y *= 1.2f;
+            scales[i].y *= 1.2f*0.3f;
             scales[i].x = 0.3f;
             lines[i].transform.localScale = scales[i];
         }

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class pause : MonoBehaviour {
 
     Image[] buttons;
-    bool isPaused=false;
+    public static bool isPaused=false;
 	void Start () {
         GameObject.Find("pauseBG").GetComponent<SpriteRenderer>().enabled = false;
         buttons = GameObject.Find("Pause").GetComponentsInChildren<Image>();

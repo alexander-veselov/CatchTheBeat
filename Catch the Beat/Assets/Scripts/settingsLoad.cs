@@ -16,7 +16,7 @@ public class settingsLoad : MonoBehaviour {
         //dir = ((((Directory.GetCurrentDirectory()+"\\CatchTheBeat"))))";
         path = dir + "/" + "Panda Eyes & Teminite - Highscore/";
 
-        bool isExist = File.Exists(dir + "\\records.db");
+        bool isExist = File.Exists(dir + "//records.db");
         if (!isExist)
         {
             Directory.CreateDirectory(dir);

@@ -57,7 +57,7 @@ public class AudioLoad : MonoBehaviour {
             }
             
             audioSource.Play();
-            audioSource.volume = 0.3f;
+            //audioSource.volume = 0.3f;
         }
 
     }

@@ -17,209 +17,220 @@ public class mapEnd : MonoBehaviour {
 	SpriteRenderer[] blueAdditionalSprites;
 	public SpriteRenderer[] fruits;
 	Tweener tw;
-	void Start () {
+    void Start()
+    {
         GameObject.Find("sounds").GetComponent<sounds>().MapEnd();
         AudioLoad.audioSource.time = MapsLoad.PreviewTime / 1000.0f;
         if (!MapsLoad.AD) GameObject.Find("mapScript").GetComponent<records>().setRecord(MenuLoad.map, finalStatistics.finalScore, finalStatistics.accuracy);
 
-        fruits = GameObject.Find("FSprites").GetComponentsInChildren<SpriteRenderer> ();
+        fruits = GameObject.Find("FSprites").GetComponentsInChildren<SpriteRenderer>();
 
-		colors = new Color32[4];
-		colors[0] = new Color32(158, 47, 255, 255);
-		colors[1] = new Color32(255, 76, 185, 255);
-		colors[2] = new Color32(36, 166, 101, 255);
-		colors[3] = new Color32(46, 132, 164, 255);
+        colors = new Color32[4];
+        colors[0] = new Color32(158, 47, 255, 255);
+        colors[1] = new Color32(255, 76, 185, 255);
+        colors[2] = new Color32(36, 166, 101, 255);
+        colors[3] = new Color32(46, 132, 164, 255);
 
-		panel = GetComponentsInChildren<Image>();
+        panel = GetComponentsInChildren<Image>();
 
 
-		setFruit ();
-		setFruitPosition ();
+        setFruit();
+        setFruitPosition();
 
-		blueAdditionalSprites = GetComponentsInChildren<SpriteRenderer>();
+        blueAdditionalSprites = GetComponentsInChildren<SpriteRenderer>();
 
-		text = GetComponentsInChildren<TextMeshProUGUI>();
+        text = GetComponentsInChildren<TextMeshProUGUI>();
 
-		results = GetComponentsInChildren<CanvasRenderer> ();
+        results = GetComponentsInChildren<CanvasRenderer>();
 
-       
+
         Vector2 max = new Vector2(Screen.width, Screen.height);
         max.x = max.y;
-        panel[1].transform.localScale = max/450f;
-        max.y = Screen.height/ 600f;
+        panel[1].transform.localScale = max / 450f;
+        max.y = Screen.height / 600f;
         panel[0].transform.localScale = max;
         max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
-        max.y /=1.6f;
-        max.x *=(-1.01f);
+        max.y /= 1.6f;
+        max.x *= (-1.01f);
         panel[1].transform.position = max;
         max = Camera.main.ViewportToWorldPoint(new Vector2(0, 1));
         panel[0].transform.position = max;
         Vector3 p = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
         p.z = 0;
         panel[2].transform.position = p;
-        p = new Vector3(Screen.width, Screen.height,1);
+        p = new Vector3(Screen.width, Screen.height, 1);
         p.y = Screen.height / 600f;
         p.x = p.y;
         panel[2].transform.localScale = p;
 
 
-		p = Camera.main.ViewportToWorldPoint(new Vector2(0, 1));
-////////////////////////score
-		results [3].transform.position = new Vector3(p.x+0.7f, max.y / 2.4f,0);
-		text[0].transform.localScale = new Vector2(panel[1].transform.localScale.x ,panel[1].transform.localScale.x);
-		text [0].text = Convert.ToString(finalStatistics.finalScore);
-/////////////////////////////combo
-		p = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
+        p = Camera.main.ViewportToWorldPoint(new Vector2(0, 1));
+        ////////////////////////score
+        results[3].transform.position = new Vector3(p.x + 0.7f, max.y / 2.4f, 0);
+        text[0].transform.localScale = new Vector2(panel[1].transform.localScale.x, panel[1].transform.localScale.x);
+        text[0].text = Convert.ToString(finalStatistics.finalScore);
+        /////////////////////////////combo
+        p = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
 
-		text[1].transform.localScale = new Vector2(panel[1].transform.localScale.x /1.3f ,panel[1].transform.localScale.x/1.3f);
-		text[1].text = Convert.ToString(finalStatistics.maxCombo);
+        text[1].transform.localScale = new Vector2(panel[1].transform.localScale.x / 1.3f, panel[1].transform.localScale.x / 1.3f);
+        text[1].text = Convert.ToString(finalStatistics.maxCombo);
 
-		if (text[1].text.Length == 3) {
-			results [4].transform.position = new Vector3 (p.x - 1.23f, p.y + 1.7f, 0);
-		}
-		if (text[1].text.Length == 1) {
-			results [4].transform.position = new Vector3 (p.x - 1.45f, p.y + 1.7f, 0);
-		}
-		if (text[1].text.Length == 2) {
-			results [4].transform.position = new Vector3 (p.x - 1.15f, p.y + 1.7f, 0);
-		}
-		if (text[1].text.Length == 4) {
-			results [4].transform.position = new Vector3 (p.x - 0.3f, p.y + 1.7f, 0);
-		}
+        if (text[1].text.Length == 3)
+        {
+            results[4].transform.position = new Vector3(p.x - 1.23f +0.4f, p.y + 1.7f, 0);
+        }
+        if (text[1].text.Length == 1)
+        {
+            results[4].transform.position = new Vector3(p.x - 1.45f+0.4f, p.y + 1.7f, 0);
+        }
+        if (text[1].text.Length == 2)
+        {
+            results[4].transform.position = new Vector3(p.x - 1.15f+0.4f, p.y + 1.7f, 0);
+        }
+        if (text[1].text.Length == 4)
+        {
+            results[4].transform.position = new Vector3(p.x - 0.3f+0.4f, p.y + 1.7f, 0);
+        }
 
-/////////////////////////////
+        /////////////////////////////
 
-//////////accuracy
-		text[2].transform.localScale = new Vector2(panel[1].transform.localScale.x /1.3f ,panel[1].transform.localScale.x/1.3f);
-		text[2].text = Convert.ToString(Math.Round(finalStatistics.accuracy,2));
-		switch(BigRankLetter.accuracyColor) {
+        //////////accuracy
+        text[2].transform.localScale = new Vector2(panel[1].transform.localScale.x / 1.3f, panel[1].transform.localScale.x / 1.3f);
+        text[2].text = Convert.ToString(Math.Round(finalStatistics.accuracy, 2));
+        switch (BigRankLetter.accuracyColor)
+        {
 
-		case BigRankLetter.Colors.gold:
-			text [2].CrossFadeColor (Color.yellow, 4.5f, false, false);
-			break;
-		case BigRankLetter.Colors.green:
-			text [2].CrossFadeColor (Color.green, 4.5f, false, false);
-			break;
-		case BigRankLetter.Colors.blue:
-			text [2].CrossFadeColor (Color.blue, 4.5f, false, false);
-			break;
-		case BigRankLetter.Colors.purple:
-			text [2].CrossFadeColor (Color.magenta, 4.5f, false, false);
-			break;
-		case BigRankLetter.Colors.red:
-			text [2].CrossFadeColor (Color.red, 4.5f, false, false);
-			break;
+            case BigRankLetter.Colors.gold:
+                text[2].CrossFadeColor(Color.yellow, 4.5f, false, false);
+                break;
+            case BigRankLetter.Colors.green:
+                text[2].CrossFadeColor(Color.green, 4.5f, false, false);
+                break;
+            case BigRankLetter.Colors.blue:
+                text[2].CrossFadeColor(Color.blue, 4.5f, false, false);
+                break;
+            case BigRankLetter.Colors.purple:
+                text[2].CrossFadeColor(Color.magenta, 4.5f, false, false);
+                break;
+            case BigRankLetter.Colors.red:
+                text[2].CrossFadeColor(Color.red, 4.5f, false, false);
+                break;
 
-		}
+        }
 
-		if (text[2].text.Length == 5) {
-			results [5].transform.position = new Vector3 (p.x + 3.85f, p.y + 1.7f, 0);
-		}
-		if (text[2].text.Length == 4) {
-			results [5].transform.position = new Vector3 (p.x + 3.72f, p.y + 1.7f, 0);
-		}
-		if (text[2].text.Length == 2) {
-			results [5].transform.position = new Vector3 (p.x + 3.4f, p.y + 1.7f, 0);
-		}
-		if (text[2].text.Length == 1) {
-			results [5].transform.position = new Vector3 (p.x + 3.23f, p.y + 1.7f, 0);
-		}
-		if (text[2].text.Length == 3) {
-			results [5].transform.position = new Vector3 (p.x + 3.62f, p.y + 1.7f, 0);
-		}
-		if (text[2].text.Length == 6) {
-			results [5].transform.position = new Vector3 (p.x + 4.0f, p.y + 1.7f, 0);
-		}
+        if (text[2].text.Length == 5)
+        {
+            results[5].transform.position = new Vector3(p.x + 3.85f, p.y + 1.7f, 0);
+        }
+        if (text[2].text.Length == 4)
+        {
+            results[5].transform.position = new Vector3(p.x + 3.72f, p.y + 1.7f, 0);
+        }
+        if (text[2].text.Length == 2)
+        {
+            results[5].transform.position = new Vector3(p.x + 3.4f, p.y + 1.7f, 0);
+        }
+        if (text[2].text.Length == 1)
+        {
+            results[5].transform.position = new Vector3(p.x + 3.23f, p.y + 1.7f, 0);
+        }
+        if (text[2].text.Length == 3)
+        {
+            results[5].transform.position = new Vector3(p.x + 3.62f, p.y + 1.7f, 0);
+        }
+        if (text[2].text.Length == 6)
+        {
+            results[5].transform.position = new Vector3(p.x + 4.0f, p.y + 1.7f, 0);
+        }
 
-////////////////big fruit
-	
-		p = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
+        ////////////////big fruit
 
-		text[3].transform.localScale = new Vector2(panel[1].transform.localScale.x /1.3f ,panel[1].transform.localScale.x/1.3f);
-		text[3].text = Convert.ToString(finalStatistics.big_fruits_counter);
+        p = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
 
-		if (text[3].text.Length == 2) {
-			results[7].transform.position = new Vector3 (fruits[0].transform.position.x - 0.9f, fruits[0].transform.position.y-0.27f, 0);
-		}
-		if (text[3].text.Length == 1) {
-			results[7].transform.position = new Vector3 (fruits[0].transform.position.x - 1.1f, fruits[0].transform.position.y-0.27f, 0);
-		}
-		if (text[3].text.Length == 3) {
-			results[7].transform.position = new Vector3 (fruits[0].transform.position.x - 0.375f, fruits[0].transform.position.y-0.27f, 0);
-		}
-		if (text[3].text.Length == 4) {
-			results[7].transform.position = new Vector3 (fruits[0].transform.position.x + 0.25f, fruits[0].transform.position.y-0.27f, 0);
-		}
-////////////////medium fruit
-		text[4].transform.localScale = new Vector2(panel[1].transform.localScale.x /1.3f ,panel[1].transform.localScale.x/1.3f);
-		text[4].text = Convert.ToString(finalStatistics.medium_fruits_counter);
+        text[3].transform.localScale = new Vector2(panel[1].transform.localScale.x / 1.3f, panel[1].transform.localScale.x / 1.3f);
+        text[3].text = Convert.ToString(finalStatistics.big_fruits_counter);
 
-		if (text[4].text.Length == 2) {
-			results[8].transform.position = new Vector3 (fruits[2].transform.position.x - 0.9f, fruits[2].transform.position.y-0.27f, 0);
-		}
-		if (text[4].text.Length == 1) {
-			results[8].transform.position = new Vector3 (fruits[2].transform.position.x - 1.1f, fruits[2].transform.position.y-0.27f, 0);
-		}
-		if (text[4].text.Length == 3) {
-			results[8].transform.position = new Vector3 (fruits[2].transform.position.x - 0.375f, fruits[2].transform.position.y-0.27f, 0);
-		}
-////////////////small fruit
-		text[5].transform.localScale = new Vector2(panel[1].transform.localScale.x /1.3f ,panel[1].transform.localScale.x/1.3f);
-		text[5].text = Convert.ToString(finalStatistics.small_fruits_counter);
+        if (text[3].text.Length == 2)
+        {
+            results[7].transform.position = new Vector3(fruits[0].transform.position.x - 0.9f, fruits[0].transform.position.y - 0.27f, 0);
+        }
+        if (text[3].text.Length == 1)
+        {
+            results[7].transform.position = new Vector3(fruits[0].transform.position.x - 1.1f, fruits[0].transform.position.y - 0.27f, 0);
+        }
+        if (text[3].text.Length == 3)
+        {
+            results[7].transform.position = new Vector3(fruits[0].transform.position.x - 0.375f, fruits[0].transform.position.y - 0.27f, 0);
+        }
+        if (text[3].text.Length == 4)
+        {
+            results[7].transform.position = new Vector3(fruits[0].transform.position.x + 0.25f, fruits[0].transform.position.y - 0.27f, 0);
+        }
+        ////////////////medium fruit
+        text[4].transform.localScale = new Vector2(panel[1].transform.localScale.x / 1.3f, panel[1].transform.localScale.x / 1.3f);
+        text[4].text = Convert.ToString(finalStatistics.medium_fruits_counter);
 
-		if (text[5].text.Length == 2) {
-			results[9].transform.position = new Vector3 (fruits[4].transform.position.x - 0.9f, fruits[4].transform.position.y-0.27f, 0);
-		}
-		if (text[5].text.Length == 1) {
-			results[9].transform.position = new Vector3 (fruits[4].transform.position.x - 1.1f, fruits[4].transform.position.y-0.27f, 0);
-		}
-		if (text[5].text.Length == 3) {
-			results[9].transform.position = new Vector3 (fruits[4].transform.position.x - 0.375f, fruits[4].transform.position.y-0.27f, 0);
-		}
+        if (text[4].text.Length == 2)
+        {
+            results[8].transform.position = new Vector3(fruits[2].transform.position.x - 0.9f, fruits[2].transform.position.y - 0.27f, 0);
+        }
+        if (text[4].text.Length == 1)
+        {
+            results[8].transform.position = new Vector3(fruits[2].transform.position.x - 1.1f, fruits[2].transform.position.y - 0.27f, 0);
+        }
+        if (text[4].text.Length == 3)
+        {
+            results[8].transform.position = new Vector3(fruits[2].transform.position.x - 0.375f, fruits[2].transform.position.y - 0.27f, 0);
+        }
+        ////////////////small fruit
+        text[5].transform.localScale = new Vector2(panel[1].transform.localScale.x / 1.3f, panel[1].transform.localScale.x / 1.3f);
+        text[5].text = Convert.ToString(finalStatistics.small_fruits_counter);
 
-
-///////////////missed fruits
-
-		text[6].transform.localScale = new Vector2(panel[1].transform.localScale.x /1.3f ,panel[1].transform.localScale.x/1.3f);
-		text[6].text = Convert.ToString(finalStatistics.missed_fruits);
-
-		if (text[6].text.Length == 2) {
-			results[10].transform.position = new Vector3 (fruits[6].transform.position.x - 0.9f, fruits[6].transform.position.y-0.27f, 0);
-		}
-		if (text[6].text.Length == 1) {
-			results[10].transform.position = new Vector3 (fruits[6].transform.position.x - 1.1f, fruits[6].transform.position.y-0.27f, 0);
-		}
-		if (text[6].text.Length == 3) {
-			results[10].transform.position = new Vector3 (fruits[6].transform.position.x - 0.375f, fruits[6].transform.position.y-0.27f, 0);
-		}
-
-///////////  
-
-		setPercentAndXSpritesPositionAndScale();
-
-		setButtonPositionAndScale ();
-
-
-		setSongNamePositionAndScale ();
-
-		StartCoroutine (Animation ());
+        if (text[5].text.Length == 2)
+        {
+            results[9].transform.position = new Vector3(fruits[4].transform.position.x - 0.9f, fruits[4].transform.position.y - 0.27f, 0);
+        }
+        if (text[5].text.Length == 1)
+        {
+            results[9].transform.position = new Vector3(fruits[4].transform.position.x - 1.1f, fruits[4].transform.position.y - 0.27f, 0);
+        }
+        if (text[5].text.Length == 3)
+        {
+            results[9].transform.position = new Vector3(fruits[4].transform.position.x - 0.375f, fruits[4].transform.position.y - 0.27f, 0);
+        }
 
 
-		bgLoad();
+        ///////////////missed fruits
 
+        text[6].transform.localScale = new Vector2(panel[1].transform.localScale.x / 1.3f, panel[1].transform.localScale.x / 1.3f);
+        text[6].text = Convert.ToString(finalStatistics.missed_fruits);
+
+        if (text[6].text.Length == 2)
+        {
+            results[10].transform.position = new Vector3(fruits[6].transform.position.x - 0.9f, fruits[6].transform.position.y - 0.27f, 0);
+        }
+        if (text[6].text.Length == 1)
+        {
+            results[10].transform.position = new Vector3(fruits[6].transform.position.x - 1.1f, fruits[6].transform.position.y - 0.27f, 0);
+        }
+        if (text[6].text.Length == 3)
+        {
+            results[10].transform.position = new Vector3(fruits[6].transform.position.x - 0.375f, fruits[6].transform.position.y - 0.27f, 0);
+        }
+
+        ///////////  
+
+        setPercentAndXSpritesPositionAndScale();
+
+        setButtonPositionAndScale();
+
+
+        StartCoroutine(Animation());
+
+
+        bgLoad();
 
     }
-
-	public void setSongNamePositionAndScale() {
-
-
-
-		Vector3 p = Camera.main.ViewportToWorldPoint(new Vector2(0, 1));
-		results[11].transform.position = new Vector3 (p.x + 2.0f, p.y-1.0f, 0);
-
-
-
-	}
 	public void setFruit() {
 		
 		string fruit_path = "";

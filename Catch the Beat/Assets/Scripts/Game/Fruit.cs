@@ -68,7 +68,7 @@ public class Fruit : MonoBehaviour {
         if (transform.position.y < min.y)
         {
 
-			if (this.isCatchedEarlier == false) {
+			if (this.isCatchedEarlier == false && !pause.isPaused) {
 				health.sub ();
 			}
             counter++;
