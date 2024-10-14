@@ -271,7 +271,7 @@ public class MapsLoad : MonoBehaviour
         Debug.Log(path);
         WWW www = new WWW("file://" + path);
         Texture2D tex;
-        tex = new Texture2D(4, 4, TextureFormat.DXT1, false);
+        tex = new Texture2D(4, 4, TextureFormat.RGB24, false);
         www.LoadImageIntoTexture(tex);
         image.sprite = Sprite.Create(tex, new Rect(0.0f, 0.0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100.0f);
         var width = image.sprite.bounds.size.x;
