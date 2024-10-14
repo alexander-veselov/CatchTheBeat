@@ -309,7 +309,7 @@ public class MapsLoad : MonoBehaviour
         }
         foreach (fruit_point f in bitmap)
         {
-            if (f.time <= ((Time.time - MenuLoad.timeBegin - 0.5f) * 1000))
+            if (f.time <= ((Time.time - MenuLoad.timeBegin + offset - MapsLoad.ApproachRate / 10) * 1000))
             {
 
 
