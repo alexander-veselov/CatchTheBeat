@@ -23,10 +23,32 @@ public class AudioLoad : MonoBehaviour {
         path = Application.persistentDataPath + '/' + MenuLoad.folder + '/';
         isNotPlaying = true;
         string[] dir = Directory.GetFiles(path, "*.mp3");
-        www = new WWW("file://" + dir[0]);
-        audioSource = GetComponent<AudioSource>();
-        audioSource.clip = www.GetAudioClipCompressed();
-        isLoaded = true;
+
+        // Start the coroutine to load the audio
+        StartCoroutine(LoadAudioClip(dir[0]));
+    }
+
+    private IEnumerator LoadAudioClip(string filePath)
+    {
+        www = new WWW("file://" + filePath);
+
+        // Wait until the audio clip is fully loaded
+        yield return www;
+
+        // Check for any errors
+        if (string.IsNullOrEmpty(www.error))
+        {
+            // Assign the loaded audio clip to the AudioSource
+            audioSource = GetComponent<AudioSource>();
+            audioSource.clip = www.GetAudioClipCompressed();
+
+            isLoaded = true;
+            Debug.Log("Audio loaded successfully.");
+        }
+        else
+        {
+            Debug.LogError("Failed to load audio: " + www.error);
+        }
     }
 
     public void stop()
@@ -34,8 +56,8 @@ public class AudioLoad : MonoBehaviour {
         audioSource.Stop();
     }
     
-	void Update () {
-        if (!audioSource.isPlaying && audioSource.clip.isReadyToPlay && isNotPlaying)
+	  void Update () {
+        if (isLoaded && !audioSource.isPlaying && audioSource.clip.isReadyToPlay && isNotPlaying)
         {
             MenuLoad.timeBegin = Time.time;
             isNotPlaying = false;
@@ -55,7 +77,7 @@ public class AudioLoad : MonoBehaviour {
             {
                 audioSource.pitch = 1;
             }
-            
+
             audioSource.Play();
             //audioSource.volume = 0.3f;
         }
