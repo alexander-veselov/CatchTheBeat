@@ -15,7 +15,7 @@ public class beatEffect : MonoBehaviour {
     public void beat(Vector3 scale)
     {
         fullScale = scale;
-        float s = scale.x*0.95f;
+        float s = scale.x*0.93f;
         transform.localScale = new Vector3(s, s, 1);
         menuOverlay m = Instantiate(Resources.Load<menuOverlay>("overlay"), transform.position, transform.rotation);
         m.transform.localScale = fullScale / 60f;
@@ -24,7 +24,7 @@ public class beatEffect : MonoBehaviour {
 	void Update () {
 		if (transform.localScale.x < fullScale.x)
         {
-            float s = transform.localScale.x+0.04f;
+            float s = transform.localScale.x + Time.deltaTime * 5;
             transform.localScale = new Vector3(s, s, 1);
         }
 	}

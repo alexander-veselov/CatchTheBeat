@@ -20,7 +20,7 @@ public class Effects : MonoBehaviour {
         
         sprite = gameObj.GetComponentInChildren<SpriteRenderer>();
         sprite.sortingOrder = 21;
-        sprite.transform.localScale = MapsLoad.scale*1.2f;
+        sprite.transform.localScale = MapsLoad.scale*1.25f;
         sprite.color = col;
         color = col;
         full = transform.localScale;
@@ -34,18 +34,18 @@ public class Effects : MonoBehaviour {
         transform.position = pos;
         if (_type == 0)
         {
-            
-            color = new Color(color.r, color.g, color.b, color.a - 0.035f);
-            Vector3 sc = transform.localScale;
-			int h = Player.comboEff;
-            if (h > 75) h = 75;
-            sc.y=(h+40)* full.y/70f;
-            sc.x = (h + 175) * full.x / 200f;
-            transform.localScale= sc;
+            color = new Color(0, 0, 0, 0); // Disable effect
+            //color = new Color(color.r, color.g, color.b, color.a - Time.deltaTime * 2);
+            //Vector3 sc = transform.localScale;
+            //int h = Player.comboEff / 2;
+            //if (h > 75) h = 75;
+            //sc.y=(h+20)* full.y/70f;
+            //sc.x = (h + 175) * full.x / 200f;
+            //transform.localScale= sc;
         }
         if (_type == 1)
         {
-            color = new Color(color.r, color.g, color.b, color.a - 0.025f);
+            color = new Color(color.r, color.g, color.b, color.a - Time.deltaTime * 5);
         }
         if (color.a <= 0) Destroy(this.gameObject);
         sprite.color = color;

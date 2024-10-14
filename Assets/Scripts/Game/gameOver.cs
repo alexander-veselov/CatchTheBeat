@@ -71,7 +71,7 @@ public class gameOver : MonoBehaviour {
         SceneManager.LoadScene("scene");
     }
     void Update () {
-        if (isOver) image.color = new Color(1, 1, 1, image.color.a+0.005f);
+        if (isOver) image.color = new Color(1, 1, 1, image.color.a+Time.deltaTime/3f);
         if (isOver && image.color.a >=1)
         {
             foreach (Image i in buttons)

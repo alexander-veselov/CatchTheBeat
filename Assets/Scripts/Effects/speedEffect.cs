@@ -24,7 +24,7 @@ public class speedEffect : MonoBehaviour {
     }
 	void Update () {
         if (sprite.color.a <= 0) Destroy(this.gameObject);
-        color.a -= 0.1f;
+        color.a -= Time.deltaTime * 8;
         sprite.color = color;
         
 	}

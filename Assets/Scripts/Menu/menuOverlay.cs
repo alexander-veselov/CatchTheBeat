@@ -12,10 +12,10 @@ public class menuOverlay : MonoBehaviour {
     }
 
 	void Update () {
-        float sc = transform.localScale.x+0.02f;
+        float sc = transform.localScale.x + Time.deltaTime / 1.5f;
 
         transform.localScale = new Vector3(sc, sc, 1);
-        sprite.color = new Color(1, 1, 1, sprite.color.a - 0.04f);
+        sprite.color = new Color(1, 1, 1, sprite.color.a - Time.deltaTime);
         if (sprite.color.a <= 0) Destroy(gameObject);
         
 	}

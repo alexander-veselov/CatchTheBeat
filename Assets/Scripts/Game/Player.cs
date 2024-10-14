@@ -24,6 +24,7 @@ public class Player : MonoBehaviour {
     public Sprite s;
     public static speedEffect seff, hseff;
     float hasteTime=0;
+    float speedTimer = 0f;
     public static BoxCollider2D _collider;
     int useCount=0;
     public int currentFruit;
@@ -230,19 +231,24 @@ public class Player : MonoBehaviour {
 
     void speedEffect()
     {
+        speedTimer += Time.deltaTime;
         if (Time.time - hasteTime > 0.1f) isDoubleHasted = false;
         if (isHasted && useCount>0)
         {
-            sprite.color = new Color(1, 1, 1, sprite.color.a-0.03f);
-            if (isDoubleHasted)
+            if (speedTimer > 0.01f)
             {
-                speedEffect eff = Instantiate(hseff, transform.position, transform.rotation);
-                eff.setTransparency(sprite, 0.8f);
-            }
-            else
-            {
-                speedEffect eff = Instantiate(seff, transform.position, transform.rotation);
-                eff.setTransparency(sprite, 0.8f);
+                sprite.color = new Color(1, 1, 1, sprite.color.a - 0.03f);
+                if (isDoubleHasted)
+                {
+                  speedEffect eff = Instantiate(hseff, transform.position, transform.rotation);
+                  eff.setTransparency(sprite, 0.8f);
+                }
+                else
+                {
+                  speedEffect eff = Instantiate(seff, transform.position, transform.rotation);
+                  eff.setTransparency(sprite, 0.8f);
+                }
+                speedTimer = 0f;
             }
             
         } else sprite.color = new Color(1, 1, 1, sprite.color.a + 0.03f);

@@ -3,7 +3,7 @@
 public class EqEff : MonoBehaviour {
     private int m_NumSamples = 180; // Should be divisible by 4
     private float volume = 30f; // Because rms values are usually very low
-    private int ticks = 0;
+    private float time = 0f;
     private float[] m_SamplesL;
     private float[] sum;
     private Vector3[] scales;
@@ -110,8 +110,9 @@ public class EqEff : MonoBehaviour {
 	  void Update ()
     {
         var half = m_NumSamples / 2;
+        time += Time.deltaTime;
 
-        if (ticks % 2 == 0)
+        if (time >= 0.05f)
         {
             Vector3 fir = scales[0];
             for (int i = 0; i < half - 1; i++)
@@ -126,13 +127,16 @@ public class EqEff : MonoBehaviour {
                 scales[i] = scales[i - 1];
             }
             scales[m_NumSamples - 1] = fir;
-        }
 
-        if (ticks++ % 10 == 0) eqv();
+            time = 0f;
+
+          eqv();
+          time = 0f;
+        }
 
         for (int i = 0; i < m_NumSamples; i++)
         {
-            scales[i].y *= 0.95f;
+            scales[i].y *= 1 - Time.deltaTime * 5;
             lines[i].transform.localScale = scales[i];
         }
     }
