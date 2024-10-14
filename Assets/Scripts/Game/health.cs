@@ -37,7 +37,7 @@ public class health : MonoBehaviour {
     }
     public static void sub()
     {
-        HP -= 0.003f*MapsLoad.ApproachRate/10f;
+        HP -= 0.001f*MapsLoad.ApproachRate/10f;
     }
     void Update ()
     {
