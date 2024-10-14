@@ -41,7 +41,7 @@ public class health : MonoBehaviour {
     }
     void Update ()
     {
-        if (AudioLoad.isLoaded && !pause.isPaused) HP -= 0.0004f * MapsLoad.ApproachRate / 10f;
+        if (AudioLoad.isLoaded && !pause.isPaused) HP -= 0.04f * MapsLoad.ApproachRate / 10f * Time.deltaTime;
         if (HP <= 0.03f && MapsLoad.NF == false && failed == false)
         {
             GameObject.Find("sounds").GetComponent<sounds>().Failsound();
