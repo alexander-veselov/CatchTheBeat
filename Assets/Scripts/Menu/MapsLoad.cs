@@ -382,7 +382,11 @@ public class MapsLoad : MonoBehaviour
         {
             menuUpdate();
             if (!AudioLoad.audioSource.isPlaying) AudioLoad.audioSource.Play();
-            GameObject.Find("Score").GetComponent<playerScore>().setScore();
+            var score = GameObject.Find("Score");
+            if (score != null)
+            {
+                score.GetComponent<playerScore>().setScore();
+            }
         }
     }
 }
