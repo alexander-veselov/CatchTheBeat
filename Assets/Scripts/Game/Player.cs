@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -88,23 +89,25 @@ public class Player : MonoBehaviour {
     {
         Move();
         if (currentFruit == fruitTime.Length) return;
-        float delta = Mathf.Abs(sprite.transform.position.x - fruitTime[currentFruit]);
+        float dx = sprite.transform.position.x - fruitTime[currentFruit];
+        float delta = Mathf.Abs(dx);
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
         max.x /= 23f;
         if (delta < max.x && isHasted) stopHaste();
 
-        if (fruitTime[currentFruit] < sprite.transform.position.x)
+        if (delta > max.x * 2)
         {
-            if (delta > speed / 7f && !isHasted) startHaste();
-            moveLeft();
+            if (dx > 0)
+            {
+              if (delta > speed / 7f && !isHasted) startHaste();
+              moveLeft();
+            }
+            else if (dx < 0)
+            {
+              if (delta > speed / 7f && !isHasted) startHaste();
+              moveRight();
+            }
         }
-        if (fruitTime[currentFruit] > sprite.transform.position.x)
-        {
-            if (delta > speed / 7f && !isHasted) startHaste();
-            moveRight();
-        }
-
-
     }
     void OnTriggerEnter2D (Collider2D col)
     {
