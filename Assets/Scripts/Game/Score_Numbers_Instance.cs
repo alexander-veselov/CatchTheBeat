@@ -72,11 +72,12 @@ public class Score_Numbers_Instance : MonoBehaviour
 	{
 		if (GameObject.Find ("Player") != null) {
 			pos = GameObject.Find ("Player").transform.position;
-			pos.y = 0f;
+			pos.y = -1f;
+			pos.x += 0.5f;
 
-			//		if (fruit_counter > 0)
-			//		{
-			if (s_for_position.Length == 1) {
+      //		if (fruit_counter > 0)
+      //		{
+      if (s_for_position.Length == 1) {
 				pos.x -= playerSprite.size.x / 3.0f;
 
 			}
@@ -103,7 +104,7 @@ public class Score_Numbers_Instance : MonoBehaviour
 
 				for (int i = 0; i < nums_to_disp.Length; i++) {
 
-					pos.x += 1f;
+					pos.x += 0.7f;
 
 					nums_to_disp [i].transform.position = pos;
 
@@ -162,7 +163,7 @@ public class Score_Numbers_Instance : MonoBehaviour
 				for (int g = 0; g < string_for_convertation.Length; g++) {
 
 					nums_to_disp [g].sprite = sprites [Convert.ToInt32 (Convert.ToString (string_for_convertation [g]))];
-					nums_to_disp [g].transform.DOScale (transform.localScale + new Vector3 (1.7f, 1.7f, 1.7f), 0.3f).SetEase (Ease.OutFlash);
+					nums_to_disp [g].transform.DOScale (transform.localScale + new Vector3 (1.01f, 1.01f, 1.01f), 0.3f).SetEase (Ease.OutFlash);
 					nums_to_disp [g].DOFade (0, 0.6f).SetEase (Ease.OutFlash);
 			
 				}
@@ -170,7 +171,7 @@ public class Score_Numbers_Instance : MonoBehaviour
 			} else {
 
 				nums_to_disp [i].sprite = sprites [Convert.ToInt32 (Convert.ToString (string_for_convertation [i]))];
-				nums_to_disp [i].transform.DOScale (transform.localScale + new Vector3 (1.7f, 1.7f, 1.7f), 0.3f).SetEase (Ease.OutFlash);
+				nums_to_disp [i].transform.DOScale (transform.localScale + new Vector3 (1.01f, 1.01f, 1.01f), 0.3f).SetEase (Ease.OutFlash);
 				nums_to_disp [i].DOFade (0, 0.6f).SetEase (Ease.OutFlash);
 
 			}
